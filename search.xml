@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>看看我们商量之后要干什么</title>
+      <link href="/details/202505/bf3d817ab12d.html"/>
+      <url>/details/202505/bf3d817ab12d.html</url>
+      
+        <content type="html"><![CDATA[<p>大家好啊，这里是站长，请输入内容404！<br>某种意义上来说，这是我的第一篇文章(除了系统生成的那篇)。可是这实在是不能被成为“文章”，因为这是我的测试之作。<br>测试什么呢？<br>主要是看它的一些渲染和一些行为，你也能在这里看到网站的一些基本样式。</p><h1 id="测试图片"><a href="#测试图片" class="headerlink" title="测试图片"></a>测试图片</h1><p>本站采用的是哔哩哔哩文件分发方式，因此可能需要一些技术上的东西以确保它能够正常显示。随着浏览器内核的更新，这些技术可能在未来的某一天变得不再适用(到那时候我还得去想办法把全站图片都弄正常想想就很累 寄！)<br>至少目前还能用，就这样先用着呗。<br>如果后期真的失效了，要么是资源被B站给删了，要么是没办法继续用了。我不确定我是否有那个精力去恢复了<br>就像是fomal.cc的作者一样，以前能用，现在背靠的资源分发站已经做了引用防护，导致教程里的图片全炸了。如果是我经历这种情况的话，肯定也是无法接受的，并且还要头疼好一阵子……</p><p>试一下吧：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/x0/x0x012yyw1zw3wywyzzww12zzw10x22y.jpg" alt="bilibili gf API"><br>如果正常的话你会看到一个漏勺图片。目前采用的是哔哩哔哩工房图链。<br>哔哩哔哩广告接口：<br><img src="https://i0.hdslb.com/bfs/sycp/mgk/collage/gif/202504/e1294a2286b37860b089e9d3a69e307c.gif" alt="bilibili ad API"><br>如果正常的话你会看到一个HACK动图。<br>目前就只测试这两个，因为我一般也就采用这两个接口来作为本站内的图片分发与显示。</p><h1 id="测试代码块"><a href="#测试代码块" class="headerlink" title="测试代码块"></a>测试代码块</h1><p><code>这是一块普通的代码块</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">多行代码块</span><br><span class="line">这是一个有很多行的代码块，它的基本样式也是如此</span><br></pre></td></tr></table></figure><p>houns</p><p>此刻，已成艺术。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/details/202505/21ddb280f6ad.html"/>
+      <url>/details/202505/21ddb280f6ad.html</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
