@@ -4,11 +4,24 @@
   
     
     <entry>
+      <title>记录一次我使用hexo-butterfly-footer-beautify时遇到的bug，以及我是如何修复的全过程</title>
+      <link href="/details/0d2bebd4ee74.html"/>
+      <url>/details/0d2bebd4ee74.html</url>
+      
+        <content type="html"><![CDATA[<p>今天又是布置网站的一天。新站嘛，总是要布置几天才能算是拿得出门面的。<br>不想扯那么多，总之就是做到页脚部分的时候，我跟着<code>--Fomalhaut</code>的教程做的时候，发现了hexo-butterfly-footer-beautify这个插件的徽标展示的鼠标悬停提示不能被正常显示</p><p>于是我按下了F12，定位组件，看到了这样的一幕：<br><img src="https://i0.hdslb.com/bfs/sycp/mgk/img/202505/a5fa19ba5401b9cbdb62994f5e7b1421.png" alt="F12看到的键和值"></p><p>将它修正以后终于可以正常显示了：<br><img src="http://i0.hdslb.com/bfs/sycp/mgk/collage/png/202505/9450ab104b6a297476153faf69064e1c.png" alt="键值修正后与正常显示的悬停文本"></p><p>对应插件源代码中的这个位置：<br><img src="https://i0.hdslb.com/bfs/sycp/mgk/img/202505/471b37363eee3298218d021803785bb1.png" alt="源代码中的问题部分"></p><p>合计着原来困扰我几个小时的“严重bug”就这啊，亏我还排查好半天配置有没有写错、缩进有没有缩错来着(毕竟我是真犯过这种错误)……根本就想不到是插件的锅。要不是最后实在没办法了才去按F12排查然后看插件源码不然这谁能想到啊（恼）<br>我已经给原作者提交pr和issue了，这玩意都4年没更新了，如果作者不去审阅的话那我也没啥办法。不过这篇应该可以给正在使用同款插件的人一些小小的灵感吧，希望它能够帮到你。</p><p>本地修复方法：<br>如果你是通过<code>npm install hexo-butterfly-footer-beautify --save</code>来安装的话，就去<code>[你的博客根目录]\node_modules\hexo-butterfly-footer-beautify\lib\html.pug</code>里面将data-title&#x3D;item.message title&#x3D;’’整个修改为title&#x3D;item.message保存，最后重新生成站点即可。</p><p>其他方式安装的应该也是大同小异，找到插件目录内对应的文件然后直接修改即可<br>我好像还没搭建评论系统，问不了问题的话就去B站找我吧，我来尝试给你解答</p><p>插件的github发布页：<a href="https://github.com/Akilarlxh/hexo-butterfly-footer-beautify">https://github.com/Akilarlxh/hexo-butterfly-footer-beautify</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>看看我们商量之后要干什么</title>
       <link href="/details/bf3d817ab12d.html"/>
       <url>/details/bf3d817ab12d.html</url>
       
-        <content type="html"><![CDATA[<p>大家好啊，这里是站长，请输入内容404！<br>某种意义上来说，这是我的第一篇文章(除了系统生成的那篇)。可是这实在是不能被成为“文章”，因为这是我的测试之作。<br>测试什么呢？<br>主要是看它的一些渲染和一些行为，你也能在这里看到网站的一些基本样式。</p><h1 id="测试图片"><a href="#测试图片" class="headerlink" title="测试图片"></a>测试图片</h1><p>本站采用的是哔哩哔哩文件分发方式，因此可能需要一些技术上的东西以确保它能够正常显示。随着浏览器内核的更新，这些技术可能在未来的某一天变得不再适用(到那时候我还得去想办法把全站图片都弄正常想想就很累 寄！)<br>至少目前还能用，就这样先用着呗。<br>如果后期真的失效了，要么是资源被B站给删了，要么是没办法继续用了。我不确定我是否有那个精力去恢复了<br>就像是fomal.cc的作者一样，以前能用，现在背靠的资源分发站已经做了引用防护，导致教程里的图片全炸了。如果是我经历这种情况的话，肯定也是无法接受的，并且还要头疼好一阵子……</p><p>试一下吧：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/x0/x0x012yyw1zw3wywyzzww12zzw10x22y.jpg" alt="bilibili gf API"><br>如果正常的话你会看到一个漏勺图片。目前采用的是哔哩哔哩工房图链。<br>哔哩哔哩广告接口：<br><img src="https://i0.hdslb.com/bfs/sycp/mgk/collage/gif/202504/e1294a2286b37860b089e9d3a69e307c.gif" alt="bilibili ad API"><br>如果正常的话你会看到一个HACK动图。<br>目前就只测试这两个，因为我一般也就采用这两个接口来作为本站内的图片分发与显示。</p><h1 id="测试代码块"><a href="#测试代码块" class="headerlink" title="测试代码块"></a>测试代码块</h1><p><code>这是一块普通的代码块</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">多行代码块</span><br><span class="line">这是一个有很多行的代码块，它的基本样式也是如此</span><br></pre></td></tr></table></figure><p>houns</p><p>此刻，已成艺术。</p>]]></content>
+        <content type="html"><![CDATA[<p>大家好啊，这里是站长，请输入内容404！<br>某种意义上来说，这是我的第一篇文章(除了系统生成的那篇)。可是这实在是不能被成为“文章”，因为这是我的测试之作。<br>测试什么呢？<br>主要是看它的一些渲染和一些行为，你也能在这里看到网站的一些基本样式。</p><h1 id="测试图片"><a href="#测试图片" class="headerlink" title="测试图片"></a>测试图片</h1><p>本站采用的是哔哩哔哩文件分发方式，因此可能需要一些技术上的东西以确保它能够正常显示。随着浏览器内核的更新，这些技术可能在未来的某一天变得不再适用(到那时候我还得去想办法把全站图片都弄正常想想就很累 寄！)<br>至少目前还能用，就这样先用着呗。<br>如果后期真的失效了，要么是资源被B站给删了，要么是没办法继续用了。我不确定我是否有那个精力去恢复了<br>就像是fomal.cc的作者一样，以前能用，现在背靠的资源分发站已经做了引用防护，导致教程里的图片全炸了。如果是我经历这种情况的话，肯定也是无法接受的，并且还要头疼好一阵子……</p><p>试一下吧：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/x0/x0x012yyw1zw3wywyzzww12zzw10x22y.jpg" alt="bilibili gf API"><br>如果正常的话你会看到一个漏勺图片。目前采用的是哔哩哔哩工房图链。<br>哔哩哔哩广告接口：<br><img src="https://i0.hdslb.com/bfs/sycp/mgk/collage/gif/202504/e1294a2286b37860b089e9d3a69e307c.gif" alt="bilibili ad API"><br>如果正常的话你会看到一个HACK动图。<br>目前就只测试这两个，因为我一般也就采用这两个接口来作为本站内的图片分发与显示。</p><h1 id="测试代码块"><a href="#测试代码块" class="headerlink" title="测试代码块"></a>测试代码块</h1><p><code>这是一块普通的代码块</code></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">多行代码块</span><br><span class="line">这是一个有很多行的代码块，它的基本样式也是如此</span><br></pre></td></tr></table></figure><p>houns</p><p>自此，已成艺术。</p>]]></content>
       
       
       
