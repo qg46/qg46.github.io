@@ -34,7 +34,7 @@
       <link href="/details/9179d33c3fc1.html"/>
       <url>/details/9179d33c3fc1.html</url>
       
-        <content type="html"><![CDATA[<h1 id="6-1-和角公式"><a href="#6-1-和角公式" class="headerlink" title="6.1 和角公式"></a>6.1 和角公式</h1><p>$$<br>sin(\alpha+\beta)<br>$$</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="6-1-和角公式"><a href="#6-1-和角公式" class="headerlink" title="6.1 和角公式"></a>6.1 和角公式</h1><p>诱导公式：<br>$sin(2k\pi+\alpha)&#x3D;sin(\alpha)$<br>$cos(2k\pi+\alpha)&#x3D;cos(\alpha)$<br>$tan(2k\pi+\alpha)&#x3D;tan(\alpha)$</p><p>$sin(\pi+\alpha)&#x3D;-sin(\alpha)$<br>$cos(\pi+\alpha)&#x3D;-cos(\alpha)$<br>$tan(\pi+\alpha)&#x3D;tan(\alpha)$</p><p>$sin(\pi-\alpha)&#x3D;sin(\alpha)$<br>$cos(\pi-\alpha)&#x3D;-cos(\alpha)$<br>$tan(\pi-\alpha)&#x3D;-tan(\alpha)$</p><h2 id="6-1-1-两角和与差"><a href="#6-1-1-两角和与差" class="headerlink" title="6.1.1 两角和与差"></a>6.1.1 两角和与差</h2><p>$sin(\alpha+\beta)&#x3D;sin(\alpha)cos(\beta)+cos(\alpha)sin(\beta)\qquad(1)正弦$<br>$cos(\alpha+\beta)&#x3D;cos(\alpha)cos(\beta)-sin(\alpha)sin(\beta)\qquad(2)余弦$<br>$tan(\alpha+\beta)&#x3D;\cfrac{tan(\alpha)+tan(\beta)}{1-tan(\alpha)tan(\beta)}\qquad\qquad\qquad(3)正切$<br>如果是差的话就把里面的符号反过来，正变成负，负变成正</p><h1 id="6-2-二倍角公式"><a href="#6-2-二倍角公式" class="headerlink" title="6.2 二倍角公式"></a>6.2 二倍角公式</h1><p>$sin(2\alpha)&#x3D;2sin(\alpha) cos(\alpha)$<br>$cos(2\alpha)&#x3D;cos^2(\alpha)-sin^2(\alpha) &#x3D;2cos^2(\alpha)-1 &#x3D;1-2sin^2(\alpha)$<br>$tan(2\alpha)&#x3D;\cfrac{2tan(\alpha)}{1-tan^2(\alpha)}$<br>等号右边只要有符号那就都是减</p>]]></content>
       
       
       
