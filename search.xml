@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>hexo主题butterfly自带的jsdelivr太特么慢了，那就换</title>
+      <link href="/details/cdc797141697.html"/>
+      <url>/details/cdc797141697.html</url>
+      
+        <content type="html"><![CDATA[<p>有用户跟我说我的博客好特么慢，根本进不去！一直卡那个正方形转圈加载动画。<br>经过简单分析就不难发现，是butterfuly自带的默认npm资源CDN太慢了。</p><p>那么只需要更换一个国内访问快的就可以解决这个问题<br>先去<code>主题配置文件</code>：</p><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">CDN:</span></span><br><span class="line">  <span class="comment"># The CDN provider for internal and third-party scripts</span></span><br><span class="line">  <span class="comment"># Options for both: local/jsdelivr/unpkg/cdnjs/custom</span></span><br><span class="line">  <span class="comment"># <span class="doctag">Note:</span> Dev version can only use &#x27;local&#x27; for internal scripts</span></span><br><span class="line">  <span class="comment"># <span class="doctag">Note:</span> When setting third-party scripts to &#x27;local&#x27;, you need to install hexo-butterfly-extjs</span></span><br><span class="line">  <span class="attr">internal_provider:</span> <span class="string">local</span></span><br><span class="line">  <span class="attr">third_party_provider:</span> <span class="string">custom</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Add version number to url, true or false</span></span><br><span class="line">  <span class="attr">version:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Custom format</span></span><br><span class="line">  <span class="comment"># For example: https://cdn.staticfile.org/$&#123;cdnjs_name&#125;/$&#123;version&#125;/$&#123;min_cdnjs_file&#125;</span></span><br><span class="line">  <span class="attr">custom_format:</span> </span><br></pre></td></tr></table></figure><p>把<code>third_party_provider</code>字段的值改成custom，上面是一个已经改好的效果</p><p>然后就是配置custom_format<br>我在Twikoo官群里交流得到有如下两个可选项：<br>1.<code>https://registry.npmmirror.com/$&#123;cdnjs_name&#125;/$&#123;version&#125;/files/$&#123;min_cdnjs_file&#125;</code><br>2.<code>https://cdn.jsdmirror.com/npm/$&#123;name&#125;@$&#123;version&#125;/$&#123;min_file&#125;</code></p><p>当然了，选项1的写法也可以换成<code>https://registry.npmmirror.com/$&#123;name&#125;/$&#123;version&#125;/files/$&#123;min_file&#125;</code>，效果相同。<br>但是选项1的有缺点<br><img src="https://i0.hdslb.com/bfs/mallup/mall/02/yz/02yzywx2zyzz0013x32y2wx1zyw1x202.png" alt="大量库加载失败"><br>那就是有白名单机制，<code>registry.npmmirror.com</code>是淘宝的镜像，为了避免被当网盘所以加了白名单限制，详见<a href="https://www.yuque.com/egg/cnpm/files">https://www.yuque.com/egg/cnpm/files</a><br>即引用的包需要在<a href="https://github.com/cnpm/unpkg-white-list%E4%B8%AD%E5%AD%98%E5%9C%A8%E3%80%82">https://github.com/cnpm/unpkg-white-list中存在。</a></p><p>并且，有些包还需要区分dist不dist。而custom_format规则只能填写一个通配<br>例如<br>不能直接引入<a href="https://registry.npmmirror.com/aplayer/1.10.1/files/APlayer.min.css">https://registry.npmmirror.com/aplayer/1.10.1/files/APlayer.min.css</a><br>而是需要<a href="https://registry.npmmirror.com/aplayer/1.10.1/files/dist/APlayer.min.css">https://registry.npmmirror.com/aplayer/1.10.1/files/dist/APlayer.min.css</a></p><p>因此本文推荐选项2配置项。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yz/yx/yzyx3y3w3w3z2x11w13z00yz133x03w0.png"><br><img src="https://i0.hdslb.com/bfs/mallup/mall/zz/12/zz12w3w1x0133yzx103w12zz2xzxx33x.png"><br><img src="https://i0.hdslb.com/bfs/mallup/mall/3x/zz/3xzz02yz3xzxx0x1x2x23yzx01zyzx13.png"><br><img src="https://i0.hdslb.com/bfs/mallup/mall/01/02/0102yy02zwzzx1yww23xw01313023z11.png"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 技术 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何评估代码质量</title>
       <link href="/details/b47f81e16b93.html"/>
       <url>/details/b47f81e16b93.html</url>
