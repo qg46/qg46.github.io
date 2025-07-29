@@ -1,0 +1,385 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>不存在绝对安全的系统 | b23.kim</title><meta name="author" content="b23.kim"><meta name="copyright" content="b23.kim"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="新时代，网络安全问题总是被人们所担心。于是我便有了一个疑问：现在的系统都这么脆弱吗？换个问法，最安全的系统又有多安全？或者是更为重要的银行系统又有多安全？ 只要是代码，它总得有漏洞，总得出现逻辑问题。这是计算机世界中不可避免的问题，毕竟计算机的事件其实本质上就是一个逻辑的世界。在计算机中，只需要符合逻辑就可以了，而我们人类考虑的可就多了（怎么这鸣潮公式在这里都有啊 什）所以才有了计算机安全这个议题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="不存在绝对安全的系统">
+<meta property="og:url" content="https://www.b23.kim/details/27fdf37f1b00.html">
+<meta property="og:site_name" content="b23.kim">
+<meta property="og:description" content="新时代，网络安全问题总是被人们所担心。于是我便有了一个疑问：现在的系统都这么脆弱吗？换个问法，最安全的系统又有多安全？或者是更为重要的银行系统又有多安全？ 只要是代码，它总得有漏洞，总得出现逻辑问题。这是计算机世界中不可避免的问题，毕竟计算机的事件其实本质上就是一个逻辑的世界。在计算机中，只需要符合逻辑就可以了，而我们人类考虑的可就多了（怎么这鸣潮公式在这里都有啊 什）所以才有了计算机安全这个议题">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i0.hdslb.com/bfs/new_dyn/a4a8e96bd203c772d6ac1dc01829946f520765199.png">
+<meta property="article:published_time" content="2025-06-21T13:56:45.000Z">
+<meta property="article:modified_time" content="2025-07-21T20:42:27.947Z">
+<meta property="article:author" content="b23.kim">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i0.hdslb.com/bfs/new_dyn/a4a8e96bd203c772d6ac1dc01829946f520765199.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "不存在绝对安全的系统",
+  "url": "https://www.b23.kim/details/27fdf37f1b00.html",
+  "image": "https://i0.hdslb.com/bfs/new_dyn/a4a8e96bd203c772d6ac1dc01829946f520765199.png",
+  "datePublished": "2025-06-21T13:56:45.000Z",
+  "dateModified": "2025-07-21T20:42:27.947Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "b23.kim",
+      "url": "https://www.b23.kim/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.b23.kim/details/27fdf37f1b00.html"><link rel="preconnect" href="https://cdn.jsdmirror.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdmirror.com/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '不存在绝对安全的系统',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta itemprop="description" content="网页描述"><link rel="stylesheet" href="https://bilibili-1305643527.cos.ap-shanghai.myqcloud.com/static/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://bilibili-1305643527.cos.ap-shanghai.myqcloud.com/static/css/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load', preloader.endLoading)
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(https://source.fomal.cc/img/dm1.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i0.hdslb.com/bfs/new_dyn/a4a8e96bd203c772d6ac1dc01829946f520765199.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">b23.kim</span></a><a class="nav-page-title" href="/"><span class="site-name">不存在绝对安全的系统</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">不存在绝对安全的系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-06-21T13:56:45.000Z" title="发表于 2025-06-21 21:56:45">2025-06-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-07-21T20:42:27.947Z" title="更新于 2025-07-22 04:42:27">2025-07-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%8E%B0%E4%BB%A3%E9%9A%8F%E7%AC%94/">后现代随笔</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>新时代，网络安全问题总是被人们所担心。于是我便有了一个疑问：现在的系统都这么脆弱吗？<br>换个问法，最安全的系统又有多安全？<br>或者是更为重要的银行系统又有多安全？</p>
+<p>只要是代码，它总得有漏洞，总得出现逻辑问题。这是计算机世界中不可避免的问题，毕竟计算机的事件其实本质上就是一个逻辑的世界。在计算机中，只需要符合逻辑就可以了，而我们人类考虑的可就多了（怎么这<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E9%B8%A3%E6%BD%AE%E5%85%AC%E5%BC%8F/65221869">鸣潮公式</a>在这里都有啊 什）所以才有了计算机安全这个议题。<br>漏洞的种类那可多了去了，比如说广泛的业务逻辑漏洞啥的<br>很多漏洞都是计算机的特性引起的，例如数值溢出、符号位特性。抑或是连你都意想不到的一些特殊操作引起的，业务侧根本想不起来做校验的地方被人给利用<br>在这个过程中，是“人与机器之间的对白”，需要人对整个系统的深度理解和思考才能发现<br>所以<br>只要是系统就会有漏洞。<br>不过<br>系统越简单，漏洞越少。</p>
+<p>还是刚才的例子，银行系统的安全性如何？要评判一个系统的安全性，其中一个维度就是代码逻辑是否严谨，是否含有暗病。在这一点上，银行内部肯定是做好了十分的准备，应当不会出现特别离谱的漏洞。比如说：修改余额并且可以用？另一点便是数据安全了，每一次的修改变动是否有据可依，源头操作是否授权。……<br>如果不够严谨，就有被黑客趁虚而入，攻击成功的可能。如果是特别严重的漏洞，如果被恶意利用，会有造成混乱的可能。</p>
+<p>只要是系统就会有漏洞，漏洞可大可小。大到远程执行，破坏整个系统完整性；小到发布内容替换，只是让自己变得与众不同……<br>衡量一个漏洞的大小，关键就是要看它的实际危害。<br>没危害或者小危害的非授权操作，例如说修改分享卡片的文本，本来卡片上面的文本就是人家系统的feature(特性)，只是未经授权操作了自定义文本而已。这种破环性小的只能是一个玩具漏洞(忽略或低危)<br>危害稍微大点的，比如说评论区越权置顶，这种的是想不到做校验，虽然也是未经授权的操作，但是由于其破坏性和影响力大，所以能评个中危<br>更进一步，主机级的威胁的肯定就是高危了</p>
+<p>黑客攻击手段：<br>1.非授权访问<br>2.信息丢失或泄露<br>3.发起网络攻击<br>4.利用互联网传播病毒<br>我一直都很佩服黑客，毕竟他们的技术力都普遍很高。🐔🌲又高又嘿<br>黑帽黑客(嘿壳，骇客型)、白帽黑客(白壳)、红帽黑客(红壳)、灰帽黑客(灰壳)……<br>【虽然他们都能被称作“嘿壳”就是了，都属于黑客的范畴，只是区分的目的不同才有了那么多称号。上面那四条是我们网络技术课本上的，是对于骇客而言的(一共5条还忘了一条的作者是屑)】</p>
+<p>关于计算机安全的议题也多了去了，肯定没法全部涉及，本文仅讲一些基于我自己理解的一些基础内容<br>对于相同的技术，黑帽黑客(骇客)只知道破坏；白帽黑客会发现并协助厂商修复漏洞；灰帽黑客会自己玩漏洞，然后也会跟厂商上报漏洞，只不过有私心；红帽黑客是维护国家网络安全的热血青年。<br>感兴趣的话可以去深度了解一下网络安全圈</p>
+<p>系统的安全性都是相对而言的，在逻辑的世界中不会存在绝对严谨的逻辑。但通过不断发现和修复漏洞，在这个“黑客”与“开发”技术博弈的过程中可以提高系统的安全性和稳定性。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.b23.kim">b23.kim</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.b23.kim/details/27fdf37f1b00.html">https://www.b23.kim/details/27fdf37f1b00.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.b23.kim" target="_blank">b23.kim</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a></div><div class="post-share"><div class="addtoany"><div class="a2a_kit a2a_kit_size_32 a2a_default_style"><!-- 标准AddToAny按钮--><a class="a2a_button_facebook"></a><!-- 自定义图片按钮--><a class="a2a_button_qq"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://wiki.connect.qq.com/wp-content/uploads/2013/10/03_qq_symbol-1-768x921.png" border="0" alt="" width="36" height="32"/></a><!-- 标准AddToAny按钮--><a class="a2a_button_wechat"></a><!-- 标准AddToAny按钮--><a class="a2a_button_weibo"></a><!-- 分享下拉菜单--><a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"><!--img(src="https://static.addtoany.com/buttons/custom/addtoany-icon-long-shadow.png", border="0", alt="Share", width="27", height="27")--></a></div></div><script src="https://open.mobile.qq.com/sdk/qqapi.uncompressed.js"></script><script src="https://bilibili-1305643527.cos.ap-shanghai.myqcloud.com/static/js/a2a.events.js"></script><script async="async" src="https://static.addtoany.com/menu/page.js"></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/details/69b9ec372653.html" title="为什么我会选择自立门户"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/c3442f12fd05194d175281e6c4036a8b308124.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">为什么我会选择自立门户</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/details/09b417e1e0be.html" title="序列化和反序列化数据"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/12380ba953e6431beb06daf3a702f239520765199.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">序列化和反序列化数据</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/details/cdc797141697.html" title="hexo主题butterfly自带的jsdelivr太特么慢了，那就换"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/c388d2172af49c3b9c3e89ff0f61a68c520765199.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-11</div><div class="info-item-2">hexo主题butterfly自带的jsdelivr太特么慢了，那就换</div></div><div class="info-2"><div class="info-item-1">有用户跟我说我的博客好特么慢，根本进不去！一直卡那个正方形转圈加载动画。经过简单分析就不难发现，是butterfuly自带的默认npm资源CDN太慢了。 那么只需要更换一个国内访问快的就可以解决这个问题先去主题配置文件： 1234567891011121314CDN:  # The CDN provider for internal and third-party scripts  # Options for both: local/jsdelivr/unpkg/cdnjs/custom  # Note: Dev version can only use &#x27;local&#x27; for internal scripts  # Note: When setting third-party scripts to &#x27;local&#x27;, you need to install hexo-butterfly-extjs  internal_provider: local  third_party_provider: custom  # Add version...</div></div></div></a><a class="pagination-related" href="/details/b47f81e16b93.html" title="如何评估代码质量"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/77b8b8085d0579b79ac1ad304ee61bd8520765199.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-11</div><div class="info-item-2">如何评估代码质量</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/details/453d96d30e4d.html" title="小天才V3上浏览器教程（需要电脑）"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/17a1ca68fd0e4353c7aa906afd3c0012520765199.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-24</div><div class="info-item-2">小天才V3上浏览器教程（需要电脑）</div></div><div class="info-2"><div class="info-item-1">注意：需要电脑能够开热点给手表，即电脑需要有无线网卡且支持启动热点。此方法不需要破解且小天才官方保留修复和谐此bug的权利。原理：通过热点来劫持小天才webview中要加载的内容（热点劫持法），通过DNS劫持来达到自定义加载的目的。此方法基本上无需破解，本文也不讨论破解相关事项视频教程   首先下载工具：https://wwljy.lanzoul.com/i0YEi31fgbli因为windows defender会报毒且自动删除，所以你需要临时关闭实时防护 或者...</div></div></div></a><a class="pagination-related" href="/details/e288dfb19b3e.html" title="论如何完美生成萌ICP备案的shields.io图标"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/38566fd6c0b4389fc3439a10e01deb32520765199.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-19</div><div class="info-item-2">论如何完美生成萌ICP备案的shields.io图标</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/details/db496698a08b.html" title="逆向必剪调试密码实录"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/ca0c58d06ecc7cc3dfdc1b7b927465e8520765199.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-18</div><div class="info-item-2">逆向必剪调试密码实录</div></div><div class="info-2"><div class="info-item-1">众所不周知，必剪的设置里面有个调试入口。就像这样：只需要在我的-设置里面快速连续点击版本号(2.85.0)多次即可看到这个输入密码的弹窗。那么，密码是什么？于是就有了这一期的逆向实录笔记。 MT管理器，启动！！！一个可行的思路是直接在安装包里面通过弹窗元素定位法进行查找提取必剪安装包，然后打开直接在里面搜索这个弹窗输入框里字符串的内容：还真让我给找到了文件内容： 123456789101112131415161718192021222324252627282930313233343536373839&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;    android:orientation=&quot;vertical&quot;    android:background=&quot;#83000000&quot;   ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">b23.kim</div><div class="author-info-description">请输入内容404的个人发电之作</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog <br>博客频道开通啦！欢迎各位小伙伴前来交流探讨。点击链接加入腾讯频道【b23.kim】：<a target="_blank" rel="noopener" href="https://pd.qq.com/s/78h6elvk3">https://pd.qq.com/s/78h6elvk3</a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/details/1b0d201f8f71.html" title="Alist项目被卖，issues存档补充"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/5c8c2e1ea02252a0e21e0f45eed73a00520765199.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Alist项目被卖，issues存档补充"/></a><div class="content"><a class="title" href="/details/1b0d201f8f71.html" title="Alist项目被卖，issues存档补充">Alist项目被卖，issues存档补充</a><time datetime="2025-07-29T08:46:31.000Z" title="发表于 2025-07-29 16:46:31">2025-07-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/960eaa3108a0.html" title="超硬核的宝塔面板安装LskyPro(兰空图床)教程"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/72c8c59b54043281426604f83ac7e1d0520765199.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="超硬核的宝塔面板安装LskyPro(兰空图床)教程"/></a><div class="content"><a class="title" href="/details/960eaa3108a0.html" title="超硬核的宝塔面板安装LskyPro(兰空图床)教程">超硬核的宝塔面板安装LskyPro(兰空图床)教程</a><time datetime="2025-07-26T16:21:44.000Z" title="发表于 2025-07-27 00:21:44">2025-07-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/453d96d30e4d.html" title="小天才V3上浏览器教程（需要电脑）"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/17a1ca68fd0e4353c7aa906afd3c0012520765199.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="小天才V3上浏览器教程（需要电脑）"/></a><div class="content"><a class="title" href="/details/453d96d30e4d.html" title="小天才V3上浏览器教程（需要电脑）">小天才V3上浏览器教程（需要电脑）</a><time datetime="2025-07-24T14:11:52.000Z" title="发表于 2025-07-24 22:11:52">2025-07-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/b1e7f7f7946e.html" title="“人机”真的可以当形容词来用吗？"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/bec913d4ae104fa9a3c7efd6a246a632308124.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="“人机”真的可以当形容词来用吗？"/></a><div class="content"><a class="title" href="/details/b1e7f7f7946e.html" title="“人机”真的可以当形容词来用吗？">“人机”真的可以当形容词来用吗？</a><time datetime="2025-07-21T19:16:28.000Z" title="发表于 2025-07-22 03:16:28">2025-07-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/e288dfb19b3e.html" title="论如何完美生成萌ICP备案的shields.io图标"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/new_dyn/38566fd6c0b4389fc3439a10e01deb32520765199.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="论如何完美生成萌ICP备案的shields.io图标"/></a><div class="content"><a class="title" href="/details/e288dfb19b3e.html" title="论如何完美生成萌ICP备案的shields.io图标">论如何完美生成萌ICP备案的shields.io图标</a><time datetime="2025-07-18T19:38:46.000Z" title="发表于 2025-07-19 03:38:46">2025-07-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By b23.kim</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdmirror.com/npm/@fancyapps/ui@5.0.36/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdmirror.com/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdmirror.com/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdmirror.com/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.b23.kim/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.b23.kim/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdmirror.com/npm/twikoo@1.6.41/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script>window.__initialState = {"BaseInfo":{}};</script><script type="text/javascript" data-tag="codeBlock" src="https://qzbot.s3.bitiful.net/static/js/blogShare.js" defer crossorigin="anonymous"></script><script type="text/javascript" src="https://qzbot.s3.bitiful.net/static/js/avFRXr8OFW.js" defer crossorigin="anonymous"></script><script src="https://bilibili-1305643527.cos.ap-shanghai.myqcloud.com/static/js/emoticon.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.4/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdmirror.com/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.4/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdmirror.com/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => fn())
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      true 
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementsByClassName('footer_custom_text')[0];
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.2.0"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://vercel.com/" style="margin-inline:5px" title="本站采用多线部署，主线路托管于Vercel"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Vercel-brightgreen?style=flat&amp;logo=Vercel" alt=""/></a><a class="github-badge" target="_blank" href="https://dashboard.4everland.org/" style="margin-inline:5px" title="本站采用多线部署，备用线路托管于4EVERLAND"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-4EVERLAND-22DDDD?style=flat&amp;logo=IPFS" alt=""/></a><a class="github-badge" target="_blank" href="https://icp.gov.moe/?keyword=20251133" style="margin-inline:5px" title="本站已加入萌 “挨谁劈” 备案，萌ICP备20251133号"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/萌ICP备-20251133-FE1384?logo=data:image/png;base64,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" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本站项目由Github托管"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://bilibili-1305643527.cos.ap-shanghai.myqcloud.com/static/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>
