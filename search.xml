@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>对于“鱼越大，鱼越小”悖论的个人分析</title>
+      <link href="/details/98f0f166cee1.html"/>
+      <url>/details/98f0f166cee1.html</url>
+      
+        <content type="html"><![CDATA[<p><del>鱼，好大的鱼，虎纹鲨鱼</del><br>刚才闲得无聊的时候无意中想到“风浪越大，鱼越贵”这句话，进而联想到“鱼越大鱼越小”这个莫名其妙的梗。</p><p>原文大概说是</p><blockquote><p>鱼越大，刺越大，刺越大，肉越少，肉越少，鱼越小。所以鱼越大，鱼越小。</p></blockquote><p>这个过程肯定是有问题的，毕竟这很矛盾。</p><p>定义变量<br>刺大小 &#x3D;x，肉多少 &#x3D;y，鱼大小 &#x3D;z<br>x+y&#x3D;z<br>假设鱼本身大小为1<br>x+y&#x3D;1<br>基于原有的假设<br>z↑ &#x3D; x↑ &#x3D; y↓ &#x3D; z↓<br>先看左边<br>z↑ &#x3D; x↑ &#x3D; y↓<br>当x增加，y减小时，z增加<br>但有个前提条件，取值范围呢？因为鱼刺或者鱼肉的数量都不可能没有或者负数，所以取值范围应该是(0,正无穷)<br>关键在于，肉增多和刺减少的数值如果是一样的话，那么鱼本身大小不变<br>肉增多的量比刺减少的量还多的话那么z↑，反过来刺减少的量比肉增多的量大那么z↓。<br>所以如果基于这种假设，鱼大小可能还不一定<br>这是在变量统一变化的前提下导致最终z的变化量不一定的情况<br>但是原始问题中变量的变化关系是<strong>前者一定会是后者的前提</strong>，后者是前者的必然。<br>右边<br>x↑ &#x3D; y↓ &#x3D; z↓<br>（并非变化后数据量相等，而是基于原有推理的“必然号”）<br>如果把左边和右边合并一下的话…<br>好家伙这不就是z↑&#x3D;z↓吗，z的增加必然导致z的减少。<br>对一开始的x+y&#x3D;1进行移项，得到<br>x&#x3D;1-y<br>y&#x3D;1-x<br>也就是说x的前提是z的变化，y的前提是x的变化，z的前提是y的变化。<br>在这个过程中，f(<em>)的变化*<em>只依靠参与运算的其中一个值的变化，最后一个值被静默为1</em></em>。而现实中这三个值是同时改变的。所以这个悖论实际上在推理过程中犯了<strong>参数不可变</strong>的错误。</p><p>以上<br>知乎有更严密一点的解读，参见：<a href="https://www.zhihu.com/question/603673833">https://www.zhihu.com/question/603673833</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Alist项目被卖，issues存档补充</title>
       <link href="/details/1b0d201f8f71.html"/>
       <url>/details/1b0d201f8f71.html</url>
