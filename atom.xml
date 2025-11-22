@@ -6,7 +6,7 @@
   <link href="https://www.b23.kim/atom.xml" rel="self"/>
   
   <link href="https://www.b23.kim/"/>
-  <updated>2025-11-11T16:27:11.848Z</updated>
+  <updated>2025-11-22T10:43:54.907Z</updated>
   <id>https://www.b23.kim/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>云崽一键安装脚本与基础配置教程</title>
+    <link href="https://www.b23.kim/details/2945c148be28.html"/>
+    <id>https://www.b23.kim/details/2945c148be28.html</id>
+    <published>2025-11-22T05:17:27.000Z</published>
+    <updated>2025-11-22T10:43:54.907Z</updated>
+    
+    <content type="html"><![CDATA[<p>目前QQ机器人的主流实现方案的其中之一就是云崽了，正好自己也有QQ机器人的需求，所以顺便就写了这篇教程。</p><p>首先介绍云崽：<br>云崽是一个基于QQ的原神机器人实现方案。不过得益于它灵活的插件配置和编程自由度，也可以拿来自定义搭建其他用途的机器人。它既可以实现挂接官方机器人，也能实现使用自己账号挂野生机器人。<br>云崽分为TRSS版本和Miao版本，前者是完整版，后者是精简版。一般采用的是完整版，即<code>TRSS</code>版本。本教程也会基于TRSS版本来安装。</p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>安装云崽很简单，有其他人已经写好的一键脚本来解决。<br>本教程基于<code>时雨🌌星空</code>的教程整理：<a href="https://trss.me/Install/">https://trss.me/Install/</a></p><h2 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h2><p>&#x2F;&#x2F;TODO</p><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><p>需要管理员权限，别忘了这个：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> -i</span><br></pre></td></tr></table></figure><p>基于Docker的安装方式：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -L gitee.com/TimeRainStarSky/TRSS_AllBot/raw/main/Install-Docker.sh)</span><br></pre></td></tr></table></figure><p>使用这个一键安装命令的同时会安装所有依赖，包括Docker本身。</p><p>安装完成后会自动启动实例，看到这个就成功了：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- 正在启动 Docker 容器</span><br><span class="line"></span><br><span class="line">Total reclaimed space: 0B</span><br><span class="line">db8ccab30198b13e8e4dfd86d9e328eac6c91db6a293903a546baadb8e0eed99</span><br><span class="line"></span><br><span class="line">- Docker 容器安装完成，启动命令：tsab</span><br><span class="line">root@VM-0-12-ubuntu:~# </span><br></pre></td></tr></table></figure><p>下面使用<code>tsab</code>就能启动云崽配置脚本了。<br>注意：tsab命令也需要sudo权限。</p><h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>在这个脚本主页面中按上下箭头键选择<code>5</code>，然后<code>确认</code><br><img src="https://i0.hdslb.com/bfs/mallup/mall/2y/w3/2yw313zx3x2zw310x0yxw32y2xzw03yw.jpg"></p><p>选择<code>确认</code>（如果你取消，后面回来也可以安装）<br><img src="https://i0.hdslb.com/bfs/mallup/mall/02/2w/022w2wzx1301w2x0w0w2w03wzy01w2w0.jpg"><br>需要大概3分钟时间，稍微等一会儿就行</p><p>安装完成，回车<br><img src="https://i0.hdslb.com/bfs/mallup/mall/02/x3/02x33wx01311yw10zyzzyx2z3y2ww33w.jpg"><br>然后就会自动回到脚本，如果没有，手动<code>tsab</code>然后继续上面的选择流程即可。</p><p><img src="https://i0.hdslb.com/bfs/mallup/mall/10/w2/10w2yz0011zxw2zyyxzx112wyy3z10zw.jpg"><br>选择打开或者启动都行，因为首次打开会让你启动。而选择启动只不过是少一步选择而已，没什么区别。</p><p><img src="https://i0.hdslb.com/bfs/mallup/mall/yy/yw/yyyw2z2z2w02w02wyyw2zw12zx3z10yy.png"><br>这样就成功运行了，至此，云崽就算是安装好了。<br>但是现在只有云崽实例，还没有添加机器人账号，所以到这里并没有完全结束。</p><p>退出运行的云崽：<br>如果你直接尝试<code>Ctrl+C</code>来停止运行是不行的，因为它检测到进程停止又会自动重启。<br>正确做法是先按<code>Ctrl+A</code>，最后按<code>D</code>。这样就能成功回到脚本那个“打开 TRSS-Yunzai”页面了。</p><h1 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h1><p>在正式开始挂机器人之前，需要先安装插件才行。<br>在TRSS这里选择<code>6 插件管理</code>，确认。（脚本主页里面也有个插件管理，注意别搞错了）<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zy/zx/zyzx2wzx10yz13013xx2012yx111133x.jpg"></p><p><img src="https://i0.hdslb.com/bfs/mallup/mall/3z/2w/3z2wx23z3zx110yz03zx3w12zy003z02.jpg"><br><del>回车确认，等待安装，像上面一样安装完成以后回车返回。</del> 不要安装这个，已经失效不能用了。这里直接<code>取消</code>就行，不影响。</p><p><img src="https://i0.hdslb.com/bfs/mallup/mall/3x/x2/3xx212112xyw1302w1w2yw2w023y2zw1.jpg"><br>选择<code>2 git插件管理</code></p><p><img src="https://i0.hdslb.com/bfs/mallup/mall/13/zx/13zxw202131103w32yx3x1zz11zx0213.jpg"><br>选择<code>3 安装插件</code></p><p>在这里你就可以选择插件仓库里的预设插件了，当然你也能添加自定义插件。<br>以下是一些推荐安装的插件：</p><h2 id="椰奶插件"><a href="#椰奶插件" class="headerlink" title="椰奶插件"></a>椰奶插件</h2><p>椰奶插件是一个系统运行状态查看插件，同时提供了一部分群管功能。你可以使用<code>椰奶状态</code>和<code>椰奶状态pro</code>来查看系统运行情况。<br>选择<code>25 yenai-plugin 椰奶插件</code>然后确认即可安装。</p><h2 id="锅巴插件"><a href="#锅巴插件" class="headerlink" title="锅巴插件"></a>锅巴插件</h2><p>锅巴插件是一个能够管理其他插件的插件，可以实现插件的更细粒度控制，例如对一个号禁用某个插件。<code>QQ号:规则名称</code>或者<code>QQ号:default</code>来对应一个号的所有群聊和私聊。<br>选择<code>21 Guoba-Plugin 锅巴插件</code>然后确认即可安装。</p><h2 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h2><p>当然插件仓库里未必有你需要安装的插件，你也可以通过自定义选择来安装任何一个来自远程仓库的插件。<br>自定义插件添加只需要翻到最后一项，看到<code>0 自定义</code>就是了。</p><h1 id="挂机器人"><a href="#挂机器人" class="headerlink" title="挂机器人"></a>挂机器人</h1><p>到这一步就算是到了云崽使用的核心配置了，相当于是在“告诉”云崽你需要让它代理哪些号来充当机器人执行服务指令。</p><h2 id="官方机器人"><a href="#官方机器人" class="headerlink" title="官方机器人"></a>官方机器人</h2><p>所谓的“官方机器人”实际上就是qq自己的机器人服务，不过<a href="https://www.b23.kim/details/7b6fe53c151a.html">限制比较多</a>，适合轻量任务。<code>注意：不支持主动消息推送(只有频道私信还没被砍，服了收缩平台了)</code><br>开放平台：<a href="https://q.qq.com/#/">https://q.qq.com/#/</a></p><p>你需要在机器人开发后台拿到这几个参数：</p><blockquote><p>官机QQ号<br>appid<br>token<br>secret</p></blockquote><p>然后<code>安装官机插件</code>，在“安装插件”部分有讲解如何安装自定义插件。<br>选择“0 自定义”以后，输入一个自定义的插件名（这里我命名的是“qqbot”），然后回车。<br>插件地址：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gitee.com/xiaoye12123/Yunzai-QQBot-Plugin</span><br></pre></td></tr></table></figure><p>输入信息以后确认即可：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w1/w3/w1w33xyw3w1101w0yx3y3wx0yzw2x112.jpg"></p><p>最后回到云崽控制台（打开 TRSS-Yunzai），控制台输入以下内容：<br><code>#qbot设置[机器人QQ号]:[AppID]:[Token]:[AppSecret]:[群范围，0私域 1公域]:[频道范围，0私域 1公域]</code>（不需要[]符号，没空格）</p><p>出现这个就成功了：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/03/01/030101zzyw0101x2102yyx12zw3zw303.jpg"></p><p>至此，官机绑定就完成了。<br>如果你安装了椰奶插件，在群里艾特机器人发<code>椰奶状态pro</code>就能看服务器性能以及占用等情况了</p><h2 id="野生机器人"><a href="#野生机器人" class="headerlink" title="野生机器人"></a>野生机器人</h2><p>到这里就比官方机器人多点注意事项和步骤而已，基本上大同小异。<br>&#x2F;&#x2F;TODO 先不做这个教程了，容易罚壳</p>]]></content>
+    
+    
+      
+      
+    <summary type="html"></summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>简谈马云与我</title>
@@ -404,28 +424,6 @@
     
     
     <category term="技术" scheme="https://www.b23.kim/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>「看广告无敌」算挂吗</title>
-    <link href="https://www.b23.kim/details/92d0eacfdf1b.html"/>
-    <id>https://www.b23.kim/details/92d0eacfdf1b.html</id>
-    <published>2025-07-03T11:00:08.000Z</published>
-    <updated>2025-07-21T20:41:02.239Z</updated>
-    
-    <content type="html"><![CDATA[<p>有天我突然想起来之前B站的视频某评论区的内容：<br>“在我们眼里其实看广告无敌已经算挂了”<br>原本这是在讨论游戏外挂的视频下面的评论，可是我依旧想要讨论这个话题：看广告无敌算不算是挂。</p><p>外挂相信大家都能理解，就是外置获取游戏不公平性的工具。他能发出这个评论说明“看广告无敌”已经破坏了游戏的公平竞争性。</p><p>也许应该换一种问法：“房主有无敌神器”是不是也是一种“外挂”。虽然看广告获取无敌和它都是地图内置的内容，没有任何的外部修改内容，所以技术上来讲它们并不是外挂。但是它们却都有一个共同的特点——创造了游戏的不公平竞争性。</p><p>曾经我也玩过那种所谓的无敌地图，当然是以房员的身份进行的。房主的素质也是参差不齐，有这么一些房主总是会自己开个房间，然后用神器去刷其他房员的人头。在这些时候，会有人称“挂哥”的修改器选手来制裁这样的房主，试图来夺回原本属于自己的权利。这种情况下，从所谓“正义”的角度来讲，被人们所痛恨的外挂反而还没有那么令人讨厌了（虽然这只是对房员来说的，有挂来制裁总是好的）。关于游戏外挂的议题我会单独开个文章来讨论，这里就不再展开了。</p><p>这些个地图都是玩家自主创建并上传的，因此能够出现这种炸裂的商业模式也见怪不怪了。先不说这种快餐地图有没有存在的必要性了。</p><p>回到一开始的那个话题，因为这种极度的不公平性，“看广告&#x2F;房主无敌”被玩家群体认作外挂也见怪不怪了。地图作者把房主和可以带来收益的玩家奉为能够主宰一切的“神”，本质上是一种神权的权限狗心理的体现。地图作者把一切地图的“后台”给了房主（玩家）营造了一种奇怪的画风——滥用。这何尝不是一种外挂呢？房主理应是“管理者”，在这种环境下成为了“主宰者”。看广告也是同理</p><p>我不知道如何收尾才好，但是我似乎确实是写完了？虽然说看起来是有点抽象——但社会观察，不正是如此吗？</p>]]></content>
-    
-    
-      
-      
-    <summary type="html"></summary>
-      
-    
-    
-    
-    <category term="后现代随笔" scheme="https://www.b23.kim/categories/%E5%90%8E%E7%8E%B0%E4%BB%A3%E9%9A%8F%E7%AC%94/"/>
-    
     
   </entry>
   
