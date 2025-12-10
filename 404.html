@@ -8,7 +8,7 @@
 <meta property="og:image" content="https://www.b23.kim/img/butterfly-icon.png">
 <meta property="article:author" content="b23.kim">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.b23.kim/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.b23.kim/404.html"><link rel="preconnect" href="https://cdn.jsdmirror.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fancyapps/ui@6.1.4/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+<meta name="twitter:image" content="https://www.b23.kim/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.b23.kim/404.html"><link rel="preconnect" href="https://cdn.jsdmirror.com"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fancyapps/ui@6.1.4/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
     (() => {
       
     const saveToLocal = {
@@ -101,7 +101,22 @@
     detectApple()
   
     })()
-  </script><script>const GLOBAL_CONFIG = {
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?cb513549e6646e348f4872f3f35867df";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "ujgj4z5wr1");
+</script><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
@@ -131,7 +146,7 @@
     js: 'https://cdn.jsdmirror.com/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
     buttonText: '加载更多'
   },
-  isPhotoFigcaption: false,
+  isPhotoFigcaption: true,
   islazyloadPlugin: true,
   isAnchor: false,
   percent: {
