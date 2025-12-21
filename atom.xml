@@ -6,7 +6,7 @@
   <link href="https://www.b23.kim/atom.xml" rel="self"/>
   
   <link href="https://www.b23.kim/"/>
-  <updated>2025-12-20T20:07:22.797Z</updated>
+  <updated>2025-12-21T13:56:08.785Z</updated>
   <id>https://www.b23.kim/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>吐槽一下B站阿瓦隆系统，真的太人机了</title>
+    <link href="https://www.b23.kim/details/80937fabeb0a.html"/>
+    <id>https://www.b23.kim/details/80937fabeb0a.html</id>
+    <published>2025-12-21T12:42:43.000Z</published>
+    <updated>2025-12-21T13:56:08.785Z</updated>
+    
+    <content type="html"><![CDATA[<p>OK啊，终于也是成功被阿瓦隆系统给气到了，所以我要发一篇来稍微吐槽一下。<br>首先阿瓦隆是什么？它是你的B站吞评小助手，能在不经意间偷走你的评论并且让你蒙在鼓里，真是贴贴又心心啊（咬牙切齿）<br>它最让人生气的一点是剥夺了用户的知情权，自己评论发了不知道命中了哪些奇奇怪怪的“违规点”，然后就给你ShadowBan了。营造出自己好像已经评论了但其实别人根本就看不到的假象。<span class="hide-inline"><button type="button" class="hide-button" style="">Click</button><span class="hide-content">信 息 茧 房</span></span></p><p>为什么会这样？<br>我个人简单分析来说就是B站和用户斗智斗勇的一个所必然的结果和趋势。现在上网成本变得很低，网民素质这块简直是参差不齐。为了避免影响到大部分用户的使用体验，所以B站要想到这种控评方式。（实测有时候是真保护了个寂寞）并且还宁可错杀也不能放过一个。所以说我个人认为这是趋同进化的一个结果。很恶心。</p><p>问题出在了哪一环？<br>无论是用户侧还是平台侧都有责任，于是才构成了这种惊天大漏勺。<br>用户方面能真正做到理性思考，求真务实的占比还是太少了。简言之就是“说话不过脑子”。认知差距啥的暂且先不提，问题真的太多了。<br>比如说：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w0/zx/w0zxyy11x03x022zx23x022w0303yx2y.jpg" alt="Guess:万物皆为一"><br>给我看力竭了。。。</p><p>至于平台，反正就挺……那啥的。这样搞的跟赛博文字狱似的。而且似乎B站对这套东西特别自信。（确实能省成本谁还管那些啊）<br>我就只是想吐槽一下而已，还是希望B站能进一步优化减少误吞率吧。就目前来看，还很远。而且这个问题在绝对层面上不可解，只能相对意义上的提升。</p><p>有何影响？<br>这就是我要写这篇文章的原因了，真的太影响体验了。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w1/x2/w1x22z12yw10133zx2122z2x1100yxyy.png" alt="B站吞评"><br><img src="https://i0.hdslb.com/bfs/mallup/mall/zz/x1/zzx1zww12z0102x0yz2w3z013y0313yw.png" alt="评吞站B"></p><p>大概就这样，很让人恼火真的。要是遇到那种写半天结果发出去就被删还要重新打一遍的情况那真的就血压炸了。<br><em>欢迎来到，阿瓦隆时代。</em></p>]]></content>
+    
+    
+      
+      
+    <summary type="html"></summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>腾讯EdgeOne的shields.io方案，挂标识必备</title>
@@ -405,28 +425,6 @@
     
     
     <category term="通用技术" scheme="https://www.b23.kim/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>“人机”真的可以当形容词来用吗？</title>
-    <link href="https://www.b23.kim/details/b1e7f7f7946e.html"/>
-    <id>https://www.b23.kim/details/b1e7f7f7946e.html</id>
-    <published>2025-07-21T19:16:28.000Z</published>
-    <updated>2025-07-21T20:44:04.928Z</updated>
-    
-    <content type="html"><![CDATA[<p>之前的时候看到哔哩哔哩社区小管家发了一篇社区治理文章，其中有一条风纪的观点非常有意思：<br>（太久远了文章链接找不到了，反正大体上就是有风纪观点说“人机”）</p><p>原本这个词本身就是在说“人”与“计算机&#x2F;机器人”，还从来没有过形容词的词性。所以，这本质上就是一种<strong>语言创新用法</strong>。<br>当它在口语中被赋予了形容词的词性，这个词给人的感觉就变了。变得似乎有一点奇怪的感觉了，而这种感觉正是被它的贬义属性所带来的。</p><p>从形容词的角度来讲，就是在说<code>一个人的行为模式特别像机器人(人机)，形容一个人很呆板</code>。简单“人机”两字即可概括，这种比喻性的描述很直观，易于理解。<br>再加上网络和口语的流行，也符合语言的经济性原则。在各种小圈子的环境下这种效应得到加强：</p><blockquote><p>2025-07-22 03:34:49 转发群精华消息<br>一切开始得如此无辜。我只是想复活我的旧群主是人机。“试试白壳吧，”网上这么说。“它快速、安全，完全可定制。”我想，为什么不呢?我的嘿壳朋友甚至鼓励我。“你喜欢罚壳，”嘿壳笑着说。那是嘿壳最后一次对我笑。 我选择了嘿壳模块。不是粉壳.不是灰壳.不，是嘿壳,显然我恨我自己和所有爱我的人。几个小时过去了。我像咕噜一样蜷缩在嘿壳前，低声念叨着”群主一定是人机..珍贵的群主一定是人机…”嘿壳给我带来了一个卡片。我嘶嘶作响，让她不要在我进行神圣的卡片签名时打扰我。 那天深夜，嘿壳问我想不想一起看电影。我说:“好啊，等我搞定黄壳系统就来。”那是三天前的事了。嘿壳独自看完了三部电影。我盯着飞速滚动的启动日 嘿壳试图与我重修旧好。“我们去散步吧，”嘿壳说，“聊聊我们的未来。”我告诉嘿壳不行，因为我的卡片签名启动失败，白壳也找不到卡片了。她反问我还罚壳了 然后紫壳来了。我运行了白壳APP,结果Wi-Fi罢工了。我花了八小时在没有嘿壳的情况下编译白壳模块，手机热点还得靠窗边的仙人掌勉强支撑。嘿壳走进来，看着我周围全是人机群主，低声说:“这就….现在的你吗? 那晚嘿壳离开了。说要去“找个群主不是人机的人”。</p></blockquote><p>这是小圈子内的玩梗。在这里，“人机”被赋予了新的含义：指群主不用自己的号，就像机器人账号一样（或者用其他途径控制账号，本人控制也是“人机”）。也有可能是说对方很小气，像“铁公鸡”一样一毛不拔。然后又因为铁公鸡是铁做的，所以是机器。转换一下就成“人机”了<br>总体还是脱离不了形容词性的比喻用法。</p><p>前面说了，这个词同样也给人一种奇怪的感觉。因为它具有强烈的的贬义色彩，所以引申出伦理问题来。<br>这个词在用于真人时就等同于在按时对方“低级”。当代年轻人对于“工具化”特别敏感，例如“工具人”。所以“人机”这个词就恰好踩到雷区。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/13/x013zzyxw302x1x2w03zw1x2zyx21013.jpg" alt="一个截图"><br>原文地址：<a href="https://www.bilibili.com/opus/972899543901274112?plat_id=5&share_from=article&share_medium=android&share_plat=android&share_session_id=f9505023-dfea-4169-87e1-a816dc6e594a&share_source=COPY&share_tag=s_i&spmid=dt.opus-detail.0.0&timestamp=1753127867&unique_k=j6OTlHb">https://www.bilibili.com/opus/972899543901274112?plat_id=5&amp;share_from=article&amp;share_medium=android&amp;share_plat=android&amp;share_session_id=f9505023-dfea-4169-87e1-a816dc6e594a&amp;share_source=COPY&amp;share_tag=s_i&amp;spmid=dt.opus-detail.0.0&amp;timestamp=1753127867&amp;unique_k=j6OTlHb</a><br>并且这个词在大多数语境下会被视为侮辱和贬低。在形容人时，浓缩了一系列的负面评价：<br><strong>刻板僵化：</strong> 不懂变通，死板<br><strong>缺乏情感：</strong> 冷漠，不近人情<br><strong>机械重复：</strong> 像流水线上的机器，没有灵魂和创造力<br><strong>可观测&#x2F;无趣：</strong> 行为模式单一，容易被观测&#x2F;缺乏个性<br><strong>缺乏主动性&#x2F;思考：</strong> 像被设置好的程序，没有意识全是被动<br>这种让人感到不舒服的本源就是在这个压缩率极高的“负面效应压缩包”上，因为它直击人本身的属性上面：否决人，然后成为机器。<br>尤其是在他人评价自己的时候这种感觉尤为明显，因为它在社交中是极大的否定(虽然可能就是事实)。</p><p>但是如果是自嘲呢？比如说：<br><em>博主(请输入内容404)怎么成人机了</em>、<em>我一定是人机了</em><br>或者转移描述对象：<br><em>7月15日人机作业</em><br>效果就截然不同了，甚至还有点搞笑（？）<br>因为这个词这样用本身的属性，所以依旧是有风险。毕竟，一百个人心中有一百个哈姆莱特。</p><p>朋友间开玩笑说着玩还好，<br>实际上应当极力避免真的评价别人是人机，本质上是一种不尊重。除非……是真的忍不住(逆天人机)。</p><p><em>里面一堆我是机器人——群主</em></p>]]></content>
-    
-    
-      
-      
-    <summary type="html"></summary>
-      
-    
-    
-    
-    <category term="后现代随笔" scheme="https://www.b23.kim/categories/%E5%90%8E%E7%8E%B0%E4%BB%A3%E9%9A%8F%E7%AC%94/"/>
     
     
   </entry>
