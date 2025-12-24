@@ -6,7 +6,7 @@
   <link href="https://www.b23.kim/atom.xml" rel="self"/>
   
   <link href="https://www.b23.kim/"/>
-  <updated>2025-12-21T15:57:06.745Z</updated>
+  <updated>2025-12-24T10:22:47.412Z</updated>
   <id>https://www.b23.kim/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>无尽循环:我即世界</title>
+    <link href="https://www.b23.kim/details/6fdde71566a7.html"/>
+    <id>https://www.b23.kim/details/6fdde71566a7.html</id>
+    <published>2025-12-24T10:16:09.000Z</published>
+    <updated>2025-12-24T10:22:47.412Z</updated>
+    
+    <content type="html"><![CDATA[<p>页面:1&#x2F;3<br>我仍被困在同一天循环<br>但欣慰的是,没有了清洁工,地图不再重置</p><p>页面:2&#x2F;3<br>我开始写日记,记录每一次循环的变化</p><p>页面:3&#x2F;3<br>我相信,随着一次次迭代,这里将诞生一个只存在一日但却源远流长的文明</p>]]></content>
+    
+    
+      
+      
+    <summary type="html"></summary>
+      
+    
+    
+    
+    
+    <category term="？？？" scheme="https://www.b23.kim/tags/%EF%BC%9F%EF%BC%9F%EF%BC%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>ICP/公安备案相关shields.io标识解决方案</title>
@@ -401,28 +423,6 @@
       
     
     
-    
-    
-  </entry>
-  
-  <entry>
-    <title>超硬核的宝塔面板安装LskyPro(兰空图床)教程</title>
-    <link href="https://www.b23.kim/details/960eaa3108a0.html"/>
-    <id>https://www.b23.kim/details/960eaa3108a0.html</id>
-    <published>2025-07-26T16:21:44.000Z</published>
-    <updated>2025-12-10T16:27:12.465Z</updated>
-    
-    <content type="html"><![CDATA[<p>我需要搞Twikoo评论系统的评论区上传图片功能。它里面内置的那些云服务提供我都不喜欢，于是想到了用兰空图床自建服务。<br>刚好朋友那有剩的Linux服务器，正好就能拿来搭建图床服务</p><h1 id="准备工作与部署"><a href="#准备工作与部署" class="headerlink" title="准备工作与部署"></a>准备工作与部署</h1><p>首先你需要安装宝塔面板。这玩意网上教程一堆我就不再写了（哈哈）<br>然后博主这里是全新安装的宝塔，LskyPro是这台服务器跑的第一个项目，所以一切配置将会是从零开始，因此比较适合小白来学习（？）</p><p>进入宝塔后台，首先需要做的是下载兰空图床项目到服务器本地：<br>前往LskyPro开源版项目的github页面，找到release，在里面找到最新版的压缩包；<br><a href="https://github.com/lsky-org/lsky-pro/releases">https://github.com/lsky-org/lsky-pro/releases</a><br>然后在那个压缩包那里鼠标点一下，然后浏览器下载的时候直接按暂停，然后右键复制下载链接就是文件直链了<br>（注意：github的文件直链有有效期限制，具体多少不清楚；另外就是因为一些众所周知的原因，国内下载github release文件巨慢无比，但有时候就很快。如果你刚好脸黑roll到一个慢的……有条件的建议上<em>霍格沃茨环境</em>或者镜像源）<br>接下来上宝塔的后台<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zz/w3/zzw3x22xzz3z3z01w112123yw103w0x1.jpg" alt="文件管理示意"><br>在这里选择<code>URL链接下载</code><br>然后把你Github下载压缩包的时候复制的直链地址扔里面，再起个名字（把链接填入后宝塔会自动识别名字，如果没有就得手动填）<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2w/yz/2wyz3yzzyww0w212103zw1033w12x3x1.png" alt="下载页面示意"><br>博主习惯放根目录，根据个人文件整理习惯和实际需要可以下载到别的地方。</p><p>下一步，左键双击下载好的压缩文件：<br>在弹出的窗口中选择解压到的文件夹，上面路径写入<code>/www/wwwroot</code>后回车来到网站的<code>系统根目录</code>下<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zz/zy/zzzyx0033ww3102w10003xw23z00w33y.png" alt="新建文件夹实例"><br>在这里新建一个文件夹，创建的这个文件夹就是兰空后端的命名空间了，这一步必须要做。不然解压到根目录里后面步骤会报错（别问我是怎么知道的）<br>然后选择刚才新建的文件夹后的路径，例如我这里是<code>/www/wwwroot/LskyPro</code>作为解压文件的路径即可<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yw/w2/yww2yxyyzwx211x010zz3xyz1013112z.png"><br>像这样就行。博主这里为了避免后续麻烦，将权限设为了777（可读可写可执行）然后点击解压（废话）</p><p>接下来，去“软件商店”装PHP8.1版本<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yw/zw/ywzw02x2001202x03zyx1013x3w3zz12.jpg" alt="PHP是世界上最好的编程语言"><br>安装时选择“编译安装”和“极速安装”的区别在于前者是从代码来编译成可执行文件再安装，后者是直接从已有的可执行文件安装。<br>我们不需要自定义安装配置，选择<code>极速安装</code>就够用了。<br>安装过程可能需要一段时间，去泡杯茶吧！<br>安装完成后，右边“操作”区点击设置，在里面安装依赖：<br><img src="https://picx.zhimg.com/v2-7a29d962038ac86a0b09bcc3148e7d9d_r.jpg" alt="这里我懒得自己截图了，直接用一下别人的吧"><br>实际上，LskyPro中所需的大部分依赖扩展都已经在安装过程中带上了，是一些在大部分情况下比较常用的库。为了安全起见，这些预装的函数默认是禁用状态，需要去手动解除。<br>有关配置依赖的更多信息：<a href="https://bbs.lskypro.com/thread-56-1-1.html">https://bbs.lskypro.com/thread-56-1-1.html</a></p><blockquote><p>1、安装PHP扩展：<br>Ctype、cURL、DOM、Fileinfo、Filter、Hash、Mbstring、OpenSSL、PCRE、PDO、Session、Tokenizer、XML、Imagemagick 、Pcntl、Zip</p><p>通常情况下，宝塔只需要你安装Fileinfo、Imagemagick，其他拓展大部分都是已经安装并启用了的，程序安装时会检测必要的拓展是否安装，未通过检测则无法进行安装。</p><p>2、解除函数禁用：<br>exec、shell_exec、readlink、symlink、putenv、getenv、pcntl_signal、pcntl_alarm、chmod、chown、fileperms等</p></blockquote><p>如果你不知道哪些要禁用哪些不禁用，那么请直接复制一下函数替换配置文件即可：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passthru,system,chroot,chgrp,popen,proc_open,pcntl_exec,ini_alter,ini_restore,dl,openlog,syslog,popepassthru,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,imap_open,apache_setenv</span><br></pre></td></tr></table></figure><p>具体替换位置在这个地方：刚才安装PHP8.1的那个设置页面<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yw/x2/ywx211133xw2w1x02w12zyzw2xw2w1yw.png"><br>直接在里面搜索<code>disable_functions</code>可以快速定位配置项。在修改之前，建议做好备份<br>博主这里图片中的默认配置为：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passthru,exec,system,putenv,chroot,chgrp,chown,shell_exec,popen,proc_open,pcntl_exec,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,imap_open,apache_setenv</span><br></pre></td></tr></table></figure><p>替换后，记得要重启一下服务才能生效。还是这个页面我就不细说了</p><p>继续，添加一个<code>PHP项目</code>站点<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2z/12/2z1211yzzy03yyyx3y020113x2x22x2y.png"><br>这里根目录选择刚才解压兰空图床项目压缩包的位置<br>PHP版本选择<code>PHP-81</code>(当然你也可以在软件商店中同时共存安装多个不同版本的PHP，如果实际部署过程中遇到了问题可以试着换一个版本)<br>其他随意。<br>完成后，为了防止出错，需要关闭“防跨站攻击”，并且一定要把运行目录设置为<code>/public</code><br><img src="https://pic3.zhimg.com/v2-0ac1d5333583057930b9f9af0ae83264_1440w.jpg" alt="也是懒得自己截图了orz"><br>设置伪静态，复制以下代码粘贴到伪静态设置的编辑框中：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    if (!-e $request_filename) &#123;</span><br><span class="line">        rewrite ^(.*)$ /index.php?s=$1 last; break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面的那个下拉菜单保持<code>0.当前</code>即可保存。</p><p>然后添加绑定域名和解析啥的我就不讲了，域名不绑定也行(直接IP地址)，HTTPS不搞也能用（如果你的网站是https的话必须得这里整https，引用的对象不能是http的不然浏览器会因为“资源不安全”不认）。一定要记得要放行相关端口！<br>另外我这边的话我朋友给的服务器太过逆天，对外公网根本开不了80或者443。而LskyPro不支持自定义端口号的访问……不然访问兰空后台所需的资源依然会去HTTP(S)默认端口去找，就像这样：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yx/2y/yx2y2ww113x2zyx1w1x0003x3w002y2w.jpg"><br>这样肯定是不行的。后面我用了一个特殊的方法解决了，这里也不细讲了（哈哈）</p><p>页面呈现这样这才算正常：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/11/03/1103w200w312x1133w2wx3zw00x2yx01.png"></p><p>如果是显示缺少依赖无法下一步的话，请再去检查前面的设置并重启PHP：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yw/w2/yww211x3zzw2022y123wx3x0w0021313.png"></p><h1 id="初始化LskyPro后台与安装"><a href="#初始化LskyPro后台与安装" class="headerlink" title="初始化LskyPro后台与安装"></a>初始化LskyPro后台与安装</h1><p>去装个数据库管理系统吧！这里推荐的是MySql，因为它的性能好以及社区广——这恰好也是LskyPro排在首位的建议选择，适合大多数用户<br>当然如果你有经验的话可以完全自行配置其他类型的数据库，这里我只演示MySql的配置<br><img src="https://i0.hdslb.com/bfs/mallup/mall/00/x3/00x3w3x3x0022z3wx3zw2xyy2y3w10w0.png"><br>安装，版本号为<code>mysql 5.7.44</code>(默认)，然后<code>极速安装</code></p><p>如果装完还是显示没安装，浏览器刷新一下页面即可，要还不行就去重启一下mqsql再浏览器刷新。<br>然后<code>添加数据库</code>，记住数据库名称、用户名和密码等下要去给LskyPro后端配置：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w3/3w/w33wzzyw2wzy003yx12xyx2ww13w00zx.jpg"><br><code>管理员账号邮箱</code>和<code>管理员账号密码</code>自己写个自己的就行，以后登录图床需要用到。另外不建议密码太简单不然容易安全问题<br>点立即安装，等两下你就装好了</p><p><img src="https://i0.hdslb.com/bfs/mallup/mall/zx/yx/zxyxyyw1w23y2yyz2zzxx23z2xzx0112.png"></p>]]></content>
-    
-    
-      
-      
-    <summary type="html"></summary>
-      
-    
-    
-    
-    <category term="通用技术" scheme="https://www.b23.kim/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/"/>
     
     
   </entry>
