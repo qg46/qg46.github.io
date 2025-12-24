@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://www.b23.kim/sitemap.xml
