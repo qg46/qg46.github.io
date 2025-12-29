@@ -391,7 +391,7 @@ btf.addGlobalFn('pjaxComplete', () => {
     }
 
     try {
-      const res = await fetch('http://service.b23.kim//api/v2/conf')
+      const res = await fetch('https://service.b23.kim//api/v2/conf')
       const result = await res.json()
       const { mirror, params, default: defaults } = result.frontend_conf.gravatar
       const avatarCdn = predefinedAvatarCdn || mirror
@@ -410,7 +410,7 @@ btf.addGlobalFn('pjaxComplete', () => {
 
   const getComment = async (ele) => {
     try {
-      const res = await fetch(`http://service.b23.kim//api/v2/stats/latest_comments?${searchParams}`)
+      const res = await fetch(`https://service.b23.kim//api/v2/stats/latest_comments?${searchParams}`)
       const result = await res.json()
       const { avatarCdn, avatarDefault } = await getAvatarValue()
       const artalk = result.data
