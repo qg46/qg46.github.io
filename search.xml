@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>似乎是一个更优雅的方式在网页中展示聊天记录：ChatRoom.js</title>
+      <link href="/details/099da631cdc6.html"/>
+      <url>/details/099da631cdc6.html</url>
+      
+        <content type="html"><![CDATA[<p>最近发现了一个好玩的项目：<a href="https://blog.awaae001.top/posts/25937.html">https://blog.awaae001.top/posts/25937.html</a><br>他自己实现了一个chatroom，在博客里面展示聊天记录。这样就可以避免放截图了，更优雅。</p><p>不过我发现一个问题，就是这个聊天记录啥的展示并不美观，于是我下载了原作者的项目自己魔改了一份。<br>在经历了两天的和AI斗智斗勇的过程以后，我成功做出了高仿QQ卡片的设计。（其实QQ很多卡片都是一个模子刻的）</p><p>下面是效果：<br>    <!-- 引入 font-awesome 图标库 --><br>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css"           integrity="sha512-ZfKn7az0YmtPUojZnRXO4CUdt3pn+ogBAyGbqGplrCIR5B/tQwPGtF2q29t+zQj6mC/20w4sSl0cF5F3r0HKSQ=="           crossorigin="anonymous" referrerpolicy="no-referrer" /></p><link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/awaae001/htmls@main/ChatRoom/main.css" />    <!-- 引入 ChatRoom.js 脚本 -->    <script src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/ChatRoom/main11.js"></script>    <div id="chat-box" style="max-width:440px; margin:auto;"></div><script>        // 默认配置        const defaultConfig = {            jsonFilePath: "https://cdn.jsdelivr.net/gh/b23-kim/blog@main/static/ChatRoom/test2.json",    templatesUrl: "https://qzbot.s3.bitiful.net/ARKTemplates/",            chatroomName: "chat-box",            MyAvatar: "https://image.neosora.cc/?/images/2024/10/01/8tB9C0gYz5/eb0c7477f97f6d64f86c3cd3b4a1e7a5.jpg",            title: "ChatRoom.js 测试示例",            hideAvatar: false        };        chatroom.init(defaultConfig);           </script>        ]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>artalk的安装和配置保姆级教程</title>
       <link href="/details/5250c3717631.html"/>
       <url>/details/5250c3717631.html</url>
