@@ -1,0 +1,730 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Artalk强行兼容非标准OAuth接口 | b23.kim</title><meta name="author" content="b23.kim"><meta name="copyright" content="b23.kim"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="众所周知，Artalk支持标准的OAuth接口的社交登录方式。但是有些奇怪的SSO提供的接口可能不是标准的OAuth，甚至Artalk和提供SSO的软件都不支持修改自己读取的路径或写入的路径。（点名Casdoor）灵感来源：https:&#x2F;&#x2F;blog.liushen.fun&#x2F;posts&#x2F;8624756e&#x2F; 登录的一般过程本文将以Casdoor作为例子，实际根据相关接口情况思路通用。在此之前我们需要了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Artalk强行兼容非标准OAuth接口">
+<meta property="og:url" content="https://www.b23.kim/details/ce4b38f27c8d.html">
+<meta property="og:site_name" content="b23.kim">
+<meta property="og:description" content="众所周知，Artalk支持标准的OAuth接口的社交登录方式。但是有些奇怪的SSO提供的接口可能不是标准的OAuth，甚至Artalk和提供SSO的软件都不支持修改自己读取的路径或写入的路径。（点名Casdoor）灵感来源：https:&#x2F;&#x2F;blog.liushen.fun&#x2F;posts&#x2F;8624756e&#x2F; 登录的一般过程本文将以Casdoor作为例子，实际根据相关接口情况思路通用。在此之前我们需要了">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.yppp.net/pc.php?2632">
+<meta property="article:published_time" content="2026-01-28T17:54:15.000Z">
+<meta property="article:modified_time" content="2026-01-28T19:35:51.627Z">
+<meta property="article:author" content="b23.kim">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.yppp.net/pc.php?2632"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Artalk强行兼容非标准OAuth接口",
+  "url": "https://www.b23.kim/details/ce4b38f27c8d.html",
+  "image": "https://api.yppp.net/pc.php?2632",
+  "datePublished": "2026-01-28T17:54:15.000Z",
+  "dateModified": "2026-01-28T19:35:51.627Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "b23.kim",
+      "url": "https://www.b23.kim"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.b23.kim/details/ce4b38f27c8d.html"><link rel="preconnect" href="https://cdn.jsdmirror.com"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="dj2Ett58-yJZxDutcDKnAl0a4wcoejeh0ty1xh7JByk"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fancyapps/ui@6.1.4/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?f7172fbdb08af7923a4e5f3ab97fb9d0";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+btf.addGlobalFn('pjaxComplete', () => {
+  _hmt.push(['_trackPageview',window.location.pathname])
+}, 'baidu_analytics')
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "ujgj4z5wr1");
+</script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdmirror.com/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Artalk强行兼容非标准OAuth接口',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta itemprop="description" content="ARK图文模板消息"><link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="b23.kim" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (true) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div id="web_bg" style="background-image: url(https://source.fomal.cc/img/dm1.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/face/cd7027786846c4a49e4c8046b536ca0f5923cb16.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://kuma.b23.kim/status/page"><i class="fa-fw fas fa-chart-line"></i><span> 流量监控</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://api.yppp.net/pc.php?2632);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">b23.kim</span></a><a class="nav-page-title" href="/"><span class="site-name">Artalk强行兼容非标准OAuth接口</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://kuma.b23.kim/status/page"><i class="fa-fw fas fa-chart-line"></i><span> 流量监控</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Artalk强行兼容非标准OAuth接口</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-28T17:54:15.000Z" title="发表于 2026-01-29 01:54:15">2026-01-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-28T19:35:51.627Z" title="更新于 2026-01-29 03:35:51">2026-01-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/">通用技术</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>众所周知，Artalk支持标准的OAuth接口的社交登录方式。但是有些奇怪的SSO提供的接口可能不是标准的OAuth，甚至Artalk和提供SSO的软件都不支持修改自己读取的路径或写入的路径。（点名Casdoor）<br>灵感来源：<a target="_blank" rel="noopener" href="https://blog.liushen.fun/posts/8624756e/">https://blog.liushen.fun/posts/8624756e/</a></p>
+<h1 id="登录的一般过程"><a href="#登录的一般过程" class="headerlink" title="登录的一般过程"></a>登录的一般过程</h1><p>本文将以Casdoor作为例子，实际根据相关接口情况思路通用。<br>在此之前我们需要了解Artalk的OAuth是如何验证的：<br>第一步首先你点击了“登录”按钮，然后选择了OAuth登录方式。这时候Artalk会跳转<code>配置文件的Domain字段/authorize</code>（此时查询参数携带client_id、redirect_uri、response_type、scope、state字段）这个目标登录页面，交由目标OAuth服务(Casdoor)来给用户提供服务。然后你在这个登录页面选择了 <strong>使用Github登录</strong> ，跳转了Github官方的验证页。验证完成后会跳转到Github后台配置的回调<code>Casdoor后端域名/callback</code>交给Casdoor来验证和处理GitHub验证完成后的他们返回来的字段，Casdoor验证并处理完成后携带最终字段(Casdoor自己的授权码)重定向回由Artalk透传给Casdoor的redirect_uri(Artalk后端域名&#x2F;api&#x2F;v2&#x2F;auth&#x2F;auth0&#x2F;callback)把授权码等材料递给Artalk，最终由Artalk调用 授权码换取Token(Casdoor后端域名&#x2F;oauth&#x2F;token) 和 获取用户身份信息(Casdoor后端域名&#x2F;userinfo)接口后发布评论。（好长的流程）</p>
+<p>简单来说就是这个流程：Artalk -&gt; Casdoor -&gt; Github -&gt; Casdoor -&gt; Artalk<br>对 <strong>Artalk</strong> 来说：它只认识 Casdoor，它以为 Casdoor 就是最终的账号系统。<br>对 <strong>GitHub</strong> 来说：它只认识 Casdoor，它不知道 Artalk 的存在。<br><strong>Casdoor</strong>：起到了“中间人”和“翻译官”的作用，把五花八门的登录方式（GitHub, 微信, QQ等）统一成标准接口提供给 Artalk。</p>
+<h1 id="调用接口约定"><a href="#调用接口约定" class="headerlink" title="调用接口约定"></a>调用接口约定</h1><p>遗憾的是，Casdoor的很多接口都不是标准OAuth接口，而Artalk是严格按照标准OAuth的查询路径进行调用的。</p>
+<p>以下是 <strong>标准OAuth</strong> 调用约定：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">AUTH0_AUTHORIZE_URL = https://your-auth0-domain/authorize       # 用户跳转登录页面，获取授权码</span><br><span class="line">AUTH0_TOKEN_URL = https://your-auth0-domain/oauth/token         # 授权码换取 Token</span><br><span class="line">AUTH0_USERINFO_URL = https://your-auth0-domain/userinfo         # 获取用户基本信息</span><br></pre></td></tr></table></figure>
+<p>对应路径：<br><code>/authorize</code>：用户跳转到的目标登录页面(GET-&gt;html)<br><code>/oauth/token</code>：提供商验证已完成后授权码换Token(POST-&gt;json)<br><code>/userinfo</code>：登录后的用户基本信息接口(GET-&gt;json)</p>
+<p>而 <strong>Casdoor</strong> 呢？它的接口是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CASDOOR_AUTHORIZE_URL = https://your-casdoor-domain/login/oauth/authorize        # 用户跳转 Casdoor 登录页面</span><br><span class="line">CASDOOR_TOKEN_URL = https://your-casdoor-domain/api/login/oauth/access_token     # 授权码换取 Token</span><br><span class="line">CASDOOR_USERINFO_URL = https://your-casdoor-domain/api/userinfo                  # 获取用户基本信息</span><br></pre></td></tr></table></figure>
+<p>对应路径：<br><code>/login/oauth/authorize</code>：用户跳转到的Casdoor登录页面(GET-&gt;html)<br><code>/api/login/oauth/access_token</code>：提供商验证已完成后授权码换Token(POST-&gt;json)<br><code>/api/userinfo</code>：登录后的用户基本信息接口(GET-&gt;json)<br>官方文档：<a target="_blank" rel="noopener" href="https://www.casdoor.org/zh/docs/how-to-connect/oauth">https://www.casdoor.org/zh/docs/how-to-connect/oauth</a></p>
+<p>对于Artalk默认行为，如果在回调被访问的时候连不到正确的Casdoor指定的授权码换Token这个接口的话，将会直接返回以下内容而无法继续：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;msg&quot;</span><span class="punctuation">:</span><span class="string">&quot;Field to complete user auth&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>相关日志内容（这个日志在artalk.log或者docker运行日志都能看到）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2026/01/28 16:37:31.095 [31mERROR[0m [handler/auth_social_login.go:74] [SocialLogin] oauth2: cannot parse json: invalid character &#x27;&lt;&#x27; looking for beginning of value</span><br><span class="line">2026/01/28 16:37:31.095 [31mERROR[0m [handler/auth_social_login.go:75] Field to complete user auth &#123;&quot;id&quot;: &quot;a75c1925-613f-4ba1-9ec2-499a3dbd6b4d&quot;, &quot;path&quot;: &quot;/api/v2/auth/auth0/callback&quot;, &quot;method&quot;: &quot;GET&quot;, &quot;ip&quot;: &quot;不.给.你.看&quot;, &quot;remote_addr&quot;: &quot;223.109.0.243:9440&quot;, &quot;host&quot;: &quot;service.b23.kim&quot;, &quot;referer&quot;: &quot;&quot;, &quot;user_agent&quot;: &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.140&quot;, &quot;status&quot;: 500&#125;</span><br><span class="line">2026/01/28 16:37:31.095 [31mERROR[0m [HTTP] 16:37:30 | 500 | 126.120052ms | 111.36.17.150 | GET | /api/v2/auth/auth0/callback | - | a75c1925-613f-4ba1-9ec2-499a3dbd6b4d</span><br></pre></td></tr></table></figure>
+<p>这里的异常情况是Artalk按照标准OAuth接口去请求Casdoor后端，结果人家根本不是这个接口返回了404页面。最终Artalk拿不到期望的含有Token的json字符串导致异常。<br>如果是登录页面没做重定向的话因为Casdoor也没有那个路径，所有用户将直接被跳转到404页面而非期望的登录页面。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>我们需要做的是把<code>OAuth标准接口</code>映射到<code>Casdoor等非标准Oauth接口</code>上。<br><code>/authorize</code>  302重定向-&gt; <code>/login/oauth/authorize</code>（因为是跳转到登录页，保留查询参数直接跳到Casdoor的统一入口）<br><code>/oauth/token</code> URL重写-&gt; <code>/api/login/oauth/access_token</code>（因为这里是POST请求，只能路由映射）<br><code>/userinfo</code> 302重定向-&gt; <code>/api/userinfo</code>（这里我用302重定向没出问题，如果有问题的话试着也换成URL重写）<br>这个顺序千万不能反！<br>具体操作：<br>如果你是二进制安装包安装的Casdoor，你可以用Nginx来实现。<br>如果是Docker安装并且直接打到公网的话，套一个CDN并直接在CDN测配置回源重写或302重定向到一个新目标。</p>
+<p>对于腾讯的EdgeOne：<br>域名 -&gt; 站点加速 -&gt; 规则引擎<br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/mallup/mall/yy/yw/yyyw013x3ww32wx0ywzw3yw1zxywzx00.png" alt="登录页跳转"><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/mallup/mall/yy/2z/yy2zyzw1yxzxyxyw1203yz02w1113zyy.png" alt="授权码与Token"><br><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/mallup/mall/03/w2/03w2zx102x11w31200w32yx0zw2wzw13.png" alt="用户信息"></p>
+<p>Nginx的方法就由大佬们来科研下吧，我安装方式原因没办法演示了。毕竟是生产环境嘛。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>其实这基本上就能解决几乎所有非标接口的对标问题了。当然它没法解决的是如果连查询参数的名字都不一样的情况，好在至少对于Artalk和Casdoor这两个系统来说没有抽象到这种地步。但是我觉得只要是OAuth的话参数基本都固定的（希望别真有那样的）<br>只需要知道使用的SSO系统它提供的接口对应着哪个标准接口就好说，直接像这样“赛博飞线”来解决这个问题。（不过我还是希望能给用户多点选择，不要总是硬编码了）</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.b23.kim">b23.kim</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.b23.kim/details/ce4b38f27c8d.html">https://www.b23.kim/details/ce4b38f27c8d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.b23.kim" target="_blank">b23.kim</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="https://api.yppp.net/pc.php?2632" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/details/f4feefbb0991.html" title="有序只是世界的偶然，无序才是世界本身"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?4825" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">有序只是世界的偶然，无序才是世界本身</div></div><div class="info-2"><div class="info-item-1">    刚才看到一个非常壮观的视频，里面有个评论非常深入人心：有序只是世界的偶然，无序是世界的本身。这个观点是所有系统的本质。或者说，整个宇宙就是一个庞大的系统。 在宇宙中，每一个天体都沿着自己固定的轨道运行，这是有序。那么凡事都会有至少一个“例外”，举一个夸张的例子吧：如果突然飞过来一个很大的石头把这个天体砸了，而且刚好使它脱离了原先的轨道呢？我知道这个例子看起来很夸张，但在无限的时间尺度下这几乎是必然的。因为你也说不清宇宙环境最终会演化成什么样，在“无限”这个概念下，空间无限大，时间无限长，情况无限多。这样来看它原先“有序”的样子只是在这个过程里偶然发生的。在这种情况下，“有序”这个概念就是“只缘身在此山中”了。从宏观角度来看，世界是无序的。 在计算机世界里，每一台电脑都有序地执行预定的任务，这叫有序。但是计算机的世界本质上是逻辑的世界，是逻辑就会存在疏漏。我们一般管它叫“业务逻辑漏洞”，换句话说就是“出bug了”。最终就会归于这种无序的状态，因为它引入了例外这一个打破原有秩序的东西。最终人们通过代码补丁避免无序性，回归原有“有序”的状态。这样来看甚至就连“秩序”本身都是无序...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Artalk</span><span id="switch-btn"></span><span class="second-comment">Twikoo</span></div></div><div class="comment-wrap"><div><div id="artalk-wrap"></div></div><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/face/cd7027786846c4a49e4c8046b536ca0f5923cb16.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">b23.kim</div><div class="author-info-description">请输入内容404的个人发电之作</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">60</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qg46"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/qg46" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:thekendsky_404@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #0078d4;"></i></a><a class="social-icon" href="https://www.b23.kim/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #ff6600;"></i></a><a class="social-icon" href="https://space.bilibili.com/524486358" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #fb7299;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog <br>博客频道开通啦！欢迎各位小伙伴前来交流探讨。点击链接加入腾讯频道【b23.kim】：<a target="_blank" rel="noopener" href="https://pd.qq.com/s/78h6elvk3">https://pd.qq.com/s/78h6elvk3</a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E8%88%AC%E8%BF%87%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">登录的一般过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%E7%BA%A6%E5%AE%9A"><span class="toc-number">2.</span> <span class="toc-text">调用接口约定</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/details/ce4b38f27c8d.html" title="Artalk强行兼容非标准OAuth接口"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?2632" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Artalk强行兼容非标准OAuth接口"/></a><div class="content"><a class="title" href="/details/ce4b38f27c8d.html" title="Artalk强行兼容非标准OAuth接口">Artalk强行兼容非标准OAuth接口</a><time datetime="2026-01-28T17:54:15.000Z" title="发表于 2026-01-29 01:54:15">2026-01-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/f4feefbb0991.html" title="有序只是世界的偶然，无序才是世界本身"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?4825" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="有序只是世界的偶然，无序才是世界本身"/></a><div class="content"><a class="title" href="/details/f4feefbb0991.html" title="有序只是世界的偶然，无序才是世界本身">有序只是世界的偶然，无序才是世界本身</a><time datetime="2026-01-27T13:14:42.000Z" title="发表于 2026-01-27 21:14:42">2026-01-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/808a9f471a72.html" title="开源统一身份认证平台Casdoor的安装与部署"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?5397" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="开源统一身份认证平台Casdoor的安装与部署"/></a><div class="content"><a class="title" href="/details/808a9f471a72.html" title="开源统一身份认证平台Casdoor的安装与部署">开源统一身份认证平台Casdoor的安装与部署</a><time datetime="2026-01-25T18:00:14.000Z" title="发表于 2026-01-26 02:00:14">2026-01-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/d313a9d70881.html" title="不可靠的文件系统"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?9354" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="不可靠的文件系统"/></a><div class="content"><a class="title" href="/details/d313a9d70881.html" title="不可靠的文件系统">不可靠的文件系统</a><time datetime="2026-01-24T12:40:23.000Z" title="发表于 2026-01-24 20:40:23">2026-01-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/a60f14363529.html" title="网站监控神器Uptime-Kuma的保姆级配置教程"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?7060" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="网站监控神器Uptime-Kuma的保姆级配置教程"/></a><div class="content"><a class="title" href="/details/a60f14363529.html" title="网站监控神器Uptime-Kuma的保姆级配置教程">网站监控神器Uptime-Kuma的保姆级配置教程</a><time datetime="2026-01-22T16:12:24.000Z" title="发表于 2026-01-23 00:12:24">2026-01-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By b23.kim</span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdmirror.com/npm/@fancyapps/ui@6.1.4/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdmirror.com/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdmirror.com/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdmirror.com/npm/mathjax@4.0.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const config = mermaidSrc.dataset.config ? JSON.parse(mermaidSrc.dataset.config) : {}
+      if (!config.theme) {
+        config.theme = theme
+      }
+      const mermaidThemeConfig = `%%{init: ${JSON.stringify(config)}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdmirror.com/npm/mermaid@11.12.1/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  let artalkItem = null
+  const option = null
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+
+  const destroyArtalk = () => {
+    if (artalkItem) {
+      artalkItem.destroy()
+      artalkItem = null
+    }
+  }
+
+  const artalkChangeMode = theme => artalkItem && artalkItem.setDarkMode(theme === 'dark')
+
+  const initArtalk = (el = document, pageKey = location.pathname) => {
+    artalkItem = Artalk.init({
+      el: el.querySelector('#artalk-wrap'),
+      server: 'https://service.b23.kim',
+      site: 'b23.kim',
+      darkMode: document.documentElement.getAttribute('data-theme') === 'dark',
+      ...option,
+      pageKey: isShuoshuo ? pageKey : (option && option.pageKey) || pageKey
+    })
+
+    if (GLOBAL_CONFIG.lightbox === 'null') return
+    artalkItem.on('list-loaded', () => {
+      artalkItem.ctx.get('list').getCommentNodes().forEach(comment => {
+        const $content = comment.getRender().$content
+        btf.loadLightbox($content.querySelectorAll('img:not([atk-emoticon])'))
+      })
+    })
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyArtalk = () => {
+        destroyArtalk()
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    btf.addGlobalFn('pjaxSendOnce', destroyArtalk, 'destroyArtalk')
+    btf.addGlobalFn('themeChange', artalkChangeMode, 'artalk')
+  }
+
+  const loadArtalk = async (el, pageKey) => {
+    if (typeof Artalk === 'object') initArtalk(el, pageKey)
+    else {
+      await btf.getCSS('https://cdn.jsdmirror.com/npm/artalk@2.9.1/dist/Artalk.min.css')
+      await btf.getScript('https://cdn.jsdmirror.com/npm/artalk@2.9.1/dist/Artalk.min.js')
+      initArtalk(el, pageKey)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Artalk' === 'Artalk'
+      ? window.shuoshuoComment = { loadComment: loadArtalk }
+      : window.loadOtherComment = loadArtalk
+    return
+  }
+
+  if ('Artalk' === 'Artalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('artalk-wrap'), loadArtalk)
+    else setTimeout(loadArtalk, 100)
+  } else {
+    window.loadOtherComment = loadArtalk
+  }
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://twikoo.b23.kim/',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://twikoo.b23.kim/',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdmirror.com/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Artalk' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Artalk' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script>window.newestComments = {
+  changeContent: content => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<code>.*?<\/code>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g, "") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0, 150) + '...'
+    }
+    return content
+  },
+
+  generateHtml: (array, ele) => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class="aside-list-item">'
+
+        if (true && array[i].avatar) {
+          const imgAttr = 'data-lazy-src'
+          const lazyloadNative = ''
+          result += `<a href="${array[i].url}" class="thumbnail"><img ${imgAttr}="${array[i].avatar}" alt="${array[i].nick}" ${lazyloadNative}></a>`
+        }
+
+        result += `<div class="content">
+        <a class="comment" href="${array[i].url}" title="${array[i].content}">${array[i].content}</a>
+        <div class="name"><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '暂无评论'
+    }
+
+    ele.innerHTML = result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh(ele)
+  },
+
+  newestCommentInit: (name, getComment) => {
+    const $dom = document.querySelector('#card-newest-comments .aside-list')
+    if ($dom) {
+      const data = btf.saveToLocal.get(name)
+      if (data) {
+        newestComments.generateHtml(JSON.parse(data), $dom)
+      } else {
+        getComment($dom)
+      }
+    }
+  },
+
+  run: (name, getComment) => {
+    newestComments.newestCommentInit(name, getComment)
+    btf.addGlobalFn('pjaxComplete', () => newestComments.newestCommentInit(name, getComment), name)
+  }
+}</script><script>window.addEventListener('load', () => {
+  const keyName = 'artalk-newest-comments'
+  const { changeContent, generateHtml, run } = window.newestComments
+
+  const getAvatarValue = async () => {
+    const predefinedAvatarCdn = ''
+    const predefinedAvatarDefault = ''
+
+    const avatarDefaultFormat = e => e.startsWith('d=') ? e : `d=${e}`
+
+    if (predefinedAvatarCdn && predefinedAvatarDefault) {
+      return { avatarCdn: predefinedAvatarCdn, avatarDefault: avatarDefaultFormat(predefinedAvatarDefault) }
+    }
+
+    try {
+      const res = await fetch('https://service.b23.kim/api/v2/conf')
+      const result = await res.json()
+      const { mirror, params, default: defaults } = result.frontend_conf.gravatar
+      const avatarCdn = predefinedAvatarCdn || mirror
+      let avatarDefault = avatarDefaultFormat(predefinedAvatarDefault || params || defaults)
+      return { avatarCdn, avatarDefault}
+    } catch (e) {
+      console.error(e)
+      return { avatarCdn: predefinedAvatarCdn, avatarDefault: avatarDefaultFormat(predefinedAvatarDefault) }
+    }
+  }
+
+  const searchParams = new URLSearchParams({
+    'site_name': 'b23.kim',
+    'limit': '12', // Fetch more comments to filter pending comments
+  })
+
+  const getComment = async (ele) => {
+    try {
+      const res = await fetch(`https://service.b23.kim/api/v2/stats/latest_comments?${searchParams}`)
+      const result = await res.json()
+      const { avatarCdn, avatarDefault } = await getAvatarValue()
+      const artalk = result.data
+        .filter(e => !e.is_pending) // Filter pending comments
+        .slice(0, 6) // Limit the number of comments
+        .map(e => {
+          const avatar = avatarCdn && e.email_encrypted ? `${avatarCdn}${e.email_encrypted}?${avatarDefault}` : ''
+          return {
+            'avatar': avatar,
+            'content': changeContent(e.content_marked),
+            'nick': e.nick,
+            'url': e.page_url,
+            'date': e.date,
+          }
+        })
+      btf.saveToLocal.set(keyName, JSON.stringify(artalk), 10/(60*24))
+      generateHtml(artalk, ele)
+    } catch (e) {
+      console.log(e)
+      ele.textContent= "无法获取评论，请确认相关配置是否正确"
+    }
+  }
+
+  run(keyName, getComment)
+})</script><script src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/emoticon.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script>(() => {
+  window.ChatraID = 'ZTYqGzsT7qMhexKhK'
+  window.Chatra = window.Chatra || function() {
+    (window.Chatra.q = window.Chatra.q || []).push(arguments)
+  }
+
+  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = false
+
+    if (isChatBtn) {
+      const close = () => {
+        Chatra('minimizeWidget')
+        Chatra('hide')
+      }
+
+      const open = () => {
+        Chatra('openChat', true)
+        Chatra('show')
+      }
+
+      window.ChatraSetup = { startHidden: true }
+    
+      window.chatBtnFn = () => document.getElementById('chatra').classList.contains('chatra--expanded') ? close() : open()
+
+      document.getElementById('chat-btn').style.display = 'block'
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => Chatra('hide'),
+        show: () => Chatra('show')
+      }
+    }
+  })
+})()</script><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdmirror.com/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdmirror.com/npm/pjax@0.2.8/pjax.min.js"></script><script>(() => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      const usePjax = true
+      true
+        ? (usePjax ? pjax.loadUrl('/404.html') : window.location.href = '/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})()</script><script async data-pjax src="/"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementsByClassName('footer_custom_text')[0];
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" title="博客框架为Hexo_v6.2.0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" title="主题版本Butterfly_v4.3.1"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://edgeone.ai/" style="margin-inline:5px" title="本站采用多线部署，主线路托管于EdgeOne"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/Hosted-EdgeOne-%2300a3ff-ELogo.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://www.cloudflare.com/" style="margin-inline:5px" title="本站采用多线部署，备用线路托管于Cloudflare"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Cloudflare-F48120?style=flat&amp;logo=cloudflare" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.mps.gov.cn/#/query/webSearch?code=37083102000125" style="margin-inline:5px" title="本网站已完成公安联网备案，点击前往查询"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/%E9%B2%81%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%87-37083102000125%E5%8F%B7-darkblue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/" style="margin-inline:5px" title="本网站已完成ICP备案，点击前往备案管理系统官网"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/%E9%B2%81ICP%E5%A4%87-2025196989%E5%8F%B7--1-brightgreen.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://icp.gov.moe/?keyword=20251133" style="margin-inline:5px" title="本站已加入萌 “挨谁劈” 备备备，背背背背(案)，萌ICP备20251133号"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/MoeICP-20251133-FE1384.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" title="本站项目由Github托管"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/runtime.js"></script><!-- hexo injector body_end end --></body></html>
