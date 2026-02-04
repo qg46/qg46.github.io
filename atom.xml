@@ -6,7 +6,7 @@
   <link href="https://www.b23.kim/atom.xml" rel="self"/>
   
   <link href="https://www.b23.kim/"/>
-  <updated>2026-01-28T19:35:51.627Z</updated>
+  <updated>2026-02-04T08:43:26.962Z</updated>
   <id>https://www.b23.kim/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>三级域名？二级域名？这些区别到底在哪，如何区分</title>
+    <link href="https://www.b23.kim/details/659d6747b273.html"/>
+    <id>https://www.b23.kim/details/659d6747b273.html</id>
+    <published>2026-02-04T06:41:29.000Z</published>
+    <updated>2026-02-04T08:43:26.962Z</updated>
+    
+    <content type="html"><![CDATA[<p>很久以前，我看到一个评论区对域名的级数吵的不可开交。有人认为这是三级域名，也有人认为这是二级域名。双方各执一词，始终坚信自己是对的，而对方是错的（评论区吵架现状）。而原视频讲的是一个免费域名分发的好像是（具体我也忘了，我大概在三年前看到的那个视频）</p><p>因为突然想起来这个，所以我决定单独新开一篇文章来讲这个事。“三级域名”和“二级域名”到底应该如何区分。<br>实际上这个还真难分对错，因为参考系不同所以在不同的角度下有不同的答案。</p><p>举个例子，假如<code>lhy.b23.kim</code>这个域名（其实真的存在，我分发给我朋友用的）。<br>如果按“三级域名”的标准解读：<br>1.<code>kim</code><br>2.<code>b23</code><br>3.<code>lhy</code><br>正好，从后缀开始从右往左数，确实是三级。那么这个角度是相对于注册局而言的。ICANN管理根部，把不同类型的根分配给不同的注册局。然后由用户&#x2F;企业挑选根部来注册出新的一级，注册完成后在自己的域(例如<code>b23.kim</code>)下进一步管理子级的创建和分发使用。这是一种技术严谨的观察角度。<br>根也被称为“顶级域名”，也就是一级域名。一级就是顶级，因为没有在它们之上的域了所以是顶级。（学新闻学的会把这里的“顶级”当形容词来用，比如<a href="https://www.bilibili.com/video/BV1pzNReYExQ/?spm_id_from=333.337.search-card.all.click&vd_source=4cb05483c9801a83ea56fac13822a157">BV1pzNReYExQ</a>）</p><p>然而实际上终端用户或企业根本就接触不到根部，他们只能管理自己注册后的域(例如<code>b23.kim</code>就是自己注册后的域)以及其子级。所以按“使用者”的角度来的话……<br>那就是“二级域名”的标准解读：<br>1.<code>b23.kim</code><br>2.<code>lhy</code><br>自己所管理的b23.kim作为一整级，后面分发的都是它的二级域。这样的观察角度是基于自己<strong>实际所持有的域</strong>的再分发。</p><p>一般情况下，在使用领域下普遍采用“二级域名”的解读方式。原因还是自己分出来的二级，所以这样来看相对方便一些，尽管它技术层面并不标准。实际上也难分对错，只需要让别人能理解到自己说的是哪一级就行。技术领域说三级，应用领域说二级也并无不妥，只是大家都习惯了这样叫而已。</p><p>不过还有一种特殊的情况，那就是类似<code>.com.cn</code>和<code>.gov.cn</code>的情况。在注册后被分配的时候就已经是第三级的状态了。<br>比如某人注册了一个<code>b23.com.cn</code>域名，然后又分配了一个下级<code>lhy</code>。在技术上它是这样的：<br>1.<code>cn</code><br>2.<code>com</code><br>3.<code>b23</code><br>4.<code>lhy</code><br>那么它就是一个标准的四级域名。而对于<code>com.cn</code>来说，你不能把这一个整体看作顶级域名。它的顶级是<code>cn</code>，只不过向下又分配了一层<code>com</code>。同时<code>com.cn</code>这个二级域名被保留用作给人单独注册下级使用了而已。所以在注册后，<code>b23.com.cn</code>就已经是个三级域名了。因此这类又细化管理的域名是一种相对独特且特殊的存在，因为你无法注册类似<code>com.cn</code>或者<code>gov.cn</code>本身。<br>当然如果你按照实际控制权把<code>b23.com.cn</code>整体作为顶级，下级<code>lhy</code>作为二级的话也不是不可以，就像是上面那个“二级域名”解读的例子的道理是一样的。</p><p>对于DNS（域名系统）来说，理论上你能创建无限级域名。但是实际上它是有限长的，技术上二级域名(b23.kim的“b23”部分)的长度限制是1-63个字符(有些根域可能有不一样的限制)，一个完整域名的总长度不应该超过253个字符。<br>例如可以这样：<br><code>a.b.c.d.e.f.g.h.i.j.k.l.m.n.o.p.q.r.s.t.u.v.w.x.y.z.b23.kim</code><br>（这么长，整活必备啊）<br>其实已经有人这么整了哈哈：</p><div align=center class="aspect-ratio"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112994231193219&bvid=BV1vQWseUExm&cid=500001656022050&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div align=center class="aspect-ratio"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112972907152246&bvid=BV164e5enEhB&cid=500001652001652&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><div align=center class="aspect-ratio"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=112903030113289&bvid=BV1PaicetEcF&cid=500001638012657&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>]]></content>
+    
+    
+      
+      
+    <summary type="html"></summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Artalk强行兼容非标准OAuth接口</title>
@@ -415,28 +435,6 @@
     
     
     <category term="2⃣❌🌲🌲" scheme="https://www.b23.kim/tags/2%E2%83%A3%E2%9D%8C%F0%9F%8C%B2%F0%9F%8C%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>什么是客户端重定向和服务器重定向，它们之间有什么区别？</title>
-    <link href="https://www.b23.kim/details/772d366b582c.html"/>
-    <id>https://www.b23.kim/details/772d366b582c.html</id>
-    <published>2025-12-15T03:48:45.000Z</published>
-    <updated>2025-12-16T15:31:30.525Z</updated>
-    
-    <content type="html"><![CDATA[<p>众所周知，我们当今的互联网是基于TCP&#x2F;IP的客户机服务器模式。那么这就引申出了两种重定向方式：客户端重定向和服务器重定向。</p><p>这两个概念很好理解，在客户端实现的重定向就叫客户端重定向，在服务器端实现的重定向就叫服务器重定向（听起来是不是很废话，我也觉得）</p><p>那么该到底如何区分呢？</p><h1 id="在客户端"><a href="#在客户端" class="headerlink" title="在客户端"></a>在客户端</h1><p>先说客户端重定向吧，它有个专门的名字叫<strong>Client Redirect</strong>。<br>它的实现通常是基于JavaScript来调用某些浏览器API来实现的重定向。由于它依赖前端API，因此它可以说是一种很主动的重定向方式。对于curl和wget这类的请求器来说，它获取到的实质仍然还是200响应和一个正常的html页面信息。只不过对于客户端而言它在得到响应后瞬间执行了里面的跳转指令来改变当前目标罢了。所以这种重定向方式非常适用于纯静态网站的技术栈，或者说是这类技术唯一能实现的重定向方式。同时它对于点击按钮或者等待时间之类的纯前端交互的跳转来说非常适用。<br>例如它的不同类型的调用：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通跳转（保留历史记录，可后退）</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;https://www.example.com&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用 assign()（效果同 href）</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">location</span>.<span class="title function_">assign</span>(<span class="string">&quot;https://www.example.com&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 无历史记录跳转（无法后退）</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">location</span>.<span class="title function_">replace</span>(<span class="string">&quot;https://www.example.com&quot;</span>);</span><br></pre></td></tr></table></figure><p>当然，也有不依赖于JS的版本：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;5; url=https://example.com/&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure><p>它表示在5秒后刷新并重定向到新的<a href="https://example.com/">https://example.com/</a> 网址。（在某些浏览器中，meta refresh 会影响浏览器的“后退”按钮功能。）</p><p>虽然它实现起来简单，但是它所带来的弊端也非常明显：假如你的用户关闭了JavaScript能力，同时页面上如果没其他内容的话就会无法重定向。同时对于不执行JavaScript和html的非浏览器客户端来说，它们看到的只是一串代码文本而已，并不会造成实质性的跳转。</p><h1 id="在服务器"><a href="#在服务器" class="headerlink" title="在服务器"></a>在服务器</h1><p>而服务器重定向更高级，是相比前端重定向而言更根本更彻底的被动重定向方案：因为它在绝对意义上“宣布”了这个url的类型就是重定向，以及重定向到了哪，类型是什么。所以它是根本意义上的、权威的重定向方案，同时也是最标准最彻底的重定向方式，任何HTTP客户端都要服从这个重定向命令并作出跟随。它也有个专门的称呼叫<strong>HTTP重定向(http redirect)</strong>。<br>它典型的特征是不再使用200响应，而是会转为重定向专用的标准响应码。比如说经典的有30x系列的响应码，它告诉浏览器这个重定向是何种类型的重定向，解决了客户端重定向无法标识类型的问题（毕竟客户端重定向始终都是以200来响应嘛）<br>服务器重定向更高级的一点是，它通过指定Location响应头来提供重定向目标，这意味着它还能同时提供响应体。比如说B站，有些重定向同时返回了带有“Found”文本的超链接以提供给因为各种原因未能自动重定向的情况来降级为通过页面手动点击跳转。</p><p>一个典型的服务器级重定向的响应应该包括：<br>（以B站短链接<a href="https://b23.tv/YOzfS7w%E4%B8%BA%E4%BE%8B%EF%BC%8C%E5%80%BC%E5%BE%97%E4%B8%80%E6%8F%90%E7%9A%84%E6%98%AFb23.tv%E7%9F%AD%E9%93%BE%E6%8E%A5%E6%9C%89%E6%95%88%E6%9C%9F%E5%90%8E%E9%9D%A2%E8%A2%ABB%E7%AB%99%E7%BB%99%E6%94%B9%E6%88%901%E5%B9%B4%E4%BA%86%EF%BC%89">https://b23.tv/YOzfS7w为例，值得一提的是b23.tv短链接有效期后面被B站给改成1年了）</a><br><img src="https://i0.hdslb.com/bfs/mallup/mall/3y/yz/3yyzw0zy102x3y02w012zz10013wx33z.png" alt="短链接的服务器级重定向响应"></p><p>它的标志是302响应码和代表了重定向目标的Location响应头部。<br>当然，既然是<code>任何HTTP客户端都需要跟随</code>，那么它对于搜索引擎蜘蛛来说同样有效。假如你需要更换域名，同时旧的还没过期。怎么才能让搜到的用户无缝地切换到你的新站呢？答案是服务器重定向。你可以通过指定响应码为301来表示当前资源已经永久地转移到了新的地址，这样搜索引擎就能更好地去转移权重了。同样的，这也是现代短链接的标准和主流的实现方式。</p><div class="note purple icon-padding flat"><i class="note-icon fa-solid fa-wand-magic-sparkles"></i><p>常见的重定向状态码：</p><ul><li><strong>301 Moved Permanently</strong>： 永久重定向。资源已永久移动到新URL，搜索引擎会将权重和排名转移到新地址。</li><li><strong>302 Found &#x2F; 307 Temporary Redirect</strong>： 临时重定向。资源临时从另一个URI响应请求。对于SEO，搜索引擎通常会抓取新内容，但保留原地址的权重。</li></ul></div><p>它拥有了良好的性能，因为它由浏览器直接处理跳转，无需加载整个中间页面。所以简单来说它比静态版的前端JavaScript重定向来的更有效率。</p><h1 id="需要甄别的误区"><a href="#需要甄别的误区" class="headerlink" title="需要甄别的误区"></a>需要甄别的误区</h1><p>在编写服务器端动态API或者网页时，常常会有这样的需求：假如说你有个&#x2F;api&#x2F;qunzhu&#x2F;robot&#x2F;的接口在本地路径，同时又想对外访问的链接的路径是&#x2F;qunzhu&#x2F;hacker&#x2F;。我们会编写自定义路由策略映射来解决这个问题是吧？可能会有人认为它也是重定向，这样想是不对的。因为它仅仅只发生在了服务器，客户端<code>并没有出现访问后改变目标</code>的情况。也就说重定向这个行为是<code>相对于客户端而言</code>的，只发生在了服务器的不叫真正意义上的重定向。它也有专门的名字叫**URL重写（URL Rewriting）**或者也可以直接叫做路由(Routing)，它是建立在服务器内部的一套映射关系，实现对外保持统一的URL。</p><p>于是最终重定向的定义是：一般情况下，发生在客户端上的，具有由原始链接改变到目标链接并重新发起新请求的就叫做重定向。客户端会为最终的目标资源发起一次新的、独立的HTTP请求。无论是服务器返回指令，还是客户端自行执行脚本，只要满足这个条件，就发生了重定向。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html"></summary>
-      
-    
-    
-    
-    <category term="通用技术" scheme="https://www.b23.kim/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/"/>
-    
     
   </entry>
   
