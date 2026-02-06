@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>我是这样申请并接入QQ登录的</title>
+      <link href="/details/c92f4b553173.html"/>
+      <url>/details/c92f4b553173.html</url>
+      
+        <content type="html"><![CDATA[<p>跟腾讯客服扯了两天，终于成功通过了QQ登录的接入权限。<br>同时我也算是把所有坑都踩了一遍，今天来一次讲清。</p><h1 id="注册开发者"><a href="#注册开发者" class="headerlink" title="注册开发者"></a>注册开发者</h1><p>首先去 <a href="https://q.qq.com/#/">https://q.qq.com/#/</a> 登录自己的QQ号，然后走注册流程。<br>注册完成后你就成为了QQ开放平台的开发者了，然后去新建一个小程序。新建小程序的时候里面也会让你提供开发者信息，提交完成后会进行人工审核。需要的信息比较多，有的甚至需要住址。好在申请一次后如果通过就不用管了。提审以后在互联会同步开发者信息，这样你就完成了注册这一步。</p><p>为什么不直接在互联注册？因为互联带到的是 <a href="https://open.tencent.com/">https://open.tencent.com/</a> 这个“腾讯开放平台”总入口，你也依然需要在“QQ开放平台”注册并验证开发者信息。<br>当然腾讯这个后台太多了，感觉有点杂。可能还有其他的办法能注册上，反正我是这样过来的。</p><h1 id="创建网站应用"><a href="#创建网站应用" class="headerlink" title="创建网站应用"></a>创建网站应用</h1><p>重点来了，当你完成开发者信息提交并审核通过以后，你就可以创建应用了。<br>当然应用资料的审核也是人工的，所以按照审核规范肯定是少不了坑点的。</p><p>基本信息：<br>你需要准备一个<strong>应用名称</strong>、<strong>应用图标</strong>和<strong>应用介绍</strong>。<br>应用名称是你希望以用户登录的时候在授权页看到的名字，当然因为我的域名就是我网站的名字所以这里我写的<code>b23.kim</code>。<br>应用图标本身是非必填的，早期不上传图标也能过审。现在虽然也不是必须上传，但是没有图标的应用已经不再能过审了。<br>应用介绍是个必填项，不在前端展示。仅仅只是给审核看的而已，但是我不确定未来会不会改。<br>调试QQ号一般不填，留空即可</p><p>平台信息：<br>你也需要准备<strong>网站地址</strong>、<strong>网站回调域</strong>、<strong>主办单位名称</strong>、<strong>网站地址备案号</strong>。<br>网站地址就是你要申请的网站的目标URL。审核的时候人工会去看这个地址里有没有放置明显的登录按钮，以及是否包含QQ登录。如果你填的网站首页地址的话如果审核找不到登录按钮是会打回的（审核看到登录按钮之前不会多点，按钮位置需要好找），对于博客而言首页一般是没有登录按钮的，这种情况下网站地址你填文章页有评论区登录的内页URL就行。这里我填的是 <a href="https://www.b23.kim/details/659d6747b273.html">https://www.b23.kim/details/659d6747b273.html</a> 某一带评论区的文章的链接（也就是所谓的“内页”）。<br>这个地址不仅仅是给审核看的，在登录的时候在验证页是作为应用名称点击跳转的链接使用的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w0/2z/w02z2z0302x003x0x1yw3z2xx2x33w01.png" alt="点击“应用名称”后跳转到“网站地址”"><br>审核过后如果不满意可以修改重新提交，就是需要再审一次而已。</p><p>网站回调域是在QQ登录完成后要回调的地址，如果多个就以英文<code>;</code>隔开。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3x/yz/3xyzw23x3wx1ywyxzz3zzx01yzw200x0.png" alt="回调域相关"><br>这里回调域是作为一个白名单使用的，只有提交了的回调域才能被回调，有效防止盗用。</p><p>主办单位名称如果是企业就是企业名，如果是个人那就随便了。我这里写的是“个人主体”。如果是修改信息的话这一栏是“提供者”，务必注意。<br>网站地址备案号的坑最多，稍微错一点就会被打回。而最容易错的点就是格式问题了，需要精确到横杠后面那个数字。如果没有就会说“备案号不匹配”。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/02/x3/02x3zxx0w03xw0zyx03zzyzyzwyyzw3z.png" alt="备案号规范"></p><p>如果你能绕过这些坑的话那么恭喜你，不出意外的话只需要审核一次就能通过。一般两个工作日内就能出结果。</p><h1 id="接入"><a href="#接入" class="headerlink" title="接入"></a>接入</h1><p>QQ登录能干的事很多，具体见开发文档：<a href="https://wiki.connect.qq.com/oauth2-0%e7%ae%80%e4%bb%8b">https://wiki.connect.qq.com/oauth2-0%e7%ae%80%e4%bb%8b</a><br>有接口能获取用户的会员状态啥的，<del>基本上我也忘光了</del>。但是腾讯为了保护隐私，验证后拿到的基本上都是OpenID，没有QQ号。</p><p>本站的技术栈为Artalk + Casdoor组合使用，有关它们俩的教程如下<br>1.Artalk的部署：<a href="https://www.b23.kim/details/5250c3717631.html">https://www.b23.kim/details/5250c3717631.html</a> (目前似乎原作者已经不再维护)<br>2.Casdoor的搭建：<a href="https://www.b23.kim/details/808a9f471a72.html">https://www.b23.kim/details/808a9f471a72.html</a> (其实你可以直接在应用市场里面安装 小声bb)<br>3.强行兼容：<a href="https://www.b23.kim/details/ce4b38f27c8d.html">https://www.b23.kim/details/ce4b38f27c8d.html</a> （硬核清理Casdoor的石山）<br>如果你是其他场景或者技术栈不同的话以你那边和开发文档为准，以及QQ使用的是标准的OAuth2.0接口。</p><p>在Casdoor里面创建一个提供商，分类<strong>OAuth</strong>，类型<strong>QQ</strong>。<br>然后在客户端ID那里填写你的APP ID，在客户端ID那里填写你的APP Key即可。<br>最后别忘了在“应用”里面选上新建的提供商<br>（其实这一步你需要在提交审核之前就做，要不然他们看不到你的QQ登录按钮）</p><p>另外最好是在提交审核之前就配置好接口，防止审核点一下QQ登录的按钮发现你业务方没配置开发信息再因为这个打回。<br>在审核通过前，登录页应该是这样的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yw/w2/yww213zw3xyx002zzyw313zyyxzw2zw0.png" alt="未过审时无权限"><br>在配置开发信息前，登录页是这样的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x1/2y/x12y0203100213zwx0zzyyx1w3x3zwx0.png" alt="别忘了填上开发信息"><br>这个是腾讯客服截图的，我这边会另外显示一个“给您造成的不便……”，只是当时我没截图而已。<br>当时问的时候他是这样说的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3w/x1/3wx13z1201zx11ywzx0203w03z3xzwx1.png" alt="腾讯客服：你APPID哪去了"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 通用技术 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>三级域名？二级域名？这些区别到底在哪，如何区分</title>
       <link href="/details/659d6747b273.html"/>
       <url>/details/659d6747b273.html</url>

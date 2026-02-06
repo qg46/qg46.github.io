@@ -6,7 +6,7 @@
   <link href="https://www.b23.kim/atom.xml" rel="self"/>
   
   <link href="https://www.b23.kim/"/>
-  <updated>2026-02-04T08:43:26.962Z</updated>
+  <updated>2026-02-06T16:09:25.199Z</updated>
   <id>https://www.b23.kim/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我是这样申请并接入QQ登录的</title>
+    <link href="https://www.b23.kim/details/c92f4b553173.html"/>
+    <id>https://www.b23.kim/details/c92f4b553173.html</id>
+    <published>2026-02-06T14:48:47.000Z</published>
+    <updated>2026-02-06T16:09:25.199Z</updated>
+    
+    <content type="html"><![CDATA[<p>跟腾讯客服扯了两天，终于成功通过了QQ登录的接入权限。<br>同时我也算是把所有坑都踩了一遍，今天来一次讲清。</p><h1 id="注册开发者"><a href="#注册开发者" class="headerlink" title="注册开发者"></a>注册开发者</h1><p>首先去 <a href="https://q.qq.com/#/">https://q.qq.com/#/</a> 登录自己的QQ号，然后走注册流程。<br>注册完成后你就成为了QQ开放平台的开发者了，然后去新建一个小程序。新建小程序的时候里面也会让你提供开发者信息，提交完成后会进行人工审核。需要的信息比较多，有的甚至需要住址。好在申请一次后如果通过就不用管了。提审以后在互联会同步开发者信息，这样你就完成了注册这一步。</p><p>为什么不直接在互联注册？因为互联带到的是 <a href="https://open.tencent.com/">https://open.tencent.com/</a> 这个“腾讯开放平台”总入口，你也依然需要在“QQ开放平台”注册并验证开发者信息。<br>当然腾讯这个后台太多了，感觉有点杂。可能还有其他的办法能注册上，反正我是这样过来的。</p><h1 id="创建网站应用"><a href="#创建网站应用" class="headerlink" title="创建网站应用"></a>创建网站应用</h1><p>重点来了，当你完成开发者信息提交并审核通过以后，你就可以创建应用了。<br>当然应用资料的审核也是人工的，所以按照审核规范肯定是少不了坑点的。</p><p>基本信息：<br>你需要准备一个<strong>应用名称</strong>、<strong>应用图标</strong>和<strong>应用介绍</strong>。<br>应用名称是你希望以用户登录的时候在授权页看到的名字，当然因为我的域名就是我网站的名字所以这里我写的<code>b23.kim</code>。<br>应用图标本身是非必填的，早期不上传图标也能过审。现在虽然也不是必须上传，但是没有图标的应用已经不再能过审了。<br>应用介绍是个必填项，不在前端展示。仅仅只是给审核看的而已，但是我不确定未来会不会改。<br>调试QQ号一般不填，留空即可</p><p>平台信息：<br>你也需要准备<strong>网站地址</strong>、<strong>网站回调域</strong>、<strong>主办单位名称</strong>、<strong>网站地址备案号</strong>。<br>网站地址就是你要申请的网站的目标URL。审核的时候人工会去看这个地址里有没有放置明显的登录按钮，以及是否包含QQ登录。如果你填的网站首页地址的话如果审核找不到登录按钮是会打回的（审核看到登录按钮之前不会多点，按钮位置需要好找），对于博客而言首页一般是没有登录按钮的，这种情况下网站地址你填文章页有评论区登录的内页URL就行。这里我填的是 <a href="https://www.b23.kim/details/659d6747b273.html">https://www.b23.kim/details/659d6747b273.html</a> 某一带评论区的文章的链接（也就是所谓的“内页”）。<br>这个地址不仅仅是给审核看的，在登录的时候在验证页是作为应用名称点击跳转的链接使用的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w0/2z/w02z2z0302x003x0x1yw3z2xx2x33w01.png" alt="点击“应用名称”后跳转到“网站地址”"><br>审核过后如果不满意可以修改重新提交，就是需要再审一次而已。</p><p>网站回调域是在QQ登录完成后要回调的地址，如果多个就以英文<code>;</code>隔开。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3x/yz/3xyzw23x3wx1ywyxzz3zzx01yzw200x0.png" alt="回调域相关"><br>这里回调域是作为一个白名单使用的，只有提交了的回调域才能被回调，有效防止盗用。</p><p>主办单位名称如果是企业就是企业名，如果是个人那就随便了。我这里写的是“个人主体”。如果是修改信息的话这一栏是“提供者”，务必注意。<br>网站地址备案号的坑最多，稍微错一点就会被打回。而最容易错的点就是格式问题了，需要精确到横杠后面那个数字。如果没有就会说“备案号不匹配”。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/02/x3/02x3zxx0w03xw0zyx03zzyzyzwyyzw3z.png" alt="备案号规范"></p><p>如果你能绕过这些坑的话那么恭喜你，不出意外的话只需要审核一次就能通过。一般两个工作日内就能出结果。</p><h1 id="接入"><a href="#接入" class="headerlink" title="接入"></a>接入</h1><p>QQ登录能干的事很多，具体见开发文档：<a href="https://wiki.connect.qq.com/oauth2-0%e7%ae%80%e4%bb%8b">https://wiki.connect.qq.com/oauth2-0%e7%ae%80%e4%bb%8b</a><br>有接口能获取用户的会员状态啥的，<del>基本上我也忘光了</del>。但是腾讯为了保护隐私，验证后拿到的基本上都是OpenID，没有QQ号。</p><p>本站的技术栈为Artalk + Casdoor组合使用，有关它们俩的教程如下<br>1.Artalk的部署：<a href="https://www.b23.kim/details/5250c3717631.html">https://www.b23.kim/details/5250c3717631.html</a> (目前似乎原作者已经不再维护)<br>2.Casdoor的搭建：<a href="https://www.b23.kim/details/808a9f471a72.html">https://www.b23.kim/details/808a9f471a72.html</a> (其实你可以直接在应用市场里面安装 小声bb)<br>3.强行兼容：<a href="https://www.b23.kim/details/ce4b38f27c8d.html">https://www.b23.kim/details/ce4b38f27c8d.html</a> （硬核清理Casdoor的石山）<br>如果你是其他场景或者技术栈不同的话以你那边和开发文档为准，以及QQ使用的是标准的OAuth2.0接口。</p><p>在Casdoor里面创建一个提供商，分类<strong>OAuth</strong>，类型<strong>QQ</strong>。<br>然后在客户端ID那里填写你的APP ID，在客户端ID那里填写你的APP Key即可。<br>最后别忘了在“应用”里面选上新建的提供商<br>（其实这一步你需要在提交审核之前就做，要不然他们看不到你的QQ登录按钮）</p><p>另外最好是在提交审核之前就配置好接口，防止审核点一下QQ登录的按钮发现你业务方没配置开发信息再因为这个打回。<br>在审核通过前，登录页应该是这样的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yw/w2/yww213zw3xyx002zzyw313zyyxzw2zw0.png" alt="未过审时无权限"><br>在配置开发信息前，登录页是这样的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x1/2y/x12y0203100213zwx0zzyyx1w3x3zwx0.png" alt="别忘了填上开发信息"><br>这个是腾讯客服截图的，我这边会另外显示一个“给您造成的不便……”，只是当时我没截图而已。<br>当时问的时候他是这样说的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3w/x1/3wx13z1201zx11ywzx0203w03z3xzwx1.png" alt="腾讯客服：你APPID哪去了"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html"></summary>
+      
+    
+    
+    
+    <category term="通用技术" scheme="https://www.b23.kim/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>三级域名？二级域名？这些区别到底在哪，如何区分</title>
@@ -402,28 +424,6 @@
     <updated>2026-01-23T19:38:47.537Z</updated>
     
     <content type="html"><![CDATA[<p>不是哥们，静态你也打2.0</p><div align=center class="aspect-ratio"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115736282465594&bvid=BV1RcqLBtEt6&cid=34806498371&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><p><img src="https://i0.hdslb.com/bfs/mallup/mall/2x/x1/2xx13zyy11x010yzx02z0200ywzw3xw3.png" alt="站点数据概览"></p><p>我就知道他肯定还来。这次明显做了充足的准备，上来就给我灌了1.42亿次的请求。<br>起初我还没发现不对劲，直到我朋友提醒了我一下我才知道源站已经GG了。页面中间就显示个<code>This deployment is temporarily paused</code>。不过我忙于上学，就没来得及看这个报错是怎么回事，当时我初步估计是流量被刷光导致停止服务了。不过因为当时我对自己太过自信了，心想反正全静态都CDN直接缓存的数据不带变的，那么多攻击流量即使回源又能回多少呢？</p><p>等我中午到家一看，好家伙，把我下巴都惊掉了：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/03/w0/03w02zyz2yx3zx2zw3zxw2zxx213yzw3.png" alt="Usage"><br>我去？？？怎么给我干这么多流量，我对这个恐怖的数据感到不可思议。我想怎么全回源了，不是有CDN在挡刀吗，为什么源站还能被刷这么狠。我百思不得其解，按理来说不能产生这么多回源啊。</p><p>我想，要不投降吧。我想现在的当务之急是尽快恢复访问，避免影响读者。然后我就学二叉树树一样直接用EO的Pages来部署博客，就像vercel一样。于是我花了几分钟切过去了，重新部署了下证书。好，能用了。我就想那攻击者不就成小丑了，费半天劲两天统共给我打了600G给我源站干炸了，结果我切个提供商就又能恢复服务了，SB。反正现在源站都没了，而且我就一个html，您就慢慢刷去吧。</p><p>那么源站究竟是怎么回事呢？<br>直到……<br>我在学校自习课打开博客然后看了眼网络流量，好家伙我终于知道怎么回事了。<br>原来是twikoo后端API早在进入主站的时候就已经被加载了，于是就被攻击者顺势刷了一遍。这些动态API是走不了CDN缓存的。那我心态不就炸了呀，二叉树树这个博客好歹没后端服务，如果刷的API那他心态也得炸。那么好，现在压力来到我这边了。评论功能注定是要瘫痪一段时间了。太嘿了。<br>但是……<br>我还是觉得有点不对劲，因为twikooAPI的接口返回数据才多少点东西，顶多也就3kb吧？为什么还能这么狠。并且昨天和今天这两天EO控制台缓存命中率都挺高的（虽然说昨天我忘记看了只能看最近7天的了），总感觉有点蹊跷。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/2x/x02xw2w3w3w02yx0yy012z100110002w.png" alt="数据概览"><br>也能够发现其实也并不是一种能100%命中，还是有些直接打到源站上了。<del>况且vercel的waf挺垃圾的</del></p><p>继续来看流量占比，这次他们还升级了，又带了个荷兰来玩。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zy/yy/zyyyzzyx2wyxx001w2x1w113yw3y2wx3.png" alt="TG群"></p><p>并且他们还挑了个非常臭的时间来打：01:45。不知道是巧合还是什么，总之是来势汹汹。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/01/2y/012y022wx13x2zx200x22x01w3w1zww1.png" alt="EO统计"></p><p>甚至还是那种大带宽的访，将近3Gbps。这次是先打完二叉树树，然后过来打的我。我服了，真成苦命鸳鸯了。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w3/11/w311x1w001122xyyzy02ywyzyw2x0110.png" alt="访问带宽"></p><p>哎讲真，这都给我整出连续剧的那种感觉来了，天天《谁打了我》。倒是也挺好玩的，很有意思的一种感觉。二叉呢已经把它当成日常了，那我也应该能早点习惯吧（反正CDN又不限量）。不过我最担心的一点是腾讯别再玩不起给我EO封了，再不就是强制付费不然不给用那种。就目前来看的话离那一天好像还比较远。如果二叉树树那边有什么好的方法来避免或者缓解的话那我也会尝试去跟进一下的。现在来看，打二叉比打我可狠多了，我也真搞不懂，不理解意图到底是什么。</p><p>近期我会做些升级，主要是一些对象存储服务就怕攻击者刷这个，给我整几千欠费就完啦。针对这个问题我打算搬到专门负责npm和github镜像的CDN上面，解决一下当前存在的痛点和后顾之忧就差不多了。昨天的时候我看到被攻击真的担心来刷我存储桶，于是赶紧把外链改私有了。现在看网站其实有些样式和行为其实是崩的。嗯就这样。</p><hr><p>彩蛋：二叉树树之前被打的时候发了个视频《一刷一个 g 真好玩》，感兴趣可以去看一下：<br><a href="https://m.bilibili.com/video/BV1kFqGBaE2x?buvid=XX555B85A0775A5115A795CA9FB50EE233503&from_spmid=dt.space-dt.video.0&is_story_h5=false&mid=oGynjGGMBdUmghhDBv1HQw==&p=1&plat_id=114&share_from=ugc&share_medium=android&share_plat=android&share_session_id=c7c4cd87-d92b-46e1-8d6e-7079aaf93fea&share_source=COPY&share_tag=s_i&spmid=united.player-video-detail.0.0&timestamp=1766073843&unique_k=NSeYnmb&up_id=325903362">https://m.bilibili.com/video/BV1kFqGBaE2x?buvid=XX555B85A0775A5115A795CA9FB50EE233503&amp;from_spmid=dt.space-dt.video.0&amp;is_story_h5=false&amp;mid=oGynjGGMBdUmghhDBv1HQw==&amp;p=1&amp;plat_id=114&amp;share_from=ugc&amp;share_medium=android&amp;share_plat=android&amp;share_session_id=c7c4cd87-d92b-46e1-8d6e-7079aaf93fea&amp;share_source=COPY&amp;share_tag=s_i&amp;spmid=united.player-video-detail.0.0&amp;timestamp=1766073843&amp;unique_k=NSeYnmb&amp;up_id=325903362</a></p><a class="btn-beautify block left larger" href="http://www.b23.kim/details/61bc27e7ebba.html" title="上期回顾：本站成功遭受了第一次被打，记录这场22.84w次的请求攻击"><i class="far fa-hand-point-left"></i><span>上期回顾：本站成功遭受了第一次被打，记录这场22.84w次的请求攻击</span></a>]]></content>
-    
-    
-      
-      
-    <summary type="html"></summary>
-      
-    
-    
-    
-    
-    <category term="2⃣❌🌲🌲" scheme="https://www.b23.kim/tags/2%E2%83%A3%E2%9D%8C%F0%9F%8C%B2%F0%9F%8C%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>本站成功遭受了第一次被打，记录这场22.84w次的请求攻击</title>
-    <link href="https://www.b23.kim/details/61bc27e7ebba.html"/>
-    <id>https://www.b23.kim/details/61bc27e7ebba.html</id>
-    <published>2025-12-16T16:47:35.000Z</published>
-    <updated>2026-01-23T19:37:23.697Z</updated>
-    
-    <content type="html"><![CDATA[<p>不是哥们，静态你也打？</p><p>我刚写完上一篇文章然后闲的没事去腾讯云后台看了一下流量状态，才发现我红了（各种意义上）<br>我遭受了有史以来第一次的外来流量攻击，这说明这个网站已经有一定名气了。这次的攻击给我带来的感觉好像很熟悉的样子，因为之前二叉树树的博客也被攻击过，而且同样也是大部分流量都来自印度尼西亚，我和他被攻击前后仅仅只过了24小时。所以我推测有概率是同一伙人干的。但这次明显感到不一样的是，对我下手可比对他轻多了，竟然才用了5个G？而且也仅仅只持续了大约五分钟。</p><p>还是先来看看它们的战绩吧：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3y/w3/3yw3w0zy133zyx3wx1zz2yyyw3x1x0yx.png" alt="腾讯云EdgeOne数据总览"></p><p>正好顺便来复盘一下这次所遭受的攻击。</p><h1 id="一些端倪"><a href="#一些端倪" class="headerlink" title="一些端倪"></a>一些端倪</h1><p>在这之前，那个人先试探性的刷了我几万次的php。笑死我网站是用的nodejs，哪来的php？有点搞笑。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yx/2y/yx2y03x0w0yw032yzyx1x3w0w0w3yxzw.png" alt="单资源访问计次"></p><p>而且，好像这个流量有点奇怪？<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x3/02/x302w33zw310002w3y3y2zzyw3003y11.png" alt="QQ群聊天记录"><br><img src="https://i0.hdslb.com/bfs/mallup/mall/00/2y/002yzy3x2x2x3xyxyy023w02w10113x1.png" alt="QQ群聊天记录"><br><img src="https://i0.hdslb.com/bfs/mallup/mall/02/13/0213103yx012x1yxyyyyzy00w2zz2z12.png" alt="QQ群聊天记录"></p><p>一开始我就已经开始对这0.07%的印度尼西亚流量感觉有点奇怪了。所以他们这是准备筹划攻击然后凌晨零点动手？除非……？</p><h1 id="流量特征"><a href="#流量特征" class="headerlink" title="流量特征"></a>流量特征</h1><p>令人惊讶的是，它们的流量来的非常准时，就像是掐点来的一样：2025-12-17 00:00。并且上来就薅了我将近5GB的下行流量，几乎是瞬间触发的。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yz/x1/yzx110zz3z00w2x000x1yxzxyx03yz3w.png" alt="统计时间"></p><p>wdnmd，刷的还是我主站，连根域名都不用。带着目的来的啊，要么搜索引擎来的要么用的某种我不知道的神秘技术知道的我的博客域名？要是只是看上了我b23.kim这个短域名那我也真没话说，兄弟你无敌了。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zx/yw/zxyww100x13wyxzzw0x112x23yyy11yz.png" alt="Host排行"><br>这22万次也基本上全打在这上面去了，他甚至没去刷文章的链接，果然是保护知识产权的典型模范啊。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/w2/x0w2zwzw2wzzzy11zwyy2yw3x0zw3xx0.png" alt="Host请求计次"></p><p>同时，和二叉树树有着相同的情况：这些异常流量全部都是空Referer。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yx/02/yx02zz00x3w12xx2w2yw03x1032w0200.png" alt="Referer排行"></p><p>这些流量来自不同的国家，其中又是<code>印度尼西亚</code>占据最多，达到了19.52%。别介哥们，我这个站真的什么都没有，至于这样吗，派了那么多国家的肉鸡来搞我。我服了你。这样吧，如果你能来联系我的话兴许我还能和二叉树树一起给你颁发一个<code>超级神人兼行为艺术奖</code>。<br>不是，为什么中国大陆境内都还能有将近一万的请求，真的太诡异了<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yz/yz/yzyzyw12yw2x3x13yyw2yx3z2y123yyz.png" alt="区域分布"></p><p>看见温豆子和Mac以及Linux我就已经知道的差不多了，哈哈。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2x/2w/2x2w113wx02x12w3yy00zzw0w32xw33w.png" alt="客户端信息"></p><p>UserAgent这里的数据更有意思，也能证明应该是肉鸡来的，因为真的啥都有，<del>简直是浏览器用户调研</del><br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/00/x0002w10w32zw0w001zx3z133wyww02w.png" alt="UA数据"></p><p>不过我比较纳闷，为什么攻击防护只拦截了6.96万次的请求，啊？<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2z/x0/2zx0zxx1w300zyywzwyy2y2z3w12x0zx.png" alt="CC攻击防护数据"></p><h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>这次我不用像二叉树树那样去切CDN，因为也就才5GB用不着投降。但是我明白下次它们还会再光临的，谁知道到时候我又要面对怎样的洪水猛兽呢？<br>当然，二叉树树也有博客文章写了自己被攻击的过程，可以对比参考看看：<a href="https://blog.acofork.com/posts/ddos-6t/">https://blog.acofork.com/posts/ddos-6t/</a><br>为什么这么多次数也就5GB呢？可能得益于我抠门抠的好：图片直接存B站，本地一个都不留。就连JavaScript资源我都直接用npm镜像的，这实在是太省了。</p><p>就在我写这篇文章的时候，印度肉鸡又来打了300多下。放过我吧TAT<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2w/zy/2wzyzx02zy02w0w0w33zx1w22yyzw32y.png" alt="国家分布"></p><a class="btn-beautify block right larger" href="http://www.b23.kim/details/d22ffef72a2b.html" title="下期内容：攻击者卷土重来，1.42亿次请求导致源站服务不可用"><i class="far fa-hand-point-right"></i><span>下期内容：攻击者卷土重来，1.42亿次请求导致源站服务不可用</span></a>]]></content>
     
     
       
