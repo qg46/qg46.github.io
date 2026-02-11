@@ -4322,53 +4322,6 @@ figure.highlight pre .javascript .function {
 .medium-zoom-overlay {
   z-index: 99999 !important;
 }
-.mermaid-wrap {
-  position: relative;
-  margin: 0 0 20px;
-  background: var(--card-bg);
-  text-align: center;
-}
-.mermaid-wrap .mermaid-open-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  width: 34px;
-  height: 25px;
-  border: none;
-  border-radius: 20%;
-  background: #d3d3d3;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  color: #fff;
-  font-size: 0;
-  line-height: 1;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-.mermaid-wrap .mermaid-open-btn i {
-  font-size: 16px;
-  line-height: 1;
-}
-.mermaid-wrap .mermaid-open-btn:hover,
-.mermaid-wrap .mermaid-open-btn:focus-visible {
-  outline: none;
-  background: #c0c0c0;
-  transform: translateY(-1px);
-}
-.mermaid-wrap > svg {
-  max-width: 100%;
-  height: 100%;
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-}
-.mermaid-wrap > svg:active {
-  cursor: grabbing;
-}
 .utterances,
 .fb-comments iframe {
   width: 100% !important;
