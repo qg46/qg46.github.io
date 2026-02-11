@@ -10,7 +10,24 @@
   <rights>All rights reserved 2026, b23.kim</rights>
   <subtitle>碧而闪电尅挨么？</subtitle>
   <title>b23.kim</title>
-  <updated>2026-02-06T16:09:25.199Z</updated>
+  <updated>2026-02-11T16:34:21.521Z</updated>
+  <entry>
+    <author>
+      <name>b23.kim</name>
+    </author>
+    <category term="杂谈" scheme="https://www.b23.kim/categories/%E6%9D%82%E8%B0%88/"/>
+    <content>
+      <![CDATA[<p>网络安全这块。<br>最近的时候，我在某个嘿壳群闲聊。然后就有人发了个不知道从哪搞来的一键加群链接。我一看，这个链接之前我用朋友资质找腾讯申请过。只不过后面被朋友发的多了腾讯以非法滥用为由给我回收了。<br>刚好，那个群的名字是<code>打洲社-清华大学</code>。“清华大学”？一开始我估计又是哪个腾讯内邀的达人创建的名字拿来装B或者引流的吧。<br>于是我和其他嘿壳们一起去玩这个链接了，就这样不知不觉中开始传播了。任何人只需要在QQ里访问这个链接就会直接进群，甚至能直接无视“不允许任何人加群”限制（专用接口）</p><p><img src="https://i0.hdslb.com/bfs/mallup/mall/01/02/0102zxx3002w2wzyzz10w3122ww2003x.png" alt="链接一键加群能力"></p><p>直到今天……<br>有人在群里搞事，也不知道链接是传播到恶俗组织里了还是怎么。，总之部分聊天记录如下：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/11/zx/11zxyw01x13w3w2yx0zxzzzzyw00w000.png"></p><p>就这样互联网漏勺氛围持续了没多久，就有一位群员艾特了群管理：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yw/2w/yw2w120013012wzyw23w0300zx10zy3y.png"><br>于是我就被踢了，同时他们打开了不允许任何人加群。但是这时候他们还没意识到事情的严重性……<br>原本到这里就应该结束了，可是最特么草台班子的时刻来了（你猜猜我们是怎么加的群）：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w0/yy/w0yyzwzzw0w1yw3w3w2yx1x3132zx23x.png" alt="马奇诺防线"><br>没错，我又加回去了。实际上我加了那个群几乎没怎么看过，嘿壳群里聊天的时候他们提了下这个群的动向我才知道被踢的。<br>那我肯定好奇里面发生了什么啊，自然得进去看一下。<br>话虽如此，那个一键加群链接是没法无视踢黑(不再允许此人加群)的。在那种情况下你也没有办法踢黑，因为根本分不清到底是不是自己人全砍了那岂不是一种拒绝服务？</p><p>其实我这次进群只是为了吃瓜看乐子，没打算发言的。<br>可是这场面很难让我不忍住说两句：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3w/w1/3ww1zyzw2x3x2wx2yy3ww1x33zx33z00.png"><br>“有黑客”可还行？笑死我了这句。<br>最后一句我可有话说了，作为曾经向腾讯申请成功过一键加群的人，我很清楚这加群链接只要是个QQ号都能点进去加群（被封的不知道，可能不行）。<br>什么？你问我他们这个严格身份验证的活动别人是怎么拿到的链接？别小瞧黑客，虽然我没玩过三角洲，没实机看究竟是怎么回事。反正你只要是在公网上，黑客们就会尝试给你翻个底朝天。说不准就是黑客在扒活动页面的时候抓出来的呢？当然现实可能并不是如此，这也只是我的一些推断。总之要靠验证的人去泄露那相比之下概率低多了。</p><p>这个群的管理在发现事情一发不可收拾的时候选择了禁言：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x1/yw/x1yww2w211x2w1yw2zyz3w11zxyxzwzx.png"><br>从这一刻开始，我才终于明白原来这真是清华大学里的群。终于啊，网上的假群见多了头一次见到真家伙。<br>然后那人骂的不是我，是另一个空白名字的人（我服了，空白名字的缺点体现出来了）</p><p>当然，过了一会他又解除全员禁言了：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zy/3y/zy3y11x0w30112zyw22yw03w13w0w22y.png"><br>从那时起，这位管理彻底破防了。就这样一直禁言到我写到这个字的时候。确实，这种事换谁谁够，一堆捣乱的里面还不一定挑到几个自己人。<br>这也就是上面所有截图都是“全员禁言中”状态的原因了。<br>就这样，这件事到这里就告一段落了。如果后续有更新的话我会继续往下写。</p><hr><p>其实一开始我就觉得腾讯这种设计本来就是要遭滥用一样，跟新式互联网病毒似的。之前都爆发过一阵子了，直到把权限回收并且设立严格门槛（需要是游戏公司并且有软著、已上架应用商店且实际可玩）才解决。<br>那时我就想，万一有人复制别人链接不也照样传播吗？现在抓个包又不麻烦，更何况还是HTTP包。这下好了，回旋镖打自己身上了。<br>所以设计就从一开始就是有问题的，加群这种涉及到数据写入的操作竟然用GET请求？？要我说在指定活动页面用POST来请求取一个只有一次有效且获取后不用的时候短时间过期销毁的一键加群链接那才符合网络安全的“最小必要原则”，况且还不会影响业务。<br>腾讯是机器人企业吗？</p>]]>
+    </content>
+    <id>https://www.b23.kim/details/a03830792218.html</id>
+    <link href="https://www.b23.kim/details/a03830792218.html"/>
+    <published>2026-02-11T15:33:04.000Z</published>
+    <summary>
+      <![CDATA[<p>网络安全这块。<br>最近的时候，我在某个嘿壳群闲聊。然后就有人发了个不知道从哪搞来的一键加群链接。我一看，这个链接之前我用朋友资质找腾讯申请过。只不过后面被朋友发的多了腾讯以非法滥用为由给我回收了。<br>刚好，那个群的名字是<code>打洲社-清华大学</code>。“]]>
+    </summary>
+    <title>什么？清华大学的某游戏社团的QQ群被黑客给嘿啦？！</title>
+    <updated>2026-02-11T16:34:21.521Z</updated>
+  </entry>
   <entry>
     <author>
       <name>b23.kim</name>
@@ -336,24 +353,5 @@
     </summary>
     <title>腾讯EdgeOne的shields.io方案，挂标识必备</title>
     <updated>2025-12-20T20:07:22.797Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>b23.kim</name>
-    </author>
-    <category term="2⃣❌🌲🌲" scheme="https://www.b23.kim/tags/2%E2%83%A3%E2%9D%8C%F0%9F%8C%B2%F0%9F%8C%B2/"/>
-    <content>
-      <![CDATA[<p>不是哥们，静态你也打2.0</p><div align=center class="aspect-ratio"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115736282465594&bvid=BV1RcqLBtEt6&cid=34806498371&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><p><img src="https://i0.hdslb.com/bfs/mallup/mall/2x/x1/2xx13zyy11x010yzx02z0200ywzw3xw3.png" alt="站点数据概览"></p><p>我就知道他肯定还来。这次明显做了充足的准备，上来就给我灌了1.42亿次的请求。<br>起初我还没发现不对劲，直到我朋友提醒了我一下我才知道源站已经GG了。页面中间就显示个<code>This deployment is temporarily paused</code>。不过我忙于上学，就没来得及看这个报错是怎么回事，当时我初步估计是流量被刷光导致停止服务了。不过因为当时我对自己太过自信了，心想反正全静态都CDN直接缓存的数据不带变的，那么多攻击流量即使回源又能回多少呢？</p><p>等我中午到家一看，好家伙，把我下巴都惊掉了：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/03/w0/03w02zyz2yx3zx2zw3zxw2zxx213yzw3.png" alt="Usage"><br>我去？？？怎么给我干这么多流量，我对这个恐怖的数据感到不可思议。我想怎么全回源了，不是有CDN在挡刀吗，为什么源站还能被刷这么狠。我百思不得其解，按理来说不能产生这么多回源啊。</p><p>我想，要不投降吧。我想现在的当务之急是尽快恢复访问，避免影响读者。然后我就学二叉树树一样直接用EO的Pages来部署博客，就像vercel一样。于是我花了几分钟切过去了，重新部署了下证书。好，能用了。我就想那攻击者不就成小丑了，费半天劲两天统共给我打了600G给我源站干炸了，结果我切个提供商就又能恢复服务了，SB。反正现在源站都没了，而且我就一个html，您就慢慢刷去吧。</p><p>那么源站究竟是怎么回事呢？<br>直到……<br>我在学校自习课打开博客然后看了眼网络流量，好家伙我终于知道怎么回事了。<br>原来是twikoo后端API早在进入主站的时候就已经被加载了，于是就被攻击者顺势刷了一遍。这些动态API是走不了CDN缓存的。那我心态不就炸了呀，二叉树树这个博客好歹没后端服务，如果刷的API那他心态也得炸。那么好，现在压力来到我这边了。评论功能注定是要瘫痪一段时间了。太嘿了。<br>但是……<br>我还是觉得有点不对劲，因为twikooAPI的接口返回数据才多少点东西，顶多也就3kb吧？为什么还能这么狠。并且昨天和今天这两天EO控制台缓存命中率都挺高的（虽然说昨天我忘记看了只能看最近7天的了），总感觉有点蹊跷。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/2x/x02xw2w3w3w02yx0yy012z100110002w.png" alt="数据概览"><br>也能够发现其实也并不是一种能100%命中，还是有些直接打到源站上了。<del>况且vercel的waf挺垃圾的</del></p><p>继续来看流量占比，这次他们还升级了，又带了个荷兰来玩。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zy/yy/zyyyzzyx2wyxx001w2x1w113yw3y2wx3.png" alt="TG群"></p><p>并且他们还挑了个非常臭的时间来打：01:45。不知道是巧合还是什么，总之是来势汹汹。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/01/2y/012y022wx13x2zx200x22x01w3w1zww1.png" alt="EO统计"></p><p>甚至还是那种大带宽的访，将近3Gbps。这次是先打完二叉树树，然后过来打的我。我服了，真成苦命鸳鸯了。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w3/11/w311x1w001122xyyzy02ywyzyw2x0110.png" alt="访问带宽"></p><p>哎讲真，这都给我整出连续剧的那种感觉来了，天天《谁打了我》。倒是也挺好玩的，很有意思的一种感觉。二叉呢已经把它当成日常了，那我也应该能早点习惯吧（反正CDN又不限量）。不过我最担心的一点是腾讯别再玩不起给我EO封了，再不就是强制付费不然不给用那种。就目前来看的话离那一天好像还比较远。如果二叉树树那边有什么好的方法来避免或者缓解的话那我也会尝试去跟进一下的。现在来看，打二叉比打我可狠多了，我也真搞不懂，不理解意图到底是什么。</p><p>近期我会做些升级，主要是一些对象存储服务就怕攻击者刷这个，给我整几千欠费就完啦。针对这个问题我打算搬到专门负责npm和github镜像的CDN上面，解决一下当前存在的痛点和后顾之忧就差不多了。昨天的时候我看到被攻击真的担心来刷我存储桶，于是赶紧把外链改私有了。现在看网站其实有些样式和行为其实是崩的。嗯就这样。</p><hr><p>彩蛋：二叉树树之前被打的时候发了个视频《一刷一个 g 真好玩》，感兴趣可以去看一下：<br><a href="https://m.bilibili.com/video/BV1kFqGBaE2x?buvid=XX555B85A0775A5115A795CA9FB50EE233503&from_spmid=dt.space-dt.video.0&is_story_h5=false&mid=oGynjGGMBdUmghhDBv1HQw==&p=1&plat_id=114&share_from=ugc&share_medium=android&share_plat=android&share_session_id=c7c4cd87-d92b-46e1-8d6e-7079aaf93fea&share_source=COPY&share_tag=s_i&spmid=united.player-video-detail.0.0&timestamp=1766073843&unique_k=NSeYnmb&up_id=325903362">https://m.bilibili.com/video/BV1kFqGBaE2x?buvid=XX555B85A0775A5115A795CA9FB50EE233503&amp;from_spmid=dt.space-dt.video.0&amp;is_story_h5=false&amp;mid=oGynjGGMBdUmghhDBv1HQw==&amp;p=1&amp;plat_id=114&amp;share_from=ugc&amp;share_medium=android&amp;share_plat=android&amp;share_session_id=c7c4cd87-d92b-46e1-8d6e-7079aaf93fea&amp;share_source=COPY&amp;share_tag=s_i&amp;spmid=united.player-video-detail.0.0&amp;timestamp=1766073843&amp;unique_k=NSeYnmb&amp;up_id=325903362</a></p><a class="btn-beautify block left larger" href="http://www.b23.kim/details/61bc27e7ebba.html" title="上期回顾：本站成功遭受了第一次被打，记录这场22.84w次的请求攻击"><i class="far fa-hand-point-left"></i><span>上期回顾：本站成功遭受了第一次被打，记录这场22.84w次的请求攻击</span></a>]]>
-    </content>
-    <id>https://www.b23.kim/details/d22ffef72a2b.html</id>
-    <link href="https://www.b23.kim/details/d22ffef72a2b.html"/>
-    <published>2025-12-18T14:23:02.000Z</published>
-    <summary>
-      <![CDATA[<p>不是哥们，静态你也打2.0</p>
-<div align=center class="aspect-ratio">
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=1157362824655]]>
-    </summary>
-    <title>攻击者卷土重来，1.42亿次请求导致源站服务不可用</title>
-    <updated>2026-01-23T19:38:47.537Z</updated>
   </entry>
 </feed>
