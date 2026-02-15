@@ -10,7 +10,23 @@
   <rights>All rights reserved 2026, b23.kim</rights>
   <subtitle>碧而闪电尅挨么？</subtitle>
   <title>b23.kim</title>
-  <updated>2026-02-13T11:36:20.793Z</updated>
+  <updated>2026-02-15T05:03:58.196Z</updated>
+  <entry>
+    <author>
+      <name>b23.kim</name>
+    </author>
+    <content>
+      <![CDATA[<p>不知道你有没有这么一个疑问：bilibili里面到底几个l几个i？<br>有时候就连我也分不清这个，只能打这个词的时候默念哔——哩——哔——哩。虽然这一定程度上解决了可能会打错的问题，但是如果有时候打的急的时候因为里面很多重复字母，所以打快了有时候还是会错误打成bilibill或者是bililbili之类的情况。而且最关键的是，太麻烦了。看起来复杂……尤其是在输入域名bilibili.com的时候，打错一个字母都不行，重打浪费时间<del>(然后你就会忘记打开B站要做什么)</del></p><p>那么有没有什么方法解决这个输入痛点呢？<br>有的兄弟，有的。</p><p>得益于我的b23.kim天生自带B站特色元素，所以我可以很轻松的开一个二级来专门跳转B站用。<br>所以，<code>b.b23.kim</code>就应运而生了，你可以直接在浏览器内输入这一串来快速到达B站。记忆成本和难度比B站官方的域名低——至少能看出来自己输入的什么。<br>一个B(子域名)，简洁有力。二个B(前缀b23)，辅助记忆。同时搭配上B站的2233娘，于是就有了b.b23。也就是说你甚至只需要记一个kim就行了，也总比一堆l一堆i混在一起要可视的多吧。还不错。</p><p>目前这个域名只是跳转了B站主站，任意目录都是。<br>如果我有时间的话可以加个目录的功能啥的，比如某个目录跳动态，某个跳主页和视频……</p><p>当然了，这是一项公益服务，旨在方便自己和被bilibili域名困扰了许久的人。<br>如果你有任何的功能建议或者看法欢迎告诉我！我们后面的开发见。</p>]]>
+    </content>
+    <id>https://www.b23.kim/details/c642d4791f62.html</id>
+    <link href="https://www.b23.kim/details/c642d4791f62.html"/>
+    <published>2026-02-15T04:48:45.000Z</published>
+    <summary>
+      <![CDATA[<p>不知道你有没有这么一个疑问：bilibili里面到底几个l几个i？<br>有时候就连我也分不清这个，只能打这个词的时候默念哔——哩——哔——哩。虽然这一定程度上解决了可能会打错的问题，但是如果有时候打的急的时候因为里面很多重复字母，所以打快了有时候还是会错误打成bilibi]]>
+    </summary>
+    <title>所以我搞了b.b23.kim</title>
+    <updated>2026-02-15T05:03:58.196Z</updated>
+  </entry>
   <entry>
     <author>
       <name>b23.kim</name>
@@ -339,21 +355,5 @@
     </summary>
     <title>ICP/公安备案相关shields.io标识解决方案</title>
     <updated>2025-12-21T15:57:06.745Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>b23.kim</name>
-    </author>
-    <content>
-      <![CDATA[<p>OK啊，终于也是成功被阿瓦隆系统给气到了，所以我要发一篇来稍微吐槽一下。<br>首先阿瓦隆是什么？它是你的B站吞评小助手，能在不经意间偷走你的评论并且让你蒙在鼓里，真是贴贴又心心啊（咬牙切齿）<br>它最让人生气的一点是剥夺了用户的知情权，自己评论发了不知道命中了哪些奇奇怪怪的“违规点”，然后就给你ShadowBan了。营造出自己好像已经评论了但其实别人根本就看不到的假象。<span class="hide-inline"><button type="button" class="hide-button" style="">Click</button><span class="hide-content">（信 息 茧 房）</span></span><br>并且它有时候可能还会标记你的账号，让你啥都发不出。</p><p>为什么会这样？<br>我个人简单分析来说就是B站和用户斗智斗勇的一个所必然的结果和趋势。现在上网成本变得很低，网民素质这块简直是参差不齐。为了避免影响到大部分用户的使用体验，所以B站要想到这种控评方式。（实测有时候是真保护了个寂寞）并且还宁可错杀也不能放过一个。所以说我个人认为这是趋同进化的一个结果，很恶心。</p><p>问题出在了哪一环？<br>无论是用户侧还是平台侧都有责任，于是才构成了这种惊天大漏勺。<br>用户方面能真正做到理性思考，求真务实的占比还是太少了。简言之就是“说话不过脑子”。认知差距啥的暂且先不提，问题真的太多了。<br>比如说：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w0/zx/w0zxyy11x03x022zx23x022w0303yx2y.jpg" alt="Guess:万物皆为一"><br>给我看力竭了。。。</p><p>至于平台，反正就挺……那啥的。这样搞的跟赛博文字狱似的。而且似乎B站对这套东西特别自信。（确实能省成本谁还管那些啊）<br>我就只是想吐槽一下而已，还是希望B站能进一步优化减少误吞率吧。就目前来看，还很远。而且这个问题在绝对层面上不可解，只能相对意义上的提升。</p><p>有何影响？<br>这就是我要写这篇文章的原因了，真的太影响体验了。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/w1/x2/w1x22z12yw10133zx2122z2x1100yxyy.png" alt="B站吞评"><br><img src="https://i0.hdslb.com/bfs/mallup/mall/zz/x1/zzx1zww12z0102x0yz2w3z013y0313yw.png" alt="评吞站B"></p><p>大概就这样，很让人恼火真的。要是遇到那种写半天结果发出去就被删还要重新打一遍的情况那真的就血压炸了。</p><p>那我们又该怎么办？如果这个评论很重要的话建议多检查检查，防止被诡计多端的阿瓦隆给静默吞了。或者如果没啥特别重要的话要说建议直接不评论，如果不评论它就没机会去删和仅自己可见了<span class="hide-inline"><button type="button" class="hide-button" style="">Click</button><span class="hide-content">（真是一个完美的心理防线啊）</span></span>。这就是目前的版本“最佳实践”。有条件的还可以安装xposed模块来解决，虽然它可能不能完全解决别人看不见自己评论的问题，最起码也能让我们做到心中有数，防止被欺骗。<br><em>欢迎来到，阿瓦隆时代。</em></p>]]>
-    </content>
-    <id>https://www.b23.kim/details/80937fabeb0a.html</id>
-    <link href="https://www.b23.kim/details/80937fabeb0a.html"/>
-    <published>2025-12-21T12:42:43.000Z</published>
-    <summary>
-      <![CDATA[<p>OK啊，终于也是成功被阿瓦隆系统给气到了，所以我要发一篇来稍微吐槽一下。<br>首先阿瓦隆是什么？它是你的B站吞评小助手，能在不经意间偷走你的评论并且让你蒙在鼓里，真是贴贴又心心啊（咬牙切齿）<br>它最让人生气的一点是剥夺了用户的知情权，自己评论发了不知道命中了哪些奇奇怪]]>
-    </summary>
-    <title>吐槽一下B站阿瓦隆系统，真的太人机了</title>
-    <updated>2025-12-21T14:07:04.453Z</updated>
   </entry>
 </feed>
