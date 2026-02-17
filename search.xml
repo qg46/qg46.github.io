@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>B站新漏：工作列表里暗藏的缺字漏字问题</title>
+      <link href="/details/7aa25878b376.html"/>
+      <url>/details/7aa25878b376.html</url>
+      
+        <content type="html"><![CDATA[<p>最近我闲的无聊，去哔哩哔哩客户端里的“加入我们”看了一圈，想看看中厂招工都是什么样子的。当然我比较适合技术类的岗位，首当其冲的去看这个了肯定。<br>不看不知道，一看全是漏。<br>目标链接：<a href="https://www.bilibili.com/html/join-list.html">https://www.bilibili.com/html/join-list.html</a><br>让我们开始吧</p><hr><p>我好奇这个地方没人读一遍的吗，有没有问题也没人看出来（或者看出来了却一直没人改）。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zz/2y/zz2y3zzz3z2w2xx1x21112w30003yx11.png" alt="缺字漏字"><br>不是哥们，这也太离谱了吧。<br><strong>进行快速迭</strong>(代) 和 <strong>善于团队合</strong>(作) 你是真的一个字也不多打啊，“不影响理解”被你给玩明白了。</p><p>这可不是我改的哈，你们自己去看也是如此（也不知道啥时候修）<br>一开始我怀疑是我自己设备问题导致显示不全，再者是像之前腾讯那样样式问题倒是看不见存在。（腾讯的版本：<a href="https://www.b23.kim/details/2692ea021e57.html%EF%BC%89">https://www.b23.kim/details/2692ea021e57.html）</a><br>于是我就按下F12看究竟是怎么回事：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2y/13/2y1313x1zww212w112x3w3w03w02yw03.png" alt="代码层面的真相"><br>没错，这真的就是纯物理层面的缺字，不是样式问题，不是显示问题，也不是设备问题。<br>那可就太有意思了……</p><p>当然，我估计肯定不止这一个地方漏的。<br>既然被我引出了这个头了，那我不得好好扒一扒。看看别的岗位的详情页是不是也缺东西。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x1/yz/x1yzx11210x101w0zw03zx3w00w32yx3.png" alt="谁写的文案"><br>哈哈果然。这里问题依然是最后一个字缺字，内容应该是：<br><strong>合作关</strong>(系) <strong>合理规划的能</strong>(力)</p><p>下面的这个地方，怎么说呢。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x0/yy/x0yyyz1303zwzzyww2w2w1zw03w1yy03.png" alt="这又是谁写的文案"><br>表现不错，但是为什么偏偏这个最后一条漏字的，可惜了。<br>原本应该是：<strong>愿意承担较大工作压力和挑</strong>(战)</p><p>接下来这个，虽然不是缺字，但是也很能看出来TA的心理了。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2w/w2/2ww23x2x02zx2w2z3xw0x3yy012xyx10.png" alt="“下一个我要写啥来着？”"><br>仔细看我框起来的那个位置，最后一个顿号是个细节。按理说到达最后一个名词应该就结束了，那么为什么这里还会有一个顿号呢？<br>那是因为写这个文案的觉得还没结束还有要写的东西，但是又想不起来下一个该写什么了，于是这个末尾顿号就放在这里没再管了。</p><p>那么这个呢？也是非常可惜，只有一个错误。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yx/x3/yxx3w112013x2y3z012z113zx0w111x3.png" alt="那看起来算法很优了"><br>如果这个错误改了那么它也是一个非常完美的详情，太可惜了。<br><strong>竞价算法优</strong>(化)是吧。</p><p>团结就是力量.jpg(哈哈)<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3y/w0/3yw0130300x2zyx0yxw2yxw23wzz112x.png" alt="团结友：团结的友"><br>这里应该都知道它编辑想要表达什么，但是这里缺个字总感觉怪怪的。<br><strong>团结友</strong>(爱)</p><p>OK到了测试开发工程师的环节了。上面我已经从最开始写了“测试开发工程师”作为引子了，不再重复。但这次来看看移动端测试开发工程师的又有多离谱吧。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/2w/3y/2w3y101302w10300w03y100011zzx010.png" alt="可能是同一个人写的"><br>两处错误，见怪不怪了。<br><strong>能够协助研发定位问</strong>(题)  <strong>有开发经验者优先考</strong>(虑)</p><p>如果上面只是小疏漏而导致的漏字，那么下面这个堪称信息丢失的典范。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/yx/x2/yxx22yyz01w3yyzzyx2w01w0yyyy10yz.png" alt="老谜语人了"><br>到底具备什么你倒是说啊，光写个“具备”然后就没啦？？？？</p><p>这个也难评，和之前一样。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zw/2x/zw2x03w0yzx23x2z03zzw301yw2w0010.png" alt="“和展”是什么"><br>“推荐和展”我直接绷不住了，哈哈哈。<br>给你纠正下：<strong>负责科技领域相关内容的推荐和展</strong>(示)，还有 <strong>有动漫行业相关经验者优</strong>(先)</p><p>神 秘 点<br><img src="https://i0.hdslb.com/bfs/mallup/mall/zx/2x/zx2xyxyxx1013y12yx021011x012w3x0.png" alt="“我要干啥来着？”"><br>这里看起来应该有第五条，但是呢我们的编辑给它吃了，于是就只剩个标记点了。<br>缺失一整条我也是给你编不出来你要表达什么了，也有可能是原本只有四条但是习惯先标点再写然后一不小心标多了一个也不是没可能。</p><hr><p>OK目前就先发现这么多（B站这些职位的详情我全看了一遍），如果有疏漏欢迎告诉我！<br>总结一下，B站这个漏勺可能都存在好几年了，竟然没人提？（也有可能提了但是没人理或者没排到）当然了，公司里面人员变动那么大，而且都那么长时间了估计原本写这些内容的人早就离职了。<br><del>于是我就会变成B站的质量保障部门里免费打白工的了</del></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>所以我搞了b.b23.kim</title>
       <link href="/details/c642d4791f62.html"/>
       <url>/details/c642d4791f62.html</url>
