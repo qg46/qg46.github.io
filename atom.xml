@@ -10,13 +10,23 @@
   <rights>All rights reserved 2026, b23.kim</rights>
   <subtitle>碧而闪电尅挨么？</subtitle>
   <title>b23.kim</title>
-  <updated>2026-03-10T13:29:56.380Z</updated>
+  <updated>2026-03-12T05:46:55.849Z</updated>
+  <entry>
+    <author>
+      <name>b23.kim</name>
+    </author>
+    <id>https://www.b23.kim/details/70139985e189.html</id>
+    <link href="https://www.b23.kim/details/70139985e189.html"/>
+    <published>2026-03-12T05:46:55.000Z</published>
+    <title>春考C语言的四大金刚：回文数、水仙花数、素数和单行文本的输入与判断</title>
+    <updated>2026-03-12T05:46:55.849Z</updated>
+  </entry>
   <entry>
     <author>
       <name>b23.kim</name>
     </author>
     <content>
-      <![CDATA[<p>今天我在学校上晚自习，然后在机房里刷题。其中有一套C语言题最后一道编程题很有意思，简单记录一下。</p><p>记得那个题目是这样的：</p><blockquote><p>输入一本书的页码，第一天读40页，后续每天多读5页。问多少天能读完，最后一天读了多少页。</p></blockquote><p>这是一个很经典的应用题。标准写法应该是……呃我没看好像。<br>当时的我想要挑战不看答案，自己独立解题。就这样头脑风暴了10分钟以后，最终我“原创”出来了这么一套代码：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> pages,read=<span class="number">40</span>,i=<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;pages);</span><br><span class="line">    <span class="keyword">while</span>(pages &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        pages -= read;</span><br><span class="line">        read += <span class="number">5</span>;</span><br><span class="line">        i++;</span><br><span class="line">        <span class="keyword">if</span>(pages - read &lt;=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;days=%d,  last=%d&quot;</span>,i,pages);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这太抽象了，可能只有我能看懂哈哈。<br>我来解释一下这到底是怎么回事：<br>1.首先，输入一本书的页面<br>2.当 要读的页数 大于零的情况下<br>3.剩余页数是当前页数减去今天读的页数<br>4.今天读的页数+5，预加载明天要读的页数<br>5.天数增加<br>我们把每一次的循环看作每一天所要执行的阅读任务，前面都看起来没问题是吧，奇怪的是如果只写那五步的话结果会出现一个负数。<br>就在我以为这样写根本行不通想要去找答案的时候，我才终于意识到可能是因为循环边界问题，在差点进入下一次不满足while条件的情况下多计算了一次导致减超。</p><p>于是我想出了一个很精妙的办法：<strong>在while里最后加一行预测明天的代码</strong>。这是最抽象的，也是整个代码里最神的地方。我的思路是既然知道一定会被减超，那我直接在最后检查明天会不会减超不就行了。如果下一天的阅读超过了整本书的页数（减出负数），直接退掉循环让它不会进入下一天。<br>在这之前，已经+5了，代表下一天的任务。而且pages在这之前已经被减完了，所以这里的pages和read变量都表示明天了，在明天(下一次循环)实际到来之前就预检，达到“预测”的目的。<br>（我不行了我都快被自己给说绕了）</p><p>另外你可能会注意到初始化赋值语句里的i=1那块。那为什么非得等于1，而不是0或者其他？<br>这里如果不加1的话最终计算出来的天数会少一天，因为是剩最后几页的时候预检明天了，明天并未真正到来（到来了会减超成负数）。所以需要初始化的时候把那一天给补回来。<br>最终pages被减的差不多了，就是最后那一天剩下的量了。</p><p>那话又说回来了，这里while循环的条件其实可以直接写true或1。表示时间可以无限增长，在无限的时间里做出有限操作这个逻辑依然是成立的，因为做完了就不做(break)了。<br>总之就这样，好好欣赏一下我的课上小设计吧。</p>]]>
+      <![CDATA[<p>今天我在学校上晚自习，然后在机房里刷题。其中有一套C语言题最后一道编程题很有意思，简单记录一下。</p><p>记得那个题目是这样的：</p><blockquote><p>输入一本书的页码，第一天读40页，后续每天多读5页。问多少天能读完，最后一天读了多少页。</p></blockquote><p>这是一个很经典的应用题。标准写法应该是……呃我没看好像。<br>当时的我想要挑战不看答案，自己独立解题。就这样头脑风暴了10分钟以后，最终我“原创”出来了这么一套代码：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> pages,read=<span class="number">40</span>,i=<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;pages);</span><br><span class="line">    <span class="keyword">while</span>(pages &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        pages -= read;</span><br><span class="line">        read += <span class="number">5</span>;</span><br><span class="line">        i++;</span><br><span class="line">        <span class="keyword">if</span>(pages - read &lt;=<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;days=%d,  last=%d&quot;</span>,i,pages);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这太抽象了，可能只有我能看懂哈哈。<br>我来解释一下这到底是怎么回事：<br>1.首先，输入一本书的页数<br>2.当 要读的页数 大于零的情况下<br>3.剩余页数是当前页数减去今天读的页数<br>4.今天读的页数+5，预加载明天要读的页数<br>5.天数增加<br>我们把每一次的循环看作每一天所要执行的阅读任务，前面都看起来没问题是吧，奇怪的是如果只写那五步的话结果会出现一个负数。<br>就在我以为这样写根本行不通想要去找答案的时候，我才终于意识到可能是因为循环边界问题，在差点进入下一次不满足while条件的情况下多计算了一次导致减超。</p><p>于是我想出了一个很精妙的办法：<strong>在while里最后加一行预测明天的代码</strong>。这是最抽象的，也是整个代码里最神的地方。我的思路是既然知道一定会被减超，那我直接在最后检查明天会不会减超不就行了。如果下一天的阅读超过了整本书的页数（减出负数），直接退掉循环让它不会进入下一天。<br>在这之前，已经+5了，代表下一天的任务。而且pages在这之前已经被减完了，所以这里的pages和read变量都表示明天了，在明天(下一次循环)实际到来之前就预检，达到“预测”的目的。<br>（我不行了我都快被自己给说绕了）</p><p>另外你可能会注意到初始化赋值语句里的i=1那块。那为什么非得等于1，而不是0或者其他？<br>这里如果不加1的话最终计算出来的天数会少一天，因为是剩最后几页的时候预检明天了，明天并未真正到来（到来了会减超成负数）。所以需要初始化的时候把那一天给补回来。<br>最终pages被减的差不多了，就是最后那一天剩下的量了。</p><p>那话又说回来了，这里while循环的条件其实可以直接写true或1。表示时间可以无限增长，在无限的时间里做出有限操作这个逻辑依然是成立的，因为做完了就不做(break)了。<br>总之就这样，好好欣赏一下我的课上小设计吧。</p>]]>
     </content>
     <id>https://www.b23.kim/details/eb5ad4c3b4ae.html</id>
     <link href="https://www.b23.kim/details/eb5ad4c3b4ae.html"/>
@@ -28,7 +38,7 @@
 <p>输入一本书的页码，第一天读40页，后续每天多读5页。问多少天能读完，最后一天读了多少页。</p>]]>
     </summary>
     <title>关于我在学校写的抽象代码这回事</title>
-    <updated>2026-03-10T13:29:56.380Z</updated>
+    <updated>2026-03-10T13:45:17.379Z</updated>
   </entry>
   <entry>
     <author>
@@ -338,23 +348,5 @@
     </summary>
     <title>论腾讯那些离谱的错字漏字</title>
     <updated>2026-01-18T10:50:30.483Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>b23.kim</name>
-    </author>
-    <category term="嘿壳" scheme="https://www.b23.kim/tags/%E5%98%BF%E5%A3%B3/"/>
-    <content>
-      <![CDATA[<p>好久一段时间之前，我制作了这么一个表情包：</p><p>实际上它早在NC框架用户被大规模入侵之前就已经有了。只不过后面我又拿出来用用罢了。<br>然后就被人转发了，我记得配文好像还是“看到一个梗图，笑死我了”，还有直接单发这张图的。总之我终于是把这张图给“送”出去了。</p><hr><p>就这样，故事到现在又有了新转机。我们的草台腾讯的任意发系统消息漏洞被嘿壳给挖出来了。<br>实际上有两个版本，第一个早就和谐了，第二个有人研究出来并且也有人直接公开了。</p><p>然后我们就去狠玩了。有类似下面这样的：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x2/yw/x2yw2z022z132yx21310002z2z11yw13.jpg" alt="安全中心：我不背这个锅"></p><p>就这样，元旦3天假期里一群嘿壳到处发这玩意。（太坏了）<br>元旦三天假期的最后一天夜里，腾讯紧急加班把它修复了，现在已经发不了了。</p><p>这件事就这样草草结束了……吗？</p><hr><p>在这三天里，是QQ最黑暗的那3天。因为它恢复了以往几乎没啥防御的群魔乱舞。<br>这段时间里，涉政的，诈骗的（即使可能只是在开玩笑）都来了。</p><p>记得刚开始的时候，是A开头的那个群的那个组织研究出来的，不知怎的就在tg公开了：</p><blockquote><p>灰子被再次复活，可能是嘿壳模块作者复活，也可能是被嘿壳模块外群某个人在测试机器人中无意间复活，具体尚不清楚，如果不希望被挂在本频道私信删除</p></blockquote><p>然后就……</p><blockquote><p>我们注意到灰字被用于黑产等违法用途，我们已将关于此漏洞的所有信息删除，奉劝大家不要再发，玩要有限度</p></blockquote><p>果然，我就知道肯定会有一堆滥用的。之前的时候我就用这玩意在小学生互撕对骂群里发了个“该群已被群主解散”的系统通知提示。一开始真的有人信，一堆发问号的。后面发多了大家都免疫了也就都不信了。<br>大概关于第二版灰字的故事就这么多。</p><hr><p>至于第一版灰字，最开始是王二狗发现的。后面他看到某个大群里有人发一模一样的模板消息，于是就发现了泛滥，最终决定自己公开。</p><blockquote><p>所以王二狗释放了他的灰字PB</p></blockquote><p>当然了，发的多了最终也当然被和谐了。实际上任何漏洞的最终归宿都是修复。<br>直到跨年的时候，也就是元旦，这个已经和谐了的第一版的模板<strong>又能正常发出去了</strong>。<br>于是我就在我朋友的群里发了一下：</p><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css"       integrity="sha512-ZfKn7az0YmtPUojZnRXO4CUdt3pn+ogBAyGbqGplrCIR5B/tQwPGtF2q29t+zQj6mC/20w4sSl0cF5F3r0HKSQ=="       crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/ChatRoom/main2.css" /><script src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/ChatRoom/main24.js"></script><div id="chat-box-1"      data-json-file="https://cdn.jsdelivr.net/gh/b23-kim/blog@main/static/ChatRoom/data/SysPBMSgChat01_1.json"     data-templates-url="https://qzbot.s3.bitiful.net/ARKTemplates/"     data-my-avatar="http://qh.qlogo.cn/g?b=qq&ek=AQQtB4SHJPafHuehltnMae91t0ibtqDdFnChWkneUU1d2wYcNKF37HicyAzOW3wU3ICY4pjSrbqERoiaOtUMpD3ibXvYbLoURbV9TQmicjMj75dbeloTottx1ibhMCd4owSA&s=640"     data-title="请输入文本(64)"     data-hide-avatar="false"     style="max-width:440px; margin:auto;"></div><p>于是就被他上楼找腾讯修复了（悲）<br>第一版和谐了然后又释放了还没半小时就因为我往朋友群里发了一下就弄没力（寄）</p><hr><p>终于啊，俩都修复了。省的再被别人滥用。<br>之前我说过要在博客给灰字搞一个 <strong>赛博灵堂</strong> 的，一直没功夫搞。王二狗还因为这个催过我来着（虽然只是一时兴起根本没功夫搞罢了）</p><p>在第二版灰字和谐以后的第二天，也就是元旦结束的那个星期日晚上8:00左右，腾讯调用了群主号来批量撤回之前嘿壳们发过的灰字。</p><div id="chat-box-2"      data-json-file="https://cdn.jsdelivr.net/gh/b23-kim/blog@main/static/ChatRoom/data/SysPBMsgAutoWithdrawOwner_2.json"     data-templates-url="https://qzbot.s3.bitiful.net/ARKTemplates/"     data-my-avatar="http://qh.qlogo.cn/g?b=qq&ek=AQQtB4SHJPafHuehltnMae91t0ibtqDdFnChWkneUU1d2wYcNKF37HicyAzOW3wU3ICY4pjSrbqERoiaOtUMpD3ibXvYbLoURbV9TQmicjMj75dbeloTottx1ibhMCd4owSA&s=640"     data-title="修猫头的小窝(1391)"     data-hide-avatar="false"     style="max-width:440px; margin:auto;"></div><p>然后没多久，翅膀就告诉我我们要完了。<br>腾讯要因为这个一刀切了，就像上次NC框架被黑一样。理由是“非法数据包”。<br><img src="https://i0.hdslb.com/bfs/mallup/mall/3x/x2/3xx2yyx0yyyxzx3z2w3xx1zyyyzw3zw0.jpg" alt="腾讯这招太狠了"></p><p>不过这都1月9号了，我还没被罚。看样子要么事情已经过去了要么量太大罚不完（笑）<br>谁知道呢。</p><hr><p>不是哥们，为什么灰字还有啊。这特么都和谐两个版本了，腾讯能不能别太离谱。<br>这次不一样的是需要发前置包，不然只能自己看到。原理未知，挺神奇的。<br>倒是电脑端一定看不到，只有移动端设备才能看。为了保持平衡，我决定联系好友去腾讯总部线下反馈了。目前没太多滥用，他们也就在大群发了一个“该群聊已被群主解散”和“大冰纯人机”这俩。我想一定会遭滥用的，但是我朋友说还没引发滥用腾讯应该不会管。因为上次QQ秀的系统消息能刷屏都没人修。。只能说腾讯，不愧是你。</p><p>原本我以为B站漏洞多，怎么腾讯想要加冕为王了。</p><hr>]]>
-    </content>
-    <id>https://www.b23.kim/details/132faaf69003.html</id>
-    <link href="https://www.b23.kim/details/132faaf69003.html"/>
-    <published>2026-01-04T16:00:58.000Z</published>
-    <summary>
-      <![CDATA[<p>好久一段时间之前，我制作了这么一个表情包：</p>
-<p>实际上它早在NC框架用户被大规模入侵之前就已经有了。只不过后面我又拿出来用用罢了。<br>然后就被人转发了，我记得配文好像还是“看到一个梗图，笑死我了”，还有直接单发这张图的。总之我终于是把这张图给“送”出去了。</]]>
-    </summary>
-    <title>社交功能被嘿壳嘿提醒</title>
-    <updated>2026-01-09T09:04:07.174Z</updated>
   </entry>
 </feed>
