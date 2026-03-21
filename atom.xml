@@ -10,7 +10,24 @@
   <rights>All rights reserved 2026, b23.kim</rights>
   <subtitle>碧而闪电尅挨么？</subtitle>
   <title>b23.kim</title>
-  <updated>2026-03-17T17:25:14.474Z</updated>
+  <updated>2026-03-21T10:57:20.670Z</updated>
+  <entry>
+    <author>
+      <name>b23.kim</name>
+    </author>
+    <content>
+      <![CDATA[<div align=center class="aspect-ratio"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115391409952617&bvid=BV1PYWHzCEjE&cid=33166656199&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div><h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><p>安装模拟器和系统，一般在第一次安装模拟器的时候打开会自动装一个。<br>你必须确保自己有一个模拟器实例</p><p>至于安装过程中需要的材料，下面会给出</p><h1 id="安装面具"><a href="#安装面具" class="headerlink" title="安装面具"></a>安装面具</h1><p>去设置开启 <code>Root</code> 和 <code>可写系统盘</code>。</p><p>然后去 <a href="https://github.com/ayasa520/Magisk/releases/tag/canary-30403">https://github.com/ayasa520/Magisk/releases/tag/canary-30403</a> 下载fork版的面具<br>安装，打开后给予Root权限(选永久允许)。</p><p>因为安卓模拟器的特殊性，常规方法无法安装。这个版本做了兼容，选择“Direct Install to System”(直接安装到系统)即可。<br>由于初始化时机问题，选择安装的时候可能并没有这个入口。从顶上叉掉面具的进程再重新打开就行<br>这一步依赖系统盘可写，如果你忘记开的话安装的时候会报错：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- Device platform: x86_64</span><br><span class="line">- Installing: f9f02c65 (30403)</span><br><span class="line">****************************</span><br><span class="line">Magisk Delta (System Mode)</span><br><span class="line">by HuskyDG</span><br><span class="line">****************************</span><br><span class="line">******************</span><br><span class="line">Powered by Magisk</span><br><span class="line">******************</span><br><span class="line">- Remount system partition as read-write</span><br><span class="line">! Installation failed</span><br><span class="line">! System partition is read-only</span><br></pre></td></tr></table></figure><p>看最后三行，表示系统只读，无法应用修改。<br>这个问题是最好解决的，直接去设置打开可写系统就好</p><p>如果你看到以下输出就代表安装成功了</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- Device platform: x86 64</span><br><span class="line">- Installing: f9f02c65 (30403) </span><br><span class="line">****************************</span><br><span class="line">Magisk Delta (System Mode) </span><br><span class="line">by HuskyDG</span><br><span class="line">****************************</span><br><span class="line">******************</span><br><span class="line">Powered by Magisk </span><br><span class="line">******************</span><br><span class="line">- Remount sys tem partition as read-write </span><br><span class="line">- Cleaning up enviroment </span><br><span class="line">- Copy files to system partition </span><br><span class="line">- Check if kernel suppor ts dynamic SELinux Policy patch </span><br><span class="line">- Add init boot script </span><br><span class="line">[*] Reflash your ROM if your ROM is unable to start and do not use this method to install Magisk</span><br><span class="line">- All done! </span><br><span class="line">- Unale to find preinit dir</span><br></pre></td></tr></table></figure><p><strong>不要点Magisk里的重启！要从MuMu的设置菜单里面重启</strong><br>(当然，如果你点Magisk的“重启”按钮的话大概率没啥反应)</p><p>重新启动以后，打开面具如果没意外的话会显示已安装。<br>视频作者说现在已经支持在magisk manager里面直接更新，仍然选择直接安装到system即可</p><h1 id="安装LSposed"><a href="#安装LSposed" class="headerlink" title="安装LSposed"></a>安装LSposed</h1><p>下载：<a href="https://github.com/LSPosed/LSPosed/releases/tag/v1.9.2">https://github.com/LSPosed/LSPosed/releases/tag/v1.9.2</a><br>我装的1.9.2版本，亲测没有问题。不一定非得追求Lastest(最新)，为了避免折腾选个能用就行的版本就好。<br>选择带“Zygisk”的文件下载，不要下riru的</p><p>然后通过共享文件夹传给模拟器<br>共享文件夹一般在 <code>“文档”/MuMu共享文件夹</code> ，当然你也可以自己手动指定一个目录（假设原来的目录模拟器程序无法访问或者有问题的情况下可以重新指定）<br>PS：我试过，用LocalSend通过链接分享传不过去，内置浏览器下载会失败，不知道怎么回事。总之用内置的共享文件夹是最稳定的方法</p><p>面具里面安装模块，选安卓侧的共享文件夹里的模块文件就行了。<br>别忘了去Magsik设置里面开启Zygisk，重启以后下拉通知栏里面就是Lsposed的入口了。你可以创建一个桌面快捷方式</p><h1 id="一些需要注意的点"><a href="#一些需要注意的点" class="headerlink" title="一些需要注意的点"></a>一些需要注意的点</h1><p>如果你安装的模块需要启动本地服务器的话，别忘了去MuMu的模拟器设置里面把网络改成<strong>桥接模式</strong>。<br>默认情况下是NAT过去的，模拟器是独立的网络。桥接模式就是为了让模拟器的网络共享电脑网卡，这样内外就都能访问模拟器里面的服务器了。</p><p>然后应该没了，想不起来了</p>]]>
+    </content>
+    <id>https://www.b23.kim/details/c46ddc482f29.html</id>
+    <link href="https://www.b23.kim/details/c46ddc482f29.html"/>
+    <published>2026-03-21T10:20:05.000Z</published>
+    <summary>
+      <![CDATA[<div align=center class="aspect-ratio">
+<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115391409952617&bvid=BV1PYWHzCEjE&]]>
+    </summary>
+    <title>MuMu模拟器安装Magisk和Lsposed教程</title>
+    <updated>2026-03-21T10:57:20.670Z</updated>
+  </entry>
   <entry>
     <author>
       <name>b23.kim</name>
@@ -336,23 +353,5 @@
     </summary>
     <title>b23域名断代史，已知后缀的注册情报收集</title>
     <updated>2026-02-17T04:38:54.420Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>b23.kim</name>
-    </author>
-    <category term="2⃣❌🌲🌲" scheme="https://www.b23.kim/tags/2%E2%83%A3%E2%9D%8C%F0%9F%8C%B2%F0%9F%8C%B2/"/>
-    <content>
-      <![CDATA[<div align=center class="aspect-ratio"><iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115923365138566&bvid=BV1LzkGBYEe6&cid=35492859698&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>OK啊，我们的大工信部的网站也没有逃过被人打/服务器内部错误/访问人数大……总之各种原因引发的拒绝服务。前段时间我在外面用手机看https://beian.miit.gov.cn/ 的时候就总感觉莫名其妙的好像很卡的感觉，没想到是初见端倪了。<p>于是下面就是现在它的样子，也就是我写稿的时候：<br><img src="https://i0.hdslb.com/bfs/cm/11f9b2066b583da500465adbabc6e86375cc5a1f.png" alt="响应时长"><br>你就看这响应吧，竟然整整过了近20秒？！<br>要知道，国内网站几乎是秒开的，响应不会超过10ms。这20秒简直恐怖。</p><p>于是二叉在群里发出了尖锐的爆鸣声：<br><img src="https://i0.hdslb.com/bfs/cm/e97be29865bbcb3c492b82842c4e0dd198c8bc11.png" alt="这扯不扯"></p><p>然后我又去试了遍，发现响应时间直接来到了28秒！<br><img src="https://i0.hdslb.com/bfs/cm/f58f83252bd39c6014783b1384689f92550ec09f.png" alt="28秒响应"></p><p>我是真的服了，这还是能用的状态。不能用的时候拒绝服务那种，要是遇到个备案的要短信核验，然后短信有效期只有一天。这你怎么整？这就体现出灾备的重要性了。强烈建议他们搞个备用验证方案，一个不行换另一个。再不就是把这唯一的验证通道给整好，整安全点，最起码别让别人用不了就行。<br>好神奇的现实世界</p>]]>
-    </content>
-    <id>https://www.b23.kim/details/e9ae2e219020.html</id>
-    <link href="https://www.b23.kim/details/e9ae2e219020.html"/>
-    <published>2026-01-20T05:45:01.000Z</published>
-    <summary>
-      <![CDATA[<div align=center class="aspect-ratio">
-<iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115923365138566&bvid=BV1LzkGBYEe6&]]>
-    </summary>
-    <title>不是，工信部网站怎么还能爆炸的</title>
-    <updated>2026-01-23T19:39:03.564Z</updated>
   </entry>
 </feed>
