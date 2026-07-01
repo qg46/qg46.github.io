@@ -10,7 +10,24 @@
   <rights>All rights reserved 2026, b23.kim</rights>
   <subtitle>What I think form here.</subtitle>
   <title>b23.kim</title>
-  <updated>2026-06-24T15:41:33.475Z</updated>
+  <updated>2026-07-01T15:14:14.920Z</updated>
+  <entry>
+    <author>
+      <name>b23.kim</name>
+    </author>
+    <content>
+      <![CDATA[<p>我是真的服了腾讯了，机器人开的企业吗。</p><p>最近我在迁移博客的图床，不想用B站了防止给我卷图跑路。于是我研究腾讯云对象存储加签名保护。<br>他们不是有个在线签名工具吗：<a href="https://cos.cloud.tencent.com/tools/cos?tab=sign">https://cos.cloud.tencent.com/tools/cos?tab=sign</a></p><p>但是，<strong>重点来了</strong>。<br>它不是有个HttpParameters(选填)吗，这个验证允许你加额外参数进签名里，可以用来身份标识之类的。但它是<code>不会</code>给你<code>重排</code>的。也就是你传进去什么样，它签出来就是什么样。<br>比如你填 renji=hacker&amp;chibang=dabing 是吧。<code>r</code>开头的在前，<code>c</code>开头的在后。它生成签名就根本不按字典序排，而是按照你手动输入的顺序。</p><p>坑点就在于，这个和 chibang=dabing&amp;renji=hacker 按字典序排的参数拿到的<strong>签名结果是不一样</strong>的。<br>在COS鉴权侧，它又会<strong>强制按字典序排参数</strong>来验签。那这又会发生什么呢？你拿非字典序参数出来的签名，去请求对象存储，然后人家对象存储又强制按字典序验签。就会出现你签名即使是正确的，但是参数列表没按字典序排，验证出来也是错的。<br>我靠，腾讯没点大病是真做不出来这个，左右脑互搏了。害的我因为这个卡几小时排不出来问题。</p><p>所以我提醒一下各位，HttpParameters的<code>参数名</code>一定要按字典序排，要不然就会出现生成出来签名即使是正确的也过不了验证的情况。。。。</p>]]>
+    </content>
+    <id>https://www.b23.kim/details/0aed3419045d.html</id>
+    <link href="https://www.b23.kim/details/0aed3419045d.html"/>
+    <published>2026-07-01T14:58:38.000Z</published>
+    <summary>
+      <![CDATA[<p>我是真的服了腾讯了，机器人开的企业吗。</p>
+<p>最近我在迁移博客的图床，不想用B站了防止给我卷图跑路。于是我研究腾讯云对象存储加签名保护。<br>他们不是有个在线签名工具吗：<a href="https://cos.cloud.tencent.com/tools/co]]>
+    </summary>
+    <title>关于我用腾讯云cos签名时的坑</title>
+    <updated>2026-07-01T15:14:14.920Z</updated>
+  </entry>
   <entry>
     <author>
       <name>b23.kim</name>
@@ -353,21 +370,5 @@
     </summary>
     <title>B站新漏：工作列表里暗藏的缺字漏字问题</title>
     <updated>2026-02-17T07:46:03.465Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>b23.kim</name>
-    </author>
-    <content>
-      <![CDATA[<p>不知道你有没有这么一个疑问：bilibili里面到底几个l几个i？<br>有时候就连我也分不清这个，只能打这个词的时候默念哔——哩——哔——哩。虽然这一定程度上解决了可能会打错的问题，但是如果有时候打的急的时候因为里面很多重复字母，所以打快了有时候还是会错误打成bilibill或者是bililbili之类的情况。而且最关键的是，太麻烦了。看起来复杂……尤其是在输入域名bilibili.com的时候，打错一个字母都不行，重打浪费时间<del>(然后你就会忘记打开B站要做什么)</del></p><p>那么有没有什么方法解决这个输入痛点呢？<br>有的兄弟，有的。</p><p>得益于我的b23.kim天生自带B站特色元素，所以我可以很轻松的开一个二级来专门跳转B站用。<br>所以，<code>b.b23.kim</code>就应运而生了，你可以直接在浏览器内输入这一串来快速到达B站。记忆成本和难度比B站官方的域名低——至少能看出来自己输入的什么。<br>一个B(子域名)，简洁有力。二个B(前缀b23)，辅助记忆。同时搭配上B站的2233娘，于是就有了b.b23。也就是说你甚至只需要记一个kim就行了，也总比一堆l一堆i混在一起要可视的多吧。还不错。</p><p>目前这个域名只是跳转了B站主站，任意目录都是。<br>如果我有时间的话可以加个目录的功能啥的，比如某个目录跳动态，某个跳主页和视频……</p><p>当然了，这是一项公益服务，旨在方便自己和被bilibili域名困扰了许久的人。<br>如果你有任何的功能建议或者看法欢迎告诉我！我们后面的开发见。</p>]]>
-    </content>
-    <id>https://www.b23.kim/details/c642d4791f62.html</id>
-    <link href="https://www.b23.kim/details/c642d4791f62.html"/>
-    <published>2026-02-15T04:48:45.000Z</published>
-    <summary>
-      <![CDATA[<p>不知道你有没有这么一个疑问：bilibili里面到底几个l几个i？<br>有时候就连我也分不清这个，只能打这个词的时候默念哔——哩——哔——哩。虽然这一定程度上解决了可能会打错的问题，但是如果有时候打的急的时候因为里面很多重复字母，所以打快了有时候还是会错误打成bilibi]]>
-    </summary>
-    <title>所以我搞了b.b23.kim</title>
-    <updated>2026-02-15T05:03:58.196Z</updated>
   </entry>
 </feed>

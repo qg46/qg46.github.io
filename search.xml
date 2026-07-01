@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>关于我用腾讯云cos签名时的坑</title>
+      <link href="/details/0aed3419045d.html"/>
+      <url>/details/0aed3419045d.html</url>
+      
+        <content type="html"><![CDATA[<p>我是真的服了腾讯了，机器人开的企业吗。</p><p>最近我在迁移博客的图床，不想用B站了防止给我卷图跑路。于是我研究腾讯云对象存储加签名保护。<br>他们不是有个在线签名工具吗：<a href="https://cos.cloud.tencent.com/tools/cos?tab=sign">https://cos.cloud.tencent.com/tools/cos?tab=sign</a></p><p>但是，<strong>重点来了</strong>。<br>它不是有个HttpParameters(选填)吗，这个验证允许你加额外参数进签名里，可以用来身份标识之类的。但它是<code>不会</code>给你<code>重排</code>的。也就是你传进去什么样，它签出来就是什么样。<br>比如你填 renji=hacker&amp;chibang=dabing 是吧。<code>r</code>开头的在前，<code>c</code>开头的在后。它生成签名就根本不按字典序排，而是按照你手动输入的顺序。</p><p>坑点就在于，这个和 chibang=dabing&amp;renji=hacker 按字典序排的参数拿到的<strong>签名结果是不一样</strong>的。<br>在COS鉴权侧，它又会<strong>强制按字典序排参数</strong>来验签。那这又会发生什么呢？你拿非字典序参数出来的签名，去请求对象存储，然后人家对象存储又强制按字典序验签。就会出现你签名即使是正确的，但是参数列表没按字典序排，验证出来也是错的。<br>我靠，腾讯没点大病是真做不出来这个，左右脑互搏了。害的我因为这个卡几小时排不出来问题。</p><p>所以我提醒一下各位，HttpParameters的<code>参数名</code>一定要按字典序排，要不然就会出现生成出来签名即使是正确的也过不了验证的情况。。。。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何开好公司</title>
       <link href="/details/2990befbf34e.html"/>
       <url>/details/2990befbf34e.html</url>
