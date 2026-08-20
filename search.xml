@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>你是「Claude 中国用户」吗？</title>
+      <link href="/details/73ca2eee3762.html"/>
+      <url>/details/73ca2eee3762.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i0.hdslb.com/bfs/mallup/mall/03/2x/032xx10301x2zzw2x3x1yx3y3zzww000.png" alt="你一定是Claude中国用户"><br>对，我就是Claude中国用户。</p><p>因为 _一些原因_，Anthropic整了个“支持区域列表”，如果它发现自己的用户不在这个列表里，那你就会被封号。然后呢，又会出现声称“Claude存在后门”的一些消息。原因就在于它这一整套检测和风控模型<a href="https://news.qq.com/rain/a/20260701A03I0B00">融会贯通在了全生命周期</a>。然后呢，本人也是成功的被揪出来并封号了。开 <em>加塑气</em> 根本就不管用。他们有的是招来检测，通常“Claude Code会静默的读取你本地的电脑的信息，并且用一种极度隐秘的方式，秘密的向服务器传输这个用户是否是中国用户”。所以如果要在官网用的话，“过检测”是相当重要的。（也很Hacky）</p><p>这类专门用来检测环境的网站还蛮多的，它们基本上都是按官网的检测手段1:1复刻的。目的就是为了尽可能还原真实，然后通过这些维度的风险点来给你综合打分。<br>很像是安卓的root环境检测用的软件一样，它们的共同目的都是「确定自己的位置，并为此采取行动」。厂商喜欢Hack用户，那用户做的就是 <em>更Hacky</em><br>以下是我收集到的一些检测Claude用户的“中国程度”的一些网站，由于采用的模型和评分方式各有出入，所以每个之间会出现轻微或显著差异。这并不一定意味着“画像不稳定”，只要是能评出来再纵深对比下就能知道自己位置了。<br>（注意：可能需要一丢丢魔法，自行解决网络问题）<br><a href="https://fuck-claude.vercel.app/zh/">https://fuck-claude.vercel.app/zh/</a><br><a href="https://fuck-claude.com/zh/">https://fuck-claude.com/zh/</a><br><a href="https://claude-tester-six.vercel.app/">https://claude-tester-six.vercel.app/</a><br><a href="https://ippure.com/claude">https://ippure.com/claude</a><br><a href="https://cleanip.io/fuck-claude">https://cleanip.io/fuck-claude</a></p><p>参考：<br><a href="https://news.qq.com/rain/a/20260416A06XJ600">https://news.qq.com/rain/a/20260416A06XJ600</a><br><a href="https://zhuanlan.zhihu.com/p/2055654173811782912">https://zhuanlan.zhihu.com/p/2055654173811782912</a><br><a href="https://tianchi.aliyun.com/forum/post/1063155">https://tianchi.aliyun.com/forum/post/1063155</a></p><p>真就“威慑纪元”说是。真不理解我们中国用户怎么Anthropic你了，你不给用有的是模型用。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>关于adb你可能不知道的冷知识</title>
       <link href="/details/ebbd449b0975.html"/>
       <url>/details/ebbd449b0975.html</url>
