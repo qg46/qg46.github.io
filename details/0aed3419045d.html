@@ -5,19 +5,19 @@
 <meta property="og:site_name" content="b23.kim">
 <meta property="og:description" content="我是真的服了腾讯了，机器人开的企业吗。 最近我在迁移博客的图床，不想用B站了防止给我卷图跑路。于是我研究腾讯云对象存储加签名保护。他们不是有个在线签名工具吗：https:&#x2F;&#x2F;cos.cloud.tencent.com&#x2F;tools&#x2F;cos?tab&#x3D;sign 但是，重点来了。它不是有个HttpParameters(选填)吗，这个验证允许你加额外参数进签名里，可以用来身份标识之类的。但它是不会给你重排的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://uapis.cn/api/v1/random/image?category=acg&type=pc&?3695">
+<meta property="og:image" content="https://api.yppp.net/pc.php?7325">
 <meta property="article:published_time" content="2026-07-01T14:58:38.000Z">
 <meta property="article:modified_time" content="2026-09-07T14:14:14.622Z">
 <meta property="article:author" content="b23.kim">
 <meta property="article:tag" content="建站">
 <meta property="article:tag" content="服务器">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://uapis.cn/api/v1/random/image?category=acg&type=pc&?3695"><script type="application/ld+json">{
+<meta name="twitter:image" content="https://api.yppp.net/pc.php?7325"><script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "关于我用腾讯云cos签名时的坑",
   "url": "https://www.b23.kim/details/0aed3419045d.html",
-  "image": "https://uapis.cn/api/v1/random/image?category=acg&type=pc&?3695",
+  "image": "https://api.yppp.net/pc.php?7325",
   "datePublished": "2026-07-01T14:58:38.000Z",
   "dateModified": "2026-09-07T14:14:14.622Z",
   "author": [
@@ -27,51 +27,92 @@
       "url": "https://www.b23.kim"
     }
   ]
-}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.b23.kim/details/0aed3419045d.html"><link rel="preconnect" href="https://cdn.jsdmirror.com"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="dj2Ett58-yJZxDutcDKnAl0a4wcoejeh0ty1xh7JByk"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://www.b23.kim/details/0aed3419045d.html"><link rel="preconnect" href="https://registry.npmmirror.com"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="dj2Ett58-yJZxDutcDKnAl0a4wcoejeh0ty1xh7JByk"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://registry.npmmirror.com/@fortawesome/fontawesome-free/7.3.1/files/css/all.min.css"><link rel="stylesheet" href="https://registry.npmmirror.com/node-snackbar/0.1.16/files/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://registry.npmmirror.com/@fancyapps/ui/6.1.14/files/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
     (() => {
       
     const saveToLocal = {
       set: (key, value, ttl) => {
-        if (!ttl) return
-        const expiry = Date.now() + ttl * 86400000
-        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+        const data = { value }
+
+        if (ttl != null) {
+          data.expiry = Date.now() + ttl * 86400000
+        }
+
+        localStorage.setItem(key, JSON.stringify(data))
       },
       get: key => {
         const itemStr = localStorage.getItem(key)
-        if (!itemStr) return undefined
-        const { value, expiry } = JSON.parse(itemStr)
-        if (Date.now() > expiry) {
+        if (!itemStr) return
+
+        try {
+          const data = JSON.parse(itemStr)
+
+          if (data.expiry && Date.now() > data.expiry) {
+            localStorage.removeItem(key)
+            return
+          }
+
+          return data.value
+        } catch {
           localStorage.removeItem(key)
-          return undefined
         }
-        return value
       }
     }
 
+    const scriptCache = new Map()
+    const cssCache = new Map()
     window.btf = {
       saveToLocal,
-      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = url
-        script.async = true
-        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
-        script.onload = script.onreadystatechange = () => {
-          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+      getScript: (url, attr = {}) => {
+        if (scriptCache.has(url)) {
+          return scriptCache.get(url)
         }
-        script.onerror = reject
-        document.head.appendChild(script)
-      }),
-      getCSS: (url, id) => new Promise((resolve, reject) => {
-        const link = document.createElement('link')
-        link.rel = 'stylesheet'
-        link.href = url
-        if (id) link.id = id
-        link.onload = link.onreadystatechange = () => {
-          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+
+        const promise = new Promise((resolve, reject) => {
+          const script = document.createElement('script')
+
+          script.src = url
+          script.async = true
+
+          for (const key in attr) {
+            script.setAttribute(key, attr[key])
+          }
+
+          script.onload = resolve
+          script.onerror = reject
+
+          document.head.appendChild(script)
+        })
+
+        scriptCache.set(url, promise)
+
+        return promise
+      },
+      getCSS: (url, id) => {
+        if (cssCache.has(url)) {
+          return cssCache.get(url)
         }
-        link.onerror = reject
-        document.head.appendChild(link)
-      }),
+
+        const promise = new Promise((resolve, reject) => {
+          const link = document.createElement('link')
+
+          link.rel = 'stylesheet'
+          link.href = url
+
+          if (id) {
+            link.id = id
+          }
+
+          link.onload = resolve
+          link.onerror = reject
+
+          document.head.appendChild(link)
+        })
+
+        cssCache.set(url, promise)
+
+        return promise
+      },
       addGlobalFn: (key, fn, name = false, parent = window) => {
         if (!true && key.startsWith('pjax')) return
         const globalFn = parent.globalFn || {}
@@ -82,16 +123,17 @@
     }
   
       
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]')
       const activateDarkMode = () => {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        document.documentElement.dataset.theme = 'dark'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#0d0d0d')
         }
       }
       const activateLightMode = () => {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        document.documentElement.dataset.theme = 'light'
+        if (metaThemeColor !== null) {
+          metaThemeColor.setAttribute('content', '#ffffff')
         }
       }
 
@@ -101,7 +143,12 @@
       const theme = saveToLocal.get('theme')
     
           const hour = new Date().getHours()
-          const isNight = hour <= 6 || hour >= 18
+          const start = 6
+          const end = 18
+          const isNight =
+            start < end
+                ? hour < start || hour >= end
+                : hour >= start || hour < end
           if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
           else theme === 'light' ? activateLightMode() : activateDarkMode()
         
@@ -162,11 +209,11 @@ btf.addGlobalFn('pjaxComplete', () => {
   lightbox: 'fancybox',
   Snackbar: {"chs_to_cht":"已切换为繁体中文","cht_to_chs":"已切换为简体中文","day_to_night":"已切换为深色模式","night_to_day":"已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
   infinitegrid: {
-    js: 'https://cdn.jsdmirror.com/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    js: 'https://registry.npmmirror.com/@egjs/infinitegrid/4.13.0/files/dist/infinitegrid.min.js',
     buttonText: '加载更多'
   },
   isPhotoFigcaption: true,
-  islazyloadPlugin: false,
+  islazyloadPlugin: true,
   isAnchor: false,
   percent: {
     toc: true,
@@ -179,43 +226,28 @@ btf.addGlobalFn('pjaxComplete', () => {
   isToc: false,
   pageType: 'post'
 }</script><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"><meta itemprop="description" content="ARK图文模板消息"><link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="b23.kim" type="application/atom+xml">
-</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
-  const $loadingBox = document.getElementById('loading-box')
-  const $body = document.body
-  const preloader = {
-    endLoading: () => {
-      if ($loadingBox.classList.contains('loaded')) return
-      $body.style.overflow = ''
-      $loadingBox.classList.add('loaded')
-    },
-    initLoading: () => {
-      $body.style.overflow = 'hidden'
-      $loadingBox.classList.remove('loaded')
-    }
-  }
-
-  preloader.initLoading()
-
-  if (document.readyState === 'complete') {
-    preloader.endLoading()
-  } else {
-    window.addEventListener('load', preloader.endLoading)
-    document.addEventListener('DOMContentLoaded', preloader.endLoading)
-    // Add timeout protection: force end after 7 seconds
-    setTimeout(preloader.endLoading, 7000)
-  }
-
-  if (true) {
-    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
-    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
-  }
-})()</script><div class="bg-animation" id="web_bg" style="background-image: url(https://source.fomal.cc/img/dm1.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://i0.hdslb.com/bfs/face/cd7027786846c4a49e4c8046b536ca0f5923cb16.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">92</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://kuma.b23.kim/status/page"><i class="fa-fw fas fa-chart-line"></i><span> 流量监控</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?3695);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">b23.kim</span></a><a class="nav-page-title" href="/"><span class="site-name">关于我用腾讯云cos签名时的坑</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://kuma.b23.kim/status/page"><i class="fa-fw fas fa-chart-line"></i><span> 流量监控</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">关于我用腾讯云cos签名时的坑</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-01T14:58:38.000Z" title="发表于 2026-07-01 22:58:38">2026-07-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-07T14:14:14.622Z" title="更新于 2026-09-07 22:14:14">2026-09-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%BB%BA%E7%AB%99/">运维与建站</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">517</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>我是真的服了腾讯了，机器人开的企业吗。</p>
+</head><body><div class="bg-animation" id="web_bg" style="background-image: url(https://source.fomal.cc/img/dm1.webp);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/face/cd7027786846c4a49e4c8046b536ca0f5923cb16.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">92</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://kuma.b23.kim/status/page"><i class="fa-fw fas fa-chart-line"></i><span> 流量监控</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://api.yppp.net/pc.php?7325);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">b23.kim</span></a><a class="nav-page-title" href="/"><span class="site-name">关于我用腾讯云cos签名时的坑</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://kuma.b23.kim/status/page"><i class="fa-fw fas fa-chart-line"></i><span> 流量监控</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">关于我用腾讯云cos签名时的坑</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-07-01T14:58:38.000Z" title="发表于 2026-07-01 22:58:38">2026-07-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-09-07T14:14:14.622Z" title="更新于 2026-09-07 22:14:14">2026-09-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BF%90%E7%BB%B4%E4%B8%8E%E5%BB%BA%E7%AB%99/">运维与建站</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">517</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>我是真的服了腾讯了，机器人开的企业吗。</p>
 <p>最近我在迁移博客的图床，不想用B站了防止给我卷图跑路。于是我研究腾讯云对象存储加签名保护。<br>他们不是有个在线签名工具吗：<a target="_blank" rel="noopener" href="https://cos.cloud.tencent.com/tools/cos?tab=sign">https://cos.cloud.tencent.com/tools/cos?tab=sign</a></p>
 <p>但是，<strong>重点来了</strong>。<br>它不是有个HttpParameters(选填)吗，这个验证允许你加额外参数进签名里，可以用来身份标识之类的。但它是<code>不会</code>给你<code>重排</code>的。也就是你传进去什么样，它签出来就是什么样。<br>比如你填 renji=hacker&amp;chibang=dabing 是吧。<code>r</code>开头的在前，<code>c</code>开头的在后。它生成签名就根本不按字典序排，而是按照你手动输入的顺序。</p>
 <p>坑点就在于，这个和 chibang=dabing&amp;renji=hacker 按字典序排的参数拿到的<strong>签名结果是不一样</strong>的。<br>在COS鉴权侧，它又会<strong>强制按字典序排参数</strong>来验签。那这又会发生什么呢？你拿非字典序参数出来的签名，去请求对象存储，然后人家对象存储又强制按字典序验签。就会出现你签名即使是正确的，但是参数列表没按字典序排，验证出来也是错的。<br>我靠，腾讯没点大病是真做不出来这个，左右脑互搏了。害的我因为这个卡几小时排不出来问题。</p>
 <p>所以我提醒一下各位，HttpParameters的<code>参数名</code>一定要按字典序排，要不然就会出现生成出来签名即使是正确的也过不了验证的情况。。。。<br>这是日志：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">This XML file does not appear to have any style information associated with it. The document tree is shown below.</span><br><span class="line"><span class="tag">&lt;<span class="name">Error</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Code</span>&gt;</span>SignatureDoesNotMatch<span class="tag">&lt;/<span class="name">Code</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Message</span>&gt;</span>The Signature you specified is invalid.<span class="tag">&lt;/<span class="name">Message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">StringToSign</span>&gt;</span>sha1 1782919296;1782922896 8fca24aeaa82174638d101081b3c7b697635711a <span class="tag">&lt;/<span class="name">StringToSign</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FormatString</span>&gt;</span>get /renji.txt chibang=dabing&amp;renji=hacker <span class="tag">&lt;/<span class="name">FormatString</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Resource</span>&gt;</span>/renji.txt<span class="tag">&lt;/<span class="name">Resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RequestId</span>&gt;</span>NmE0NTMwYTFfODdkNGZlMDlfMjczYTBfMTExNWMyNjk=<span class="tag">&lt;/<span class="name">RequestId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TraceId</span>&gt;</span>OGVmYzZiMmQzYjA2OWNhODk0NTRkMTBiOWVmMDAxODc0OWRkZjk0ZDM1NmI1M2E2MTRlY2MzZDhmNmI5MWI1OTQyYWVlY2QwZTk2MDVmZDQ3MmI2Y2I4ZmI5ZmM4ODFjNWUzMTJiNDQ5MjAyZTI4YmY3YzA0ODBkODE4ZjJmYmU=<span class="tag">&lt;/<span class="name">TraceId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Error</span>&gt;</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.b23.kim">b23.kim</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.b23.kim/details/0aed3419045d.html">https://www.b23.kim/details/0aed3419045d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.b23.kim" target="_blank">b23.kim</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BB%BA%E7%AB%99/">建站</a><a class="post-meta__tags" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a></div><div class="post-share"><div class="social-share" data-image="https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?3695" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/details/f64adab8c5f9.html" title="Three.js测试"><img class="cover" src="https://img.072103.xyz/h?2806" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Three.js测试</div></div><div class="info-2"><div class="info-item-1">测试模型渲染与展示    /* ===== 整体结构面板：3D 预览 + 材料清单 一体化（游戏内界面风格） ===== */   #structure-panel {     width: 100%;     max-width: 800px;     margin: 16px auto;     background: #1f1f1f;     border: 1px solid #4a4a4a;     border-radius: 8px;     box-shadow: 0 4px 12px rgba(0,0,0,0.35);     overflow: hidden;     color: #e0e0e0;   }   #structure-panel .panel-header {     display: flex;     align-items: center;     gap: 12px;     padding: 10px 14px;     background: #2a2a2a;     border-bottom: 1px solid #4a4a4a...</div></div></div></a><a class="pagination-related" href="/details/2990befbf34e.html" title="如何开好公司"><img class="cover" src="https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?9339" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">如何开好公司</div></div><div class="info-2"><div class="info-item-1">——从80个“马化腾”谈管理哲学。 今天我闲的无聊，想着去“一网通查”看马化腾。结果搜出来80个同名的，其中有一个肯定是腾讯CEO了。 那剩下的那79个人呢？想象一下，如果你是其中一个马化腾，然后……别人：你叫什么名字？我：马化腾。对方：就你是马化腾，我还马云呢。 不妨再大胆些，如果这79个人去腾讯公司面试，会发生什么？我估计结果也就面试官看见你是马化腾，然后楞两秒，最后去系统比对一下发现这人还真是马化腾，但不是腾讯CEO。最后多注意了一下或者提了一下腾讯的公司文化就按正常流程走了，然后平平无奇。 当然了，我以前也被人说过有的长得像马云。我都服啦，有这么像吗。具体看这个：https://www.b23.kim/details/0654ffbaef00.html然后我就去搜了一下马云（虽然我真名既不是马化腾也不是马云），发现全国有17399个同名的。当然了，我还没无聊到再去想象这一万个马云去阿里面试的结果了。因为对和名人甚至自身关联的同名人的震惊和处理方式几乎可以说是同步的。这不妨碍它成为一个“有趣点”。 或者…… 要是真的腾讯CEO去阿里面试呢？说实话，我都觉得这个脑洞还是太大了...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/details/d22ffef72a2b.html" title="攻击者卷土重来，1.42亿次请求导致源站服务不可用"><img class="cover" src="https://uapis.cn/api/v1/random/image?category=acg&type=pc&?1153" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-18</div><div class="info-item-2">攻击者卷土重来，1.42亿次请求导致源站服务不可用</div></div><div class="info-2"><div class="info-item-1">不是哥们，静态你也打2.0      我就知道他肯定还来。这次明显做了充足的准备，上来就给我灌了1.42亿次的请求。起初我还没发现不对劲，直到我朋友提醒了我一下我才知道源站已经GG了。页面中间就显示个This deployment is temporarily paused。不过我忙于上学，就没来得及看这个报错是怎么回事，当时我初步估计是流量被刷光导致停止服务了。不过因为当时我对自己太过自信了，心想反正全静态都CDN直接缓存的数据不带变的，那么多攻击流量即使回源又能回多少呢？ 等我中午到家一看，好家伙，把我下巴都惊掉了：我去？？？怎么给我干这么多流量，我对这个恐怖的数据感到不可思议。我想怎么全回源了，不是有CDN在挡刀吗，为什么源站还能被刷这么狠。我百思不得其解，按理来说不能产生这么多回源啊。 我想，要不投降吧。我想现在的当务之急是尽快恢复访问，避免影响读者。然后我就学二叉树树一样直接用EO的Pages来部署博客，就像vercel一样。于是我花了几分钟切过去了，重新部署了下证书。好，能用了。我就想那攻击者不就成小丑了，费半天劲两天统共给我打了600G给我源站干炸了，结果我切个提供...</div></div></div></a><a class="pagination-related" href="/details/bf3d817ab12d.html" title="看看我们商量之后要干什么"><img class="cover" src="https://api.yppp.net/pc.php?8339" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-24</div><div class="info-item-2">看看我们商量之后要干什么</div></div><div class="info-2"><div class="info-item-1">大家好啊，这里是站长，请输入内容404！某种意义上来说，这是我的第一篇文章(除了系统生成的那篇)。可是这实在是不能被成为“文章”，因为这是我的测试之作。测试什么呢？主要是看它的一些渲染和一些行为，你也能在这里看到网站的一些基本样式。 测试图片本站采用的是哔哩哔哩文件分发方式，因此可能需要一些技术上的东西以确保它能够正常显示。随着浏览器内核的更新，这些技术可能在未来的某一天变得不再适用(到那时候我还得去想办法把全站图片都弄正常想想就很累 寄！)至少目前还能用，就这样先用着呗。如果后期真的失效了，要么是资源被B站给删了，要么是没办法继续用了。我不确定我是否有那个精力去恢复了就像是fomal.cc的作者一样，以前能用，现在背靠的资源分发站已经做了引用防护，导致教程里的图片全炸了。如果是我经历这种情况的话，肯定也是无法接受的，并且还要头疼好一阵子…… 试一下吧：如果正常的话你会看到一个漏勺图片。目前采用的是哔哩哔哩工房图链。哔哩哔哩广告接口：如果正常的话你会看到一个HACK动图。目前就只测试这两个，因为我一般也就采用这两个接口来作为本站内的图片分发与显示。 测试代码块这是一块普通的代码块...</div></div></div></a><a class="pagination-related" href="/details/88474c6ba398.html" title="关于我服务器被嘿壳塞挖矿病毒了这件事"><img class="cover" src="https://img.072103.xyz/h?9415" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-17</div><div class="info-item-2">关于我服务器被嘿壳塞挖矿病毒了这件事</div></div><div class="info-2"><div class="info-item-1">好特么离谱，我被人给骇客了。我这台服务器上跑了一堆东西，然后突然内存和CPU占用异常的高。我还以为自己代码bug了导致内存泄漏，然后疯狂GC(垃圾回收)导致CPU也拉高来着。 事实证明，没有那么简单。在我收到腾讯云的告警邮件的时候，我还以为腾讯没活了，只是自己代码bug了长时间高占用就威胁要收我服务器了。我还在想，腾讯真的是机器人企业，大惊小怪的。直到……我修完bug重新跑的时候特么怎么还是那么高占用，那不对啊。我打开了进程列表：然后还有腾讯云的恶意域名请求告警我一看，问了AI说这个是典型的公共矿池域名，好，坐实了确实是中病毒了。我错怪腾讯了 那么服务器是怎么被入侵的，我防护的那么好。SSH都是用私钥登的，而且密码也长。更何况端口我只开了必要的，没全部开。怎么说也不太可能啊。然后我就去看了下腾讯云后台安全告警信息，终于是发现线索了： 123456782026-03-16 23:38:4910..: /bin/sh -c cat /ql/data/conf ig/crontab.list I grep -E “curl -sk -o /tmp/.ml -H &quot;User-A...</div></div></div></a><a class="pagination-related" href="/details/fb7d90750423.html" title="论如何把云服务器变成云手机，redroid的基本使用教程"><img class="cover" src="https://img.072103.xyz/h?400" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-11-11</div><div class="info-item-2">论如何把云服务器变成云手机，redroid的基本使用教程</div></div><div class="info-2"><div class="info-item-1">有一天我需要做一些安卓应用的自动化与可编程化操作，但是用自己的手机还是不够方便。于是乎，我突然想到了一个方案：云服务器啊！云服不就是用来干这个活的嘛，简直再合适不过了，自动化计算必备啊，而且稳定性比直接用手机还要高。并且还有独立公网IP，这是手机用流量无法比拟的。于是今天来聊聊如何把云服务器变成手机。 前置工作以腾讯云为例，根据我踩过的坑可以总结出来，操作系统最好为Ubuntu。因为debian我试过了，老是因为缺少内核而启动不了或者干脆连不上。博主这里采用的是Ubuntu Server 24.04 LTS 64bit版本。这并非是在说debian不好，Linux发行版众多，内核也很多都不一样。实测乌班图22和24兼容比较好。关于配置方面，如果不需要arm转译，2h2g就行。但是如果一旦上转译，就需要至少2h4g了。系统盘不低于40GB 我们使用的解决方案是redroid，它是一个安卓系统模拟的容器化解决方案。优点是不需要安装虚拟机程序，也不需要进行硬件虚拟化，这对于云服务器这类没法实现“虚拟机系统里面套虚拟机安卓”的情况来说非常利好。因为它是容器方案，所以我们第一步必须先安装d...</div></div></div></a><a class="pagination-related" href="/details/6e9f011e838d.html" title="ICP&#x2F;公安备案相关shields.io标识解决方案"><img class="cover" src="https://api.yppp.net/pc.php?3439" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-21</div><div class="info-item-2">ICP&#x2F;公安备案相关shields.io标识解决方案</div></div><div class="info-2"><div class="info-item-1">有时候我们需要悬挂ICP和公安备案的标识在网站底部，官方提供的传统html标签的方案对于自己有个性主题的网站来说太难看了（除非自己加css来解决）但是我们有更好的解决方案，那就是shields.io。这玩意在我之前的博文里面也有专门场景的其他教程，这一篇就是备案相关的了。 对于ICP备案： 1https://img.shields.io/badge/%E9%B2%81ICP%E5%A4%87-2025196989%E5%8F%B7--1-brightgreen?style=flat&amp;logo=data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGE...</div></div></div></a><a class="pagination-related" href="/details/61bc27e7ebba.html" title="本站成功遭受了第一次被打，记录这场22.84w次的请求攻击"><img class="cover" src="https://api.yppp.net/pc.php?6586" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-17</div><div class="info-item-2">本站成功遭受了第一次被打，记录这场22.84w次的请求攻击</div></div><div class="info-2"><div class="info-item-1">不是哥们，静态你也打？ 我刚写完上一篇文章然后闲的没事去腾讯云后台看了一下流量状态，才发现我红了（各种意义上）我遭受了有史以来第一次的外来流量攻击，这说明这个网站已经有一定名气了。这次的攻击给我带来的感觉好像很熟悉的样子，因为之前二叉树树的博客也被攻击过，而且同样也是大部分流量都来自印度尼西亚，我和他被攻击前后仅仅只过了24小时。所以我推测有概率是同一伙人干的。但这次明显感到不一样的是，对我下手可比对他轻多了，竟然才用了5个G？而且也仅仅只持续了大约五分钟。 还是先来看看它们的战绩吧： 正好顺便来复盘一下这次所遭受的攻击。 一些端倪在这之前，那个人先试探性的刷了我几万次的php。笑死我网站是用的nodejs，哪来的php？有点搞笑。 而且，好像这个流量有点奇怪？ 一开始我就已经开始对这0.07%的印度尼西亚流量感觉有点奇怪了。所以他们这是准备筹划攻击然后凌晨零点动手？除非……？ 流量特征令人惊讶的是，它们的流量来的非常准时，就像是掐点来的一样：2025-12-17 00:00。并且上来就薅了我将近5GB的下行流量，几乎是瞬间触发的。 wdnmd，刷的还是我主站，连根域名都不用。带...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://i0.hdslb.com/bfs/face/cd7027786846c4a49e4c8046b536ca0f5923cb16.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">b23.kim</div><div class="author-info-description">请输入内容404的个人发电之作</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">92</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qg46"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/qg46" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:thekendsky_404@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #0078d4;"></i></a><a class="social-icon" href="https://www.b23.kim/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #ff6600;"></i></a><a class="social-icon" href="https://space.bilibili.com/524486358" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #fb7299;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog <br>博客频道开通啦！欢迎各位小伙伴前来交流探讨。点击链接加入腾讯频道【b23.kim】：<a target="_blank" rel="noopener" href="https://pd.qq.com/s/78h6elvk3">https://pd.qq.com/s/78h6elvk3</a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/details/7b436b0c9be8.html" title="紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡"><img src="https://img.072103.xyz/h?9151" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡"/></a><div class="content"><a class="title" href="/details/7b436b0c9be8.html" title="紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡">紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡</a><time datetime="2026-08-29T23:16:47.000Z" title="发表于 2026-08-30 07:16:47">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/73ca2eee3762.html" title="你是「Claude 中国用户」吗？"><img src="https://api.yppp.net/pc.php?7499" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="你是「Claude 中国用户」吗？"/></a><div class="content"><a class="title" href="/details/73ca2eee3762.html" title="你是「Claude 中国用户」吗？">你是「Claude 中国用户」吗？</a><time datetime="2026-08-18T05:43:43.000Z" title="发表于 2026-08-18 13:43:43">2026-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/ebbd449b0975.html" title="关于adb你可能不知道的冷知识"><img src="https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?7370" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于adb你可能不知道的冷知识"/></a><div class="content"><a class="title" href="/details/ebbd449b0975.html" title="关于adb你可能不知道的冷知识">关于adb你可能不知道的冷知识</a><time datetime="2026-08-05T19:49:18.000Z" title="发表于 2026-08-06 03:49:18">2026-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/13cdc5913abb.html" title="XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入"><img src="https://api.yppp.net/pc.php?8073" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入"/></a><div class="content"><a class="title" href="/details/13cdc5913abb.html" title="XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入">XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入</a><time datetime="2026-07-22T18:32:13.000Z" title="发表于 2026-07-23 02:32:13">2026-07-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/e03da5da900d.html" title="关于某商业服务器把国徽当图标这回事，细数它的前逝今苼"><img src="https://api.yppp.net/pc.php?6181" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于某商业服务器把国徽当图标这回事，细数它的前逝今苼"/></a><div class="content"><a class="title" href="/details/e03da5da900d.html" title="关于某商业服务器把国徽当图标这回事，细数它的前逝今苼">关于某商业服务器把国徽当图标这回事，细数它的前逝今苼</a><time datetime="2026-07-22T16:24:05.000Z" title="发表于 2026-07-23 00:24:05">2026-07-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By b23.kim</span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdmirror.com/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdmirror.com/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdmirror.com/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">This XML file does not appear to have any style information associated with it. The document tree is shown below.</span><br><span class="line"><span class="tag">&lt;<span class="name">Error</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Code</span>&gt;</span>SignatureDoesNotMatch<span class="tag">&lt;/<span class="name">Code</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Message</span>&gt;</span>The Signature you specified is invalid.<span class="tag">&lt;/<span class="name">Message</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">StringToSign</span>&gt;</span>sha1 1782919296;1782922896 8fca24aeaa82174638d101081b3c7b697635711a <span class="tag">&lt;/<span class="name">StringToSign</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">FormatString</span>&gt;</span>get /renji.txt chibang=dabing&amp;renji=hacker <span class="tag">&lt;/<span class="name">FormatString</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Resource</span>&gt;</span>/renji.txt<span class="tag">&lt;/<span class="name">Resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">RequestId</span>&gt;</span>NmE0NTMwYTFfODdkNGZlMDlfMjczYTBfMTExNWMyNjk=<span class="tag">&lt;/<span class="name">RequestId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TraceId</span>&gt;</span>OGVmYzZiMmQzYjA2OWNhODk0NTRkMTBiOWVmMDAxODc0OWRkZjk0ZDM1NmI1M2E2MTRlY2MzZDhmNmI5MWI1OTQyYWVlY2QwZTk2MDVmZDQ3MmI2Y2I4ZmI5ZmM4ODFjNWUzMTJiNDQ5MjAyZTI4YmY3YzA0ODBkODE4ZjJmYmU=<span class="tag">&lt;/<span class="name">TraceId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Error</span>&gt;</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://www.b23.kim">b23.kim</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://www.b23.kim/details/0aed3419045d.html">https://www.b23.kim/details/0aed3419045d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://www.b23.kim" target="_blank">b23.kim</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BB%BA%E7%AB%99/">建站</a><a class="post-meta__tags" href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a></div><div class="post-share"><div class="social-share" data-image="https://api.yppp.net/pc.php?7325" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://registry.npmmirror.com/butterfly-extsrc/1.1.6/files/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://registry.npmmirror.com/butterfly-extsrc/1.1.6/files/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/details/f64adab8c5f9.html" title="Three.js测试"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?5839" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">Three.js测试</div></div><div class="info-2"><div class="info-item-1">测试模型渲染与展示    /* ===== 整体结构面板：3D 预览 + 材料清单 一体化（游戏内界面风格） ===== */   #structure-panel {     width: 100%;     max-width: 800px;     margin: 16px auto;     background: #1f1f1f;     border: 1px solid #4a4a4a;     border-radius: 8px;     box-shadow: 0 4px 12px rgba(0,0,0,0.35);     overflow: hidden;     color: #e0e0e0;   }   #structure-panel .panel-header {     display: flex;     align-items: center;     gap: 12px;     padding: 10px 14px;     background: #2a2a2a;     border-bottom: 1px solid #4a4a4a...</div></div></div></a><a class="pagination-related" href="/details/2990befbf34e.html" title="如何开好公司"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.072103.xyz/h?9813" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">如何开好公司</div></div><div class="info-2"><div class="info-item-1">——从80个“马化腾”谈管理哲学。 今天我闲的无聊，想着去“一网通查”看马化腾。结果搜出来80个同名的，其中有一个肯定是腾讯CEO了。 那剩下的那79个人呢？想象一下，如果你是其中一个马化腾，然后……别人：你叫什么名字？我：马化腾。对方：就你是马化腾，我还马云呢。 不妨再大胆些，如果这79个人去腾讯公司面试，会发生什么？我估计结果也就面试官看见你是马化腾，然后楞两秒，最后去系统比对一下发现这人还真是马化腾，但不是腾讯CEO。最后多注意了一下或者提了一下腾讯的公司文化就按正常流程走了，然后平平无奇。 当然了，我以前也被人说过有的长得像马云。我都服啦，有这么像吗。具体看这个：https://www.b23.kim/details/0654ffbaef00.html然后我就去搜了一下马云（虽然我真名既不是马化腾也不是马云），发现全国有17399个同名的。当然了，我还没无聊到再去想象这一万个马云去阿里面试的结果了。因为对和名人甚至自身关联的同名人的震惊和处理方式几乎可以说是同步的。这不妨碍它成为一个“有趣点”。 或者…… 要是真的腾讯CEO去阿里面试呢？说实话，我都觉得这个脑洞还是太大了...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/details/808a9f471a72.html" title="开源统一身份认证平台Casdoor的安装与部署"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?5535" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="info-item-2">开源统一身份认证平台Casdoor的安装与部署</div></div><div class="info-2"><div class="info-item-1"> Casdoor 是一个开源的统一身份认证平台，定位类似于“通行证中心”。通过标准化的协议和接口，把分散在不同系统中的用户认证集中起来管理，让登录这件事变得更简单。——清羽飞扬  下载、配置文件与安装这个是它的官方文档：https://www.casdoor.org/zh/docs/overview （目前汉化还不完全，而且还有很多不准确的机翻）可以看到它提供了三种安装方式：1.二进制安装包，从Github Release下载：https://github.com/casdoor/casdoor/releases2.Docker容器镜像：https://hub.docker.com/r/casbin/casdoor3.K8s Helm：https://www.casdoor.org/zh/docs/basic/try-with-helm 拉取镜像本文将采用Docker容器的方式来安装，配合宝塔面板。依旧是1panel镜像。下载镜像： 1docker pull docker.1panel.live/casbin/casdoor 下载完成后保留备用。 数据目录设置与数据库配置下一步，...</div></div></div></a><a class="pagination-related" href="/details/d22ffef72a2b.html" title="攻击者卷土重来，1.42亿次请求导致源站服务不可用"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?7475" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-18</div><div class="info-item-2">攻击者卷土重来，1.42亿次请求导致源站服务不可用</div></div><div class="info-2"><div class="info-item-1">不是哥们，静态你也打2.0      我就知道他肯定还来。这次明显做了充足的准备，上来就给我灌了1.42亿次的请求。起初我还没发现不对劲，直到我朋友提醒了我一下我才知道源站已经GG了。页面中间就显示个This deployment is temporarily paused。不过我忙于上学，就没来得及看这个报错是怎么回事，当时我初步估计是流量被刷光导致停止服务了。不过因为当时我对自己太过自信了，心想反正全静态都CDN直接缓存的数据不带变的，那么多攻击流量即使回源又能回多少呢？ 等我中午到家一看，好家伙，把我下巴都惊掉了：我去？？？怎么给我干这么多流量，我对这个恐怖的数据感到不可思议。我想怎么全回源了，不是有CDN在挡刀吗，为什么源站还能被刷这么狠。我百思不得其解，按理来说不能产生这么多回源啊。 我想，要不投降吧。我想现在的当务之急是尽快恢复访问，避免影响读者。然后我就学二叉树树一样直接用EO的Pages来部署博客，就像vercel一样。于是我花了几分钟切过去了，重新部署了下证书。好，能用了。我就想那攻击者不就成小丑了，费半天劲两天统共给我打了600G给我源站干炸了，结果我切个提供...</div></div></div></a><a class="pagination-related" href="/details/cdc797141697.html" title="hexo主题butterfly自带的jsdelivr太特么慢了，那就换"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?4395" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-11</div><div class="info-item-2">hexo主题butterfly自带的jsdelivr太特么慢了，那就换</div></div><div class="info-2"><div class="info-item-1">有用户跟我说我的博客好特么慢，根本进不去！一直卡那个正方形转圈加载动画。经过简单分析就不难发现，是butterfuly自带的默认npm资源CDN太慢了。 那么只需要更换一个国内访问快的就可以解决这个问题先去主题配置文件： 1234567891011121314CDN:  # The CDN provider for internal and third-party scripts  # Options for both: local/jsdelivr/unpkg/cdnjs/custom  # Note: Dev version can only use &#x27;local&#x27; for internal scripts  # Note: When setting third-party scripts to &#x27;local&#x27;, you need to install hexo-butterfly-extjs  internal_provider: local  third_party_provider: custom  # Add version n...</div></div></div></a><a class="pagination-related" href="/details/af1f86558660.html" title="腾讯EdgeOne的shields.io方案，挂标识必备"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://uapis.cn/api/v1/random/image?category=acg&type=pc&?3461" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-12-21</div><div class="info-item-2">腾讯EdgeOne的shields.io方案，挂标识必备</div></div><div class="info-2"><div class="info-item-1">关于shields.io的API使用方法这里我就不再赘述了，可以自行去官网查看文档。为了方便和节省时间，这里我贴出我收集到的一些优质的图标方案来供大家选择。这里哪个都很好看，非常适合作为技术栈标志悬挂在自己的网站下。有关主色调，本文统一使用#00A3FF (Azure Radiance)这个腾讯云主品牌色调。当然，根据自己其他标识的style和页面情况，也可以选择它对应的深色版本#12181F (Bunker)。 EdgeOne专有Logo方案： 1https://img.shields.io/badge/Hosted-EdgeOne-%2300a3ff?style=flat&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAGYktHRAD/AP8A/6C9p5MAAAAHdElNRQfoCQMDHATKOtnNAAAJh0lEQVRo3q2aW4xdZR...</div></div></div></a><a class="pagination-related" href="/details/0d2bebd4ee74.html" title="记录一次我使用hexo-butterfly-footer-beautify时遇到的bug，以及我是如何修复的全过程"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.072103.xyz/h?4891" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-26</div><div class="info-item-2">记录一次我使用hexo-butterfly-footer-beautify时遇到的bug，以及我是如何修复的全过程</div></div><div class="info-2"><div class="info-item-1">今天又是布置网站的一天。新站嘛，总是要布置几天才能算是拿得出门面的。不想扯那么多，总之就是做到页脚部分的时候，我跟着--Fomalhaut的教程做的时候，发现了hexo-butterfly-footer-beautify这个插件的徽标展示的鼠标悬停提示不能被正常显示 于是我按下了F12，定位组件，看到了这样的一幕： 将它修正以后终于可以正常显示了： 对应插件源代码中的这个位置： 合计着原来困扰我几个小时的“严重bug”就这啊，亏我还排查好半天配置有没有写错、缩进有没有缩错来着(毕竟我是真犯过这种错误)……根本就想不到是插件的锅。要不是最后实在没办法了才去按F12排查然后看插件源码不然这谁能想到啊（恼）我已经给原作者提交pr和issue了，这玩意都4年没更新了，如果作者不去审阅的话那我也没啥办法。不过这篇应该可以给正在使用同款插件的人一些小小的灵感吧，希望它能够帮到你。 本地修复方法：如果你是通过npm install hexo-butterfly-footer-beautify --save来安装的话，就去[你的博客根目录]\node_modules\hexo-butterfly...</div></div></div></a><a class="pagination-related" href="/details/c92f4b553173.html" title="我是这样申请并接入QQ登录的"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://uapis.cn/api/v1/random/image?category=acg&type=pc&?5592" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-06</div><div class="info-item-2">我是这样申请并接入QQ登录的</div></div><div class="info-2"><div class="info-item-1">跟腾讯客服扯了两天，终于成功通过了QQ登录的接入权限。同时我也算是把所有坑都踩了一遍，今天来一次讲清。 注册开发者首先去 https://q.qq.com/#/ 登录自己的QQ号，然后走注册流程。注册完成后你就成为了QQ开放平台的开发者了，然后去新建一个小程序。新建小程序的时候里面也会让你提供开发者信息，提交完成后会进行人工审核。需要的信息比较多，有的甚至需要住址。好在申请一次后如果通过就不用管了。提审以后在互联会同步开发者信息，这样你就完成了注册这一步。 为什么不直接在互联注册？因为互联带到的是 https://open.tencent.com/ 这个“腾讯开放平台”总入口，你也依然需要在“QQ开放平台”注册并验证开发者信息。当然腾讯这个后台太多了，感觉有点杂。可能还有其他的办法能注册上，反正我是这样过来的。 创建网站应用重点来了，当你完成开发者信息提交并审核通过以后，你就可以创建应用了。当然应用资料的审核也是人工的，所以按照审核规范肯定是少不了坑点的。 基本信息：你需要准备一个应用名称、应用图标和应用介绍。应用名称是你希望以用户登录的时候在授权页看到的名字，当然因为我的域名就...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://i0.hdslb.com/bfs/face/cd7027786846c4a49e4c8046b536ca0f5923cb16.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">b23.kim</div><div class="author-info-description">请输入内容404的个人发电之作</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">92</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/qg46"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/qg46" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:thekendsky_404@outlook.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #0078d4;"></i></a><a class="social-icon" href="https://www.b23.kim/atom.xml" target="_blank" title="RSS"><i class="fas fa-rss" style="color: #ff6600;"></i></a><a class="social-icon" href="https://space.bilibili.com/524486358" target="_blank" title="Bilibili"><i class="fab fa-bilibili" style="color: #fb7299;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog <br>博客频道开通啦！欢迎各位小伙伴前来交流探讨。点击链接加入腾讯频道【b23.kim】：<a target="_blank" rel="noopener" href="https://pd.qq.com/s/78h6elvk3">https://pd.qq.com/s/78h6elvk3</a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/details/7b436b0c9be8.html" title="紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?3204" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡"/></a><div class="content"><a class="title" href="/details/7b436b0c9be8.html" title="紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡">紧急！新浪SAE 9.16关停：你2014年前的B站视频正在死亡</a><time datetime="2026-08-29T23:16:47.000Z" title="发表于 2026-08-30 07:16:47">2026-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/73ca2eee3762.html" title="你是「Claude 中国用户」吗？"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?3967" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="你是「Claude 中国用户」吗？"/></a><div class="content"><a class="title" href="/details/73ca2eee3762.html" title="你是「Claude 中国用户」吗？">你是「Claude 中国用户」吗？</a><time datetime="2026-08-18T05:43:43.000Z" title="发表于 2026-08-18 13:43:43">2026-08-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/ebbd449b0975.html" title="关于adb你可能不知道的冷知识"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.072103.xyz/h?7557" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于adb你可能不知道的冷知识"/></a><div class="content"><a class="title" href="/details/ebbd449b0975.html" title="关于adb你可能不知道的冷知识">关于adb你可能不知道的冷知识</a><time datetime="2026-08-05T19:49:18.000Z" title="发表于 2026-08-06 03:49:18">2026-08-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/13cdc5913abb.html" title="XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://uapis.cn/api/v1/random/image?category=acg&amp;type=pc&amp;?8404" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入"/></a><div class="content"><a class="title" href="/details/13cdc5913abb.html" title="XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入">XEMC网站前端等各种源码，2MB文本量的高亮很卡，慎入</a><time datetime="2026-07-22T18:32:13.000Z" title="发表于 2026-07-23 02:32:13">2026-07-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/details/e03da5da900d.html" title="关于某商业服务器把国徽当图标这回事，细数它的前逝今苼"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://api.yppp.net/pc.php?6599" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于某商业服务器把国徽当图标这回事，细数它的前逝今苼"/></a><div class="content"><a class="title" href="/details/e03da5da900d.html" title="关于某商业服务器把国徽当图标这回事，细数它的前逝今苼">关于某商业服务器把国徽当图标这回事，细数它的前逝今苼</a><time datetime="2026-07-22T16:24:05.000Z" title="发表于 2026-07-23 00:24:05">2026-07-23</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By b23.kim</span></div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://registry.npmmirror.com/@fancyapps/ui/6.1.14/files/dist/fancybox/fancybox.umd.min.js"></script><script src="https://registry.npmmirror.com/instant.page/5.2.0/files/instantpage.min.js" type="module"></script><script src="https://registry.npmmirror.com/vanilla-lazyload/19.1.3/files/dist/lazyload.iife.min.js"></script><script src="https://registry.npmmirror.com/node-snackbar/0.1.16/files/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const changeScriptToMath = article => {
+    article.querySelectorAll('script[type^="math/tex"]').forEach(el => {
+      const display = /mode=display/.test(el.type)
+      const node = document.createElement(display ? 'div' : 'span')
+      node.textContent = display
+        ? `$$${el.textContent}$$`
+        : `$${el.textContent}$`
+      el.parentNode.replaceChild(node, el)
+    })
+  }
+
   const loadMathjax = () => {
+    const article = document.getElementById('article-container')
+    if (!article || article.querySelector('.hbe-container')) return
+    changeScriptToMath(article)
+
     if (!window.MathJax) {
       window.MathJax = {
         loader: {
@@ -224,7 +256,8 @@ btf.addGlobalFn('pjaxComplete', () => {
             //- '[tex]/bbm',
             //- '[tex]/bboldx',
             //- '[tex]/dsfont',
-            '[tex]/mhchem'
+            '[tex]/mhchem',
+            'ui/lazy'
           ],
           paths: {
             'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
@@ -252,52 +285,43 @@ btf.addGlobalFn('pjaxComplete', () => {
           scale: 1.1
         },
         options: {
+          lazyMargin: '200px',
           enableMenu: true,
           menuOptions: {
             settings: {
               enrich: false  // Turn off Braille and voice narration text automatic generation
             }
           },
-          renderActions: {
-            findScript: [10, doc => {
-              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
-                const display = !!node.type.match(/; *mode=display/)
-                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
-                const text = document.createTextNode('')
-                node.parentNode.replaceChild(text, node)
-                math.start = {node: text, delim: '', n: 0}
-                math.end = {node: text, delim: '', n: 0}
-                doc.math.push(math)
-              }
-            }, '']
-          }
         }
       }
 
       const script = document.createElement('script')
-      script.src = 'https://cdn.jsdmirror.com/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.src = 'https://registry.npmmirror.com/mathjax/4.1.3/files/tex-mml-chtml.min.js'
       script.id = 'MathJax-script'
       script.async = true
       document.head.appendChild(script)
     } else {
-      MathJax.startup.document.state(0)
-      MathJax.texReset()
-      MathJax.typesetPromise()
+      MathJax.typesetClear()
+      MathJax.typesetPromise([ article ])
     }
   }
 
   btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
   window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
-})()</script></div><script src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/emoticon.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script>(() => {
+})()</script></div><script defer src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/static/emoticon.js"></script><script defer="defer" id="ribbon" src="https://registry.npmmirror.com/butterfly-extsrc/1.1.6/files/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script>(() => {
   window.ChatraID = 'ZTYqGzsT7qMhexKhK'
   window.Chatra = window.Chatra || function() {
     (window.Chatra.q = window.Chatra.q || []).push(arguments)
   }
 
-  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
-    const isChatBtn = true
-    const isChatHideShow = false
+  const isChatBtn = true
+  const isChatHideShow = false
 
+  if (isChatBtn) {
+    window.ChatraSetup = { startHidden: true }
+  }
+
+  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
     if (isChatBtn) {
       const close = () => {
         Chatra('minimizeWidget')
@@ -309,11 +333,13 @@ btf.addGlobalFn('pjaxComplete', () => {
         Chatra('show')
       }
 
-      window.ChatraSetup = { startHidden: true }
-    
-      window.chatBtnFn = () => document.getElementById('chatra').classList.contains('chatra--expanded') ? close() : open()
+      window.chatBtnFn = () => {
+        const el = document.getElementById('chatra')
+        return el && el.classList.contains('chatra--expanded') ? close() : open()
+      }
 
-      document.getElementById('chat-btn').style.display = 'block'
+      const chatBtn = document.getElementById('chat-btn')
+      if (chatBtn) chatBtn.style.display = 'block'
     } else if (isChatHideShow) {
       window.chatBtn = {
         hide: () => Chatra('hide'),
@@ -321,28 +347,11 @@ btf.addGlobalFn('pjaxComplete', () => {
       }
     }
   })
-})()</script><link rel="stylesheet" href="https://cdn.jsdmirror.com/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdmirror.com/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdmirror.com/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
-  const destroyAplayer = () => {
-    if (window.aplayers) {
-      for (let i = 0; i < window.aplayers.length; i++) {
-        if (!window.aplayers[i].options.fixed) {
-          window.aplayers[i].destroy()
-        }
-      }
-    }
-  }
-
-  const runMetingJS = () => {
-    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
-  }
-
-  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
-  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
-})()</script><script src="https://cdn.jsdmirror.com/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+})()</script><script src="https://registry.npmmirror.com/pjax/0.2.8/files/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
   const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
 
   window.pjax = new Pjax({
-    elements: 'a:not([target="_blank"])',
+    elements: 'a:not([target="_blank"]):not([data-fancybox])',
     selectors: pjaxSelectors,
     cacheBust: false,
     analytics: false,
@@ -375,8 +384,9 @@ btf.addGlobalFn('pjaxComplete', () => {
   document.addEventListener('pjax:complete', () => {
     btf.removeGlobalFnEvent('pjaxCompleteOnce')
     document.querySelectorAll('script[data-pjax]').forEach(item => {
+      if (!item.parentNode) return
       const newScript = document.createElement('script')
-      const content = item.text || item.textContent || item.innerHTML || ""
+      const content = item.text || item.textContent || ''
       Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
       newScript.appendChild(document.createTextNode(content))
       item.parentNode.replaceChild(newScript, item)
@@ -386,16 +396,19 @@ btf.addGlobalFn('pjaxComplete', () => {
   })
 
   document.addEventListener('pjax:error', e => {
-    if (e.request.status === 404) {
+    const responseURL = e.request && e.request.responseURL
+    if (e.request && e.request.status === 404) {
       true
         ? pjax.loadUrl('/404.html')
-        : window.location.href = e.request.responseURL
+        : responseURL && (window.location.href = responseURL)
+    } else if (responseURL) {
+      window.location.href = responseURL
     }
   })
 })</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="搜索文章" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
   function butterfly_footer_beautify_injector_config(){
     var parent_div_git = document.getElementsByClassName('footer_custom_text')[0];
-    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://edgeone.ai/" style="margin-inline:5px" data-title="本站采用多线部署，主线路托管于EdgeOne" title=""><img src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/Hosted-EdgeOne-%2300a3ff-ELogo.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://www.cloudflare.com/" style="margin-inline:5px" data-title="本站采用多线部署，备用线路托管于Cloudflare" title=""><img src="https://img.shields.io/badge/Hosted-Cloudflare-F48120?style=flat&amp;logo=cloudflare" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.mps.gov.cn/#/query/webSearch?code=37083102000125" style="margin-inline:5px" data-title="本网站已完成公安联网备案，点击前往查询" title=""><img src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/%E9%B2%81%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%87-37083102000125%E5%8F%B7-darkblue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/" style="margin-inline:5px" data-title="本网站已完成ICP备案，点击前往备案管理系统官网" title=""><img src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/%E9%B2%81ICP%E5%A4%87-2025196989%E5%8F%B7--1-brightgreen.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://icp.gov.moe/?keyword=20251133" style="margin-inline:5px" data-title="本站已加入萌 “挨谁劈” 备备备，背背背背(案)，萌ICP备20251133号" title=""><img src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/MoeICP-20251133-FE1384.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://edgeone.ai/" style="margin-inline:5px" data-title="本站采用多线部署，主线路托管于EdgeOne" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/Hosted-EdgeOne-%2300a3ff-ELogo.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://www.cloudflare.com/" style="margin-inline:5px" data-title="本站采用多线部署，备用线路托管于Cloudflare" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Hosted-Cloudflare-F48120?style=flat&amp;logo=cloudflare" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.mps.gov.cn/#/query/webSearch?code=37083102000125" style="margin-inline:5px" data-title="本网站已完成公安联网备案，点击前往查询" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/%E9%B2%81%E5%85%AC%E7%BD%91%E5%AE%89%E5%A4%87-37083102000125%E5%8F%B7-darkblue.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://beian.miit.gov.cn/" style="margin-inline:5px" data-title="本网站已完成ICP备案，点击前往备案管理系统官网" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/%E9%B2%81ICP%E5%A4%87-2025196989%E5%8F%B7--1-brightgreen.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://icp.gov.moe/?keyword=20251133" style="margin-inline:5px" data-title="本站已加入萌 “挨谁劈” 备备备，背背背背(案)，萌ICP备20251133号" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdmirror.com/gh/b23-kim/blog@main/image/MoeICP-20251133-FE1384.svg" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
     console.log('已挂载butterfly_footer_beautify')
     parent_div_git.insertAdjacentHTML("beforeend",item_html)
     }
