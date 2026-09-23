@@ -10,7 +10,23 @@
   <rights>All rights reserved 2026, b23.kim</rights>
   <subtitle>What I think form here.</subtitle>
   <title>b23.kim</title>
-  <updated>2026-09-13T05:44:49.134Z</updated>
+  <updated>2026-09-23T16:03:45.912Z</updated>
+  <entry>
+    <author>
+      <name>b23.kim</name>
+    </author>
+    <content>
+      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><a href="https://s.vuz.cn/bis/blog/internal/23/4b7cd596f0ffdfbb.jpg">被破坏的单车二维码</a><br>前情提要：早在半个多月前，我就发现了有车的二维码被人用马克笔人为破坏了。关键是软件里还只支持扫码骑行，也就是说二维码在被破坏的情况下没有人能骑走这辆车。当时车还有很多，我大可以再换一个车骑；但是呢，我又不想让破坏者得逞。于是我就开始研究破解方案，然后就有了这期复盘。</p><p>首先我的思路是既然破坏者只破坏了二维码，那么一定就会有它的疏漏。比如——车上的那个唯一串码数字。<br>当时我有了基于这个方案的思路，既然这串数字ID没被涂，那么就一定有办法通过发包传入这个ID来在底层手动地创建订单。只要车上的ID在这里被使用到了，就还有一线生机。</p><p>到了具体落地的时候，我就想协议层的活还是太重了，然后我就把思路转变到了“如何重新生成二维码”上。如果这个方案不行的话那就不得不去看通信协议层了。<br>于是我找了一辆正常的车，把二维码用手机拍了下来。<br><img src="https://s.vuz.cn/bis/blog/internal/23/814b1b3460480cd8.jpg" alt="比如说这个"><br>二维码解码可得，目标链接如下：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://z.didi.cn/htw?id=42E80EF&amp;p=2</span><br></pre></td></tr></table></figure><p>但直接访问这个链接依然不行，提示我们打开微信小程序或滴滴APP扫码骑行。似乎我们又回到了原点。<br>于是我把目光聚集在查询参数上，注意到里面有一个名为<code>id</code>的参数，值是<code>42E80EF</code>。那这个值是哪来的呢？原本我以为是厂商预生成的一个随机字符串，不过看到这种格式感觉很像是十六进制，然后我立马进行进制转换，换回十进制就是<code>70156527</code>！和二维码下面的那串数字一模一样。</p><p>这下没悬念了，拿到ID之后自己构造参数然后把链接重新生成回二维码，最后软件里扫这个手动构造的二维码就可以正常骑了。<br>实践一下：<br>文章开头那个照片，来源是我发现的第二辆被人为破坏的二维码。当时是下晚自习了，人都走完了。现场就剩下了那辆谁都骑不了的单车，还好我之前逆向过以上的内容，如法炮制就成功不用跑腿了（我是不是还得谢谢他帮我留了辆车？）<br>——当然，开头那个图下面的id并不太能看清。因为看不出来5前面到底是1还是7。<br><img src="https://s.vuz.cn/bis/blog/internal/23/e52b1f92eac156ee.jpg" alt="我当然也给车把上的那个二维码照上了"><br>结合车背和车把上的ID数值对比，可知准确ID为<strong>70156481</strong>。其十六进制表达为<strong>42E80C1</strong>。<br>最终URL为：<a href="https://z.didi.cn/htw?id=42E80C1&amp;p=2">https://z.didi.cn/htw?id=42E80C1&amp;p=2</a><br><img src="https://s.vuz.cn/bis/blog/internal/24/daa13d4370be55be.png" alt="对应二维码"></p><p>收工，结束。</p>]]>
+    </content>
+    <id>https://www.b23.kim/details/ceef46792451.html</id>
+    <link href="https://www.b23.kim/details/ceef46792451.html"/>
+    <published>2026-09-23T15:14:50.000Z</published>
+    <summary>
+      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" cla]]>
+    </summary>
+    <title>滴滴青桔逆向：如何还原被破坏的二维码</title>
+    <updated>2026-09-23T16:03:45.912Z</updated>
+  </entry>
   <entry>
     <author>
       <name>b23.kim</name>
@@ -355,24 +371,5 @@
     </summary>
     <title>人类情感的荒漠化：论人迹与代码</title>
     <updated>2026-09-07T14:14:14.555Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>b23.kim</name>
-    </author>
-    <category term="B站观察" scheme="https://www.b23.kim/categories/B%E7%AB%99%E8%A7%82%E5%AF%9F/"/>
-    <category term="B站" scheme="https://www.b23.kim/tags/B%E7%AB%99/"/>
-    <category term="漏勺" scheme="https://www.b23.kim/tags/%E6%BC%8F%E5%8B%BA/"/>
-    <content>
-      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p><img src="https://i0.hdslb.com/bfs/mallup/mall/w3/00/w3002ww312yw13yw3w2w2y133xw12zyx.png" alt="B站神了"></p><p>不是，啊？？<br>我第一次在B站开直播，你别吓我。这诡异到家了</p><blockquote><p>你的意思是……B站自己判自己的默认直播间标题违规了，理由还是“标题涉及诱导消费”？</p></blockquote><p>来，上截图：<br><img src="https://i0.hdslb.com/bfs/mallup/mall/x2/12/x2122w3y0002yy00x3w2zw102z3zx3w2.png" alt="之前探索后台的时候看到的"><br>这玩意我都不好解释，别人都可能以为是我P的或者改的。因为这实在是太荒谬了。<br>然而，这是真的。这是个不得不信的事实。</p><p>那么为什么会变成这样呢？<br>我估计还是因为B站那“优秀”的内部协同。风控组的写拦截没有给直播组的默认文案加白名单。。。<br>已无言</p><p>B站就这个鬼样子，审核标准飘忽不定，全看员工心情。<br>还有管理混乱，从我上篇和这篇就能看的出来。不过这也算是审核方面的一些问题了。<br><del>漏勺网站嘛，正常</del><br><img src="https://i0.hdslb.com/bfs/mallup/mall/w3/00/w3003w133w112xx3zw2xx1110013123z.jpg" alt="漏勺"></p><p>有人可能会说了：</p><blockquote><p>“啊有的用就不错了，你还想要怎样。”</p></blockquote><p>话虽如此，但是我觉得吧，这种细节问题不是很难做到而且又不是多费成本的问题，<strong>它理应不该出现这种问题</strong>。它应该能做到让用户体验更好的。<br>这倒也没啥坏处，至少给我文章提供素材了不是吗。</p><p>这就像上次那样，如果你不让我个人来，完全可以提高门槛只让有资质的正规军来，或许我就不会有这个念头了。<br>B站的某些操作我真是搞不懂，怪不得会有人评价“你B官方都抽象到家了”，难怪。</p>]]>
-    </content>
-    <id>https://www.b23.kim/details/711aa9ca1d23.html</id>
-    <link href="https://www.b23.kim/details/711aa9ca1d23.html"/>
-    <published>2026-04-21T05:09:33.000Z</published>
-    <summary>
-      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" cla]]>
-    </summary>
-    <title>B站，你别太荒谬</title>
-    <updated>2026-09-07T14:14:14.343Z</updated>
   </entry>
 </feed>
