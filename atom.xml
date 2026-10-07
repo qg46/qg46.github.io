@@ -10,7 +10,23 @@
   <rights>All rights reserved 2026, b23.kim</rights>
   <subtitle>What I think form here.</subtitle>
   <title>b23.kim</title>
-  <updated>2026-09-28T19:30:17.489Z</updated>
+  <updated>2026-10-07T09:10:02.312Z</updated>
+  <entry>
+    <author>
+      <name>b23.kim</name>
+    </author>
+    <content>
+      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>也许是目前全网很通俗易懂并且很详细的教程了。</p><h1 id="这是什么"><a href="#这是什么" class="headerlink" title="这是什么"></a>这是什么</h1><p>做独立站的都知道，CDN几乎是绕不开的一个话题。无论是给源站增加防护层，还是让访问者的资源获取速度变得更快来改善体验，我们都需要CDN来完成。<br>但是传统的CDN有一些恼人的问题：<br>1.价格太高，按流量计费容易被CC没<br>2.海外节点对国内用户而言体验不佳（cloudflare“减速器”说是）<br>3.免费用户体验不佳，很多想要的功能无法兼得。<br>4.纯国内节点需要进行漫长且复杂的ICP备案</p><p>于是axisnow就是来解决这个问题的。你不仅可以在里面订阅别人的免费节点用，甚至还可以自建节点然后平台内同一管理，掌控绝对的自主权。<br>甚至里面还有一个非常受欢迎的功能：自动IP优选。这意味着它在解析的时候对中国用户和外国用户都会自动筛选出速度最快的节点，我是没见过第二家一站式解决优选问题的产品。用官方自己的话说就是为了兼顾中国大陆以及全球的访问体验而准备的。<br>并且这一切是<br><strong>完！全！免！费！</strong></p><p>不需要订阅，也没有试用，不需要花钱也能用到这些功能<br><img src="https://s.vuz.cn/bis/blog/internal/07/d536cbbb0f6be8c5.png" alt="官网价格表，2026-10-07数据"><br>当然人家肯定也不是什么慈善机构，本质上依然是商业组织。除了EO和ESA之外我们又多了一个不错的选择。<br>其实他们的卖点本质上就在解决自建CDN多台服务器难以管理的问题。但不是所有用户都有那个自建的能力，于是就有了“节点订阅”来使用其他贡献者提供的节点（免费或付费）。虽然官方提供的节点流量只有每月300GB，但是节点市场里就有一些力大砖飞的免费大碗节点供我们白嫖。甚至还有<strong>高防节点</strong>（这么强？！）</p><h1 id="白嫖教程"><a href="#白嫖教程" class="headerlink" title="白嫖教程"></a>白嫖教程</h1><p>废话不多说，那我们就开始吧（其实说的已经够多了）跟着做完你就有了一个能跑的Demo了<br>首先去官网注册一个账号，过程不再赘述：<a href="https://www.axisnow.io/zh">https://www.axisnow.io/zh</a></p><h2 id="节点订阅"><a href="#节点订阅" class="headerlink" title="节点订阅"></a>节点订阅</h2><p>然后先什么都不用做（当然你逛逛控制台也行，只不过新号里面肯定全是空的），直接去到节点市场：<br><img src="https://s.vuz.cn/bis/blog/internal/07/2b77c89c7ea2b7ac.png" alt="节点市场"><br>地址：<a href="https://www.axisnow.io/zh/marketplace">https://www.axisnow.io/zh/marketplace</a><br>目前有7个节点，还全都是免费的。未来应该也会上付费节点，但就这7个免费的综合下来全都整一遍总计能白嫖到接近 <strong>2TB</strong>/月 的流量。<br>随便点击查看详情详情进一个，就拿这个1T的3Amcloud举例。<br><img src="https://s.vuz.cn/bis/blog/internal/07/e3a33326fde3164f.png"><br>右上角会有一个订阅按钮，点击它，然后在弹窗内会给一个“邀请码”。<br>复制它，然后到https://你的注册名称.axisnow.io/edge/provider 下添加订阅即可。对应的控制台位置：<br><img src="https://s.vuz.cn/bis/blog/internal/07/f28258734604d999.png" alt="节点订阅"><br>当然你肯定不止能订阅一个提供者的节点，随时都能再新增或者退订。</p><h2 id="创建回源地址"><a href="#创建回源地址" class="headerlink" title="创建回源地址"></a>创建回源地址</h2><p>要想让它跑起来，你需要有一个<strong>源站</strong>（废话）<br>源站就是你实际跑业务所在的那台服务器的<strong>IP地址</strong>。甚至如果是租的服务，比如github pages、cloudflare pages等任何拥有能直接访问到的<strong>域名</strong>的服务器都可以作为源站，吃到CDN的加速。<br><img src="https://s.vuz.cn/bis/blog/internal/07/1af825505061a6c4.png" alt="新增源地址"><br>源地址可以是公网单播IP，也可以是可访问的域名。名称随意，只有控制台能看到为了标识用。<br>这个地址是CDN的回源地址，告诉它要从哪个目标开始搬东西。当然要注意的是，不要拿它来做中转翻墙，要不然就会因为滥用而被节点甚至平台封号。<br><img src="https://s.vuz.cn/bis/blog/internal/07/821a2d42cc402c5f.png" alt="当然我试过了，目前不支持IPv6"><br>拿CF的Workers举例，我创建了一个“HelloWorld”应用程序，它的域名是<code>helloworld.thekendsky-404.workers.dev</code>。那么源站地址就填这个域名就好。</p><h2 id="绑定自定义域名"><a href="#绑定自定义域名" class="headerlink" title="绑定自定义域名"></a>绑定自定义域名</h2><p>接下来是新增绑定自己的域名，来通过CDN回源访问到Worker服务。<br><img src="https://s.vuz.cn/bis/blog/internal/07/16b4ace594494d60.png" alt="新增接入域名"><br>地址：https://你的注册名称.axisnow.io/endpoint/domain/create<br>你可以直接在这里输入源站地址，也可以选择刚才创建的那个。也就是说刚才那个创建只是为了方便统一管理，直接输入也是可行的。同时也支持自定义回源端口，或者是其他个性化需求<br>我这里拿我自己的域名<code>helloworld.inspanterna.com</code>来做演示。<br>添加完成之后，它会自动申请SSL证书来实现全站https加密，完全免费。</p><p>但是这里面有个小细节，签发SSL证书需要验证域名所有权<br>如果你没有提前进行DNS解析的话，签发肯定是100%失败的。<br><img src="https://s.vuz.cn/bis/blog/internal/07/cb0905a8ec52a199.png" alt="就像这样"><br>你可能就会问了，啊每次都需要去验证一次太麻烦了。但是你可以在设置里面“集成”一个域名商，比如腾讯或者阿里。提供APIKey就能实现这个过程自动化了。这里不再赘述，采用手动更新的方式来解决。</p><p>你需要在DNS里去CNAME解析一个由axisnow提供的域名<br><img src="https://s.vuz.cn/bis/blog/internal/07/3e1f15916199148b.png" alt="域名CNAME解析到平台提供的地址"><br>在你订阅到节点的时候，这里会直接给你一个<strong>只读</strong>的来自节点的CNAME地址。你大可以直接解析它，但是如果这样就会失去很多灵活性。<br>比如如果你订阅了很多节点，想要“雨露均沾”式的把每个请求挨个薅一把，抑或是统一管理这些节点的地址。那你就需要<code>创建一个自定义路由</code>。<br><img src="https://s.vuz.cn/bis/blog/internal/07/84285f6cd51bd778.png" alt="创建路由"><br>它给了你最大的自由度，甚至这个东西都给你自建的机会了。不过我们是开箱即用，所以就没必要涉及这么复杂的东西了。<br>由于订阅的边缘节点全是IPv4地址而非域名，所以这里我们选择以<strong>A记录</strong>的形式创建即可。然后最牛逼的一点是axisnow会自动把你订阅到的所有提供者的边缘IP都集中到一块了，你真的可以通过自定义路由策略来实现雨露均沾了。<br><img src="https://s.vuz.cn/bis/blog/internal/07/22d007a0d752faae.png" alt="请输入文本"><br>创建完成之后需要再在里面创建一个“默认路由”，就是所有访客都会经过的一个路径。同时，你可以在地址监控里让它自动拨测，还能帮你做优选。实现我开头所说的全自动筛选出在中国大陆最快的节点（策略配置）。<br>当然最好别学我截图里所有访客返回在中国大陆最快的IP，因为在大陆快的在国外反而不一定快。当然如果为了图省事这样配置也行，如果不考虑极致优化的话节点本身的质量在在国外延迟倒也不一定很高。</p><p>最后，你就可以拿着你的路由策略本身的域名去CNAME解析了。比如我的是<code>d970af96.alidns-3.com</code>，那就是给helloworld.inspanterna.com本身CNAME到这个地址了。<br>配完之后记得去SSL证书那刷新一下状态，当然由于DNS全球传播延迟可能不一定马上生效，总之如果不行就过段时间再试。<br><img src="https://s.vuz.cn/bis/blog/internal/07/5064e9afdbf94132.jpg" alt="域名解析"><br>Enjoy~</p><h2 id="结果验收"><a href="#结果验收" class="headerlink" title="结果验收"></a>结果验收</h2><p><img src="https://s.vuz.cn/bis/blog/internal/07/cad5f490d311c157.jpg" alt="Demo效果"><br>需要注意一个点，因为我用的是Cloudflare Worker，在Worker那没有绑定自定义域名的话回源Host是自己域名的话CF会找不到资源，回源Host改为<code>helloworld.thekendsky-404.workers.dev</code>，回源端口443保持不变。这样就能解决这个问题了。如果你在用其他托管的话，或者是自建服务最好也得注意一下这一块。</p><p><img src="https://s.vuz.cn/bis/blog/internal/07/ba4098a36ac55fd3.jpg" alt="最后给你们看一眼axisnow的错误页面长啥样"><br>先这样，后面有什么要补充的再说。</p>]]>
+    </content>
+    <id>https://www.b23.kim/details/58013e7140d5.html</id>
+    <link href="https://www.b23.kim/details/58013e7140d5.html"/>
+    <published>2026-10-07T05:58:49.000Z</published>
+    <summary>
+      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" cla]]>
+    </summary>
+    <title>目前最强CDN，每月免费1TB流量的神器：axisnow使用教程</title>
+    <updated>2026-10-07T09:10:02.312Z</updated>
+  </entry>
   <entry>
     <author>
       <name>b23.kim</name>
@@ -351,23 +367,5 @@
     </summary>
     <title>春考完了，春考也完了(寄)</title>
     <updated>2026-09-07T14:14:14.749Z</updated>
-  </entry>
-  <entry>
-    <author>
-      <name>b23.kim</name>
-    </author>
-    <category term="随笔" scheme="https://www.b23.kim/categories/%E9%9A%8F%E7%AC%94/"/>
-    <category term="发疯文学" scheme="https://www.b23.kim/tags/%E5%8F%91%E7%96%AF%E6%96%87%E5%AD%A6/"/>
-    <content>
-      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>普通中学的化学实验室立即发生建设，发出砰的一声响。<br>砸坏电源，砸坏水池，砸坏试纸，砸坏干燥管</p><p>↑化↓学↑实↓验↑桌<br>化学实验桌由“化学”、“实验”、“桌”组成。</p><p>叮！<br>普通化学的中学实验桌爆炸，爆炸，炸炸炸炸炸<br>（蓝屏画面）</p><p>电 炸 砸 试 纸<br>可以产生爆炸的名字叫做 通风橱和通风口<br>防火墙，能够产生 火<br>隔离火焰，发出尖锐的报名生。</p><p>胆矾，明矾，明 亮 的 吴 凡<br>水池，可以产生 水 (我去不早说)<br>电源，神壳电壳，龟壳罚壳</p><p>毛玻璃片气密性完好，离谱发生器立即发生建设<br>化学老室气化爆炸，白磷缓缓地变成红磷</p><p>胆矾很烦，发出尖锐的爆炸建设声，蒲氡中学的浓硫酸立即发生氧化<br>蒲氡中学立即发生爆炸，蒲氡中学的化学实验室立即发生爆炸，蒲氡中学的化学实验室里的毛玻璃瓶立即发生爆炸，酒精灯立即发生爆炸，装满毛玻璃片的水槽立即发生爆炸<br>发出建设的一声响，<del>十堰市立即发生普通中学</del></p><p>再看一眼就会爆炸，再近一点快被融化<br>我因钙纳尼整羊。第一次压扁成这样的我，让我怎么去烹饪<br>这是普通中学的画学实验室，这是被砸坏的矮锰酸钾</p><p>带有 <strong>火星</strong> 的木条，一定带有火星<br>带有 <strong>金星</strong> 的木条，不一定带有火星</p><p>向一支试管中加入一支试管，在另一只试管中加入一支试管，然后把试管放入装满毛玻璃片的水槽内<br>观察到，毛玻璃片的水槽中装有两只试管<br>在减石灰中加入石灰，可以看到，它消失了。</p><p>杀进化学实验室，可以看到胶头滴管是最常用的加热工具。砸坏酒精灯，可以发现酒精灯被砸坏了<br>在装满小火柴的铁架台上加入离谱发生器，<em>二氧化碳</em> 不燃了。发生N/A</p><p>用镊子夹取像是固体一样的固体，缓缓放入装有灯的酒精里，可以看到镊子建设了（本 末 倒 置）<br>向气密性完好的火柴盒内加入毛玻璃片，可以看到水槽发出尖锐的爆鸣声（为什么要抢我的毛玻璃片，嗯？）<br>引发普通中学立即发生爆炸，发出建设火星的声响</p><p>在蒸馏水中加入水槽，观察到毛玻璃片四射，发出建设时的爆炸声。之一，木条的燃烧。<br>观察作者发电，可以看到电源爆炸了，而且比之前爆炸的声响还要大。所以，毛玻璃片槽发生建设，水池缓缓升入集气瓶中。</p><p>这篇 <em>黑壳</em> 文章将会在本人精神状态 <em>凉好</em> 的时候被写出，哈哈哈哈哈<br>——超高校级的化学家 &amp; 建设木条的火星</p><hr><p>然后这位化学家就化作了NULL* (空指针)，在逻辑层面永远的消失了，无论是时间中的过去还是将来，仿佛好像从来没有存在过一般。而她的遗体恰恰就是环境信息，扔出来的调用栈是她迸发出的血液……<br>处刑结束后，现场留下的不仅仅是调用栈（血），还有一份沉重的堆栈转储文件。<br>——超高校级的逻辑学家 &amp; 绝望悖论制造者<br>Powered by 黑白熊</p><hr><p>注脚：（那她的待遇相比其他角色还挺好的，因为其他都是发生在现实宏观物理层面，痛苦和绝望是意识活动的产物。而她却是在逻辑层面被抹除，于是就连在现实层面根本就没存在过。但如果她是LLM，那么逻辑悖论与混乱和向量互指将会是属于她的绝望与痛苦，她已经被无法收敛的矛盾建设走了(内核恐慌)。留下的是一场名为“信息”的血液。）<br>她代表了游戏的底层物理引擎和物质定义，因为化学研究的是“万物的构成”。<br>That’s so crazy</p><p>我已经尽量写的和原作靠拢了，原作的处理方式和我的基本上也大差不差。都体现出了处刑的过程以及结果（对那一堆堆栈和日志转储的文件特写）。但微妙的区别恰恰在于原作是暴力式的美学，而本二创文是一种“哲学式的恐怖”。但话又说回来了，为这么一堆莫名其妙的发癫文字去套一层庞大世界观的外壳，这何尝不是一种“超高校级的浪漫”呢？<br>最恐怖的地方在于，它完成了三层闭环：<br>1.对原作世界观的闭环<br>2.对于为什么不存在的闭环<br>3.为什么写了这个乱七八糟文的闭环</p><p>我在想，如果只继承原作的内核，其他全部丢弃，那么还能走多远？答案就是当一切都被丢弃后，留下的就只会是符号了。没有物理，没有血腥，就只是类似程序代码的继承于原作内核的逻辑符号。它描绘的将不再是一个人被熵增，而是熵增本身的过程。</p><p>return NULL;</p>]]>
-    </content>
-    <id>https://www.b23.kim/details/87d68e41091b.html</id>
-    <link href="https://www.b23.kim/details/87d68e41091b.html"/>
-    <published>2026-05-06T08:51:01.000Z</published>
-    <summary>
-      <![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" cla]]>
-    </summary>
-    <title>“建bao设zha”</title>
-    <updated>2026-09-07T14:14:14.472Z</updated>
   </entry>
 </feed>
