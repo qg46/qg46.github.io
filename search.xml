@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>Casdoor接入阿里邮件推送教程</title>
+      <link href="/details/7eb71a26f3f0.html"/>
+      <url>/details/7eb71a26f3f0.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>阿里邮件推送控制台：<a href="https://dm.console.aliyun.com/?spm=a2c4g.11186623.0.0.72b97028Byad8Z">https://dm.console.aliyun.com/?spm=a2c4g.11186623.0.0.72b97028Byad8Z</a><br>绑定发信域名不再赘述。</p><p><img src="https://s.vuz.cn/bis/blog/internal/23/9f5b0d1d9d86817f.png"><br>首先在这个地方设置SMTP密码，由于是API调用所以基本上不需要人特别去记忆，忘记了直接重设就好（当然如果你需要绑定很多发信服务的话那当我没说，真忘了挨个重设很麻烦）。</p><p>然后就可以直接去配置发信了，就是这么简单：</p><table><thead><tr><th>区域</th><th>地址</th></tr></thead><tbody><tr><td>华东 1（杭州）</td><td>smtpdm.aliyun.com</td></tr><tr><td>新加坡（新）</td><td>smtpdm-ap-southeast-1.aliyuncs.com</td></tr><tr><td>美国（弗吉尼亚）（新）</td><td>smtpdm-us-east-1.aliyuncs.com</td></tr><tr><td>德国（法兰克福）</td><td>smtpdm-eu-central-1.aliyuncs.com</td></tr></tbody></table><p>文档：<a href="https://help.aliyun.com/zh/direct-mail/smtp-endpoints?spm=a2c4g.11186623.0.0.72b97028Byad8Z">https://help.aliyun.com/zh/direct-mail/smtp-endpoints?spm=a2c4g.11186623.0.0.72b97028Byad8Z</a></p><p>然后你就可以直接去新建邮件提供商了：<br><img src="https://s.vuz.cn/bis/blog/internal/23/f30e42e7d379cbfe.png" alt="就像这样"><br>类别选Email，类型选Default就可以<br>其中，密码就是你刚才在控制台设置的那个SMTP密码（保存后会自动隐藏变成三个星号），主机是阿里云提供的那四个各种不同地域的邮箱发件服务地址。如果要对中国大陆提供服务，推荐华东1。<br>然后就是这个用户名跟发件地址了，全都填在阿里后台绑定的你要发件的对应邮箱地址（其实可以只填“用户名”，同样也能用，那个发件地址其实可以直接空着。但是为了稳妥起见还是建议俩都填上）。<br>发件人名称，很好理解就是你希望用户在邮件列表和详情里看见是谁发的（类似发件人昵称）。<br>端口465是带SSL加密的</p><p>翻到最下面，可以在正式使用前测试一下看能不能正常发件：<br><img src="https://s.vuz.cn/bis/blog/internal/23/2793d399263efac6.png"><br>这样就能知道自己有没有正确配置了<br>至于那个提供商URL，没有什么作用只是方便以后可以直接复制跳转。你可以写阿里云的邮件推送控制台的链接，抑或是直接空着不管。</p><p>如果没问题的话，你就可以在任何要求用户绑定邮箱的地方用这个来发验证码了。<br>当然邮件提供商可以创建多个，然后在对应组织的应用里选择到底用哪个就行了。<br>反正就这样</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>目前最强CDN，每月免费1TB流量的神器：axisnow使用教程</title>
       <link href="/details/58013e7140d5.html"/>
       <url>/details/58013e7140d5.html</url>
