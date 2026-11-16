@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>我的网站又炸了？真的太人机了！</title>
+      <link href="/details/ee303a0db3d3.html"/>
+      <url>/details/ee303a0db3d3.html</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>大概在五天前，我的网站“不翼而飞”了。<br>但它却还在这里，只是说浏览器不太想承认它了而已。</p><p>简单来说就是，一年前的这时候我在宝塔面板那整了个免费SSL证书用到了我的<a href="http://www.b23.kim域上.而这个dv证书的有效期正好是一年期,这时候到期了就./">www.b23.kim域上。而这个DV证书的有效期正好是一年期，这时候到期了就。</a><br>然后你可以会问，啊证书过期你不会换一个吗，什么Let’s Encrypt啦这类的不多的是吗？</p><p>还真不是我懒得整，早在四天前我就尝试更换证书了，结果被我整成这个鬼样子了：<br><img src="https://s.vuz.cn/bis/blog/internal/16/21868b5e4c52d0f6.png"><br>没错，原本是不受信任的https（证书日期无效）。现在直接退化为http了，演都不演了。</p><p>那么具体发生了什么？<br>总之就是你现在看到的这个www域的这个博客站用的是腾讯<del>（机器人企业）</del>的EdgeOne分发的，如果你理解的话你就能猜到我下一步要说啥了。<br>EO里其实是有一个自动化的证书维护系统的。你不仅仅可以在里面使用上传的自定义外部证书，也可以用他们的免费证书（实测其实就是Let’s Encrypt证书）。<br>按理说我直接在后台一个切换就能把那个过期证书替掉，于是出现了这样的一幕：<br><img src="https://s.vuz.cn/bis/blog/internal/16/f829e431657c7220.png" alt="？"><br><img src="https://s.vuz.cn/bis/blog/internal/16/cec85b5a7ff4f833.png" alt="？？"><br>（此处应有爆炸音效）<br>行，出现错误了在所难免，都当程序员了每天被bug折磨的看见问题都觉得很合理了。大不了我就重试。<br>我是真的没有想到的是，这件事远没有我想象中的那么简单（前面是地狱啊（好麻烦的说）</p><p>原本我以为是我之前的过期证书占位导致的失败（他妈的光给个失败状态提示连个日志都没鬼知道到底什么情况啊）。于是我甚至都试过把以前配置的删除再重新绑定域名再尝试申请证书，结果依旧只给三个红字“申请失败”。<br>行吧，日志没有那文档总该有吧？大不了我自己排查。<br>行，我把文档找来了：<a href="https://makers.edgeone.link/document/apply-for-free-certificate#c8bd1b4d-fe89-49a7-8dca-17a951dcc597">https://makers.edgeone.link/document/apply-for-free-certificate#c8bd1b4d-fe89-49a7-8dca-17a951dcc597</a><br><img src="https://s.vuz.cn/bis/blog/internal/16/7f26e91a1533e174.png" alt="合计着还得人工，这究竟是怎样的一个bug"><br>然后我就卡在这了，似乎一切排查都是徒劳。<br>只能去联系他们整这些了</p><p>这时候不仅仅是你，我也可能会想的一件事：既然他们会有问题，那么为什么我不换一个呢？又不只它一家。<br>话确实是这么说，但是迁移我还得重新配置，说白了就是我懒。同时你也可能会问：为什么这么久没更新，一更新就像是挤牙膏似的。<br>原因就在于我现实生活中就已经忙的够呛了，而且我还画了一堆饼没整的。包括我未来想写的博客文章早在三个月前就要构思定稿的直到现在都还没“新建文本文档”。<br>总之现在就先这样吧，为了方便我只好试试联系他们处理了。</p><p>直到现在我依然费解，为什么会变成这样呢？</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Casdoor接入阿里邮件推送教程</title>
       <link href="/details/7eb71a26f3f0.html"/>
       <url>/details/7eb71a26f3f0.html</url>
